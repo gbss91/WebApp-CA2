@@ -1,0 +1,115 @@
+/*
+******************************************************************************************************
+   Web Application Development CA2 - Booking App
+   
+   Student Names: Student Names: Ruby Lennon (x19128355) & Gabriel Salas (x19104162)
+   
+   Date: 9 November 2020
+
+   Filename: style.css
+
+   @Reference: https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp - Remove arrows in number input field
+   
+   Supporting Files: 
+   - index.html
+******************************************************************************************************
+*/
+
+/*****************************
+*GENERAL
+*****************************/
+
+
+
+/*****************************
+*APP BODY 
+*****************************/
+
+.app-container {
+    height: 100vh;
+}
+
+#top-cont {
+    height: 20vh;
+}
+
+#main-cont {
+    min-height: 80vh;
+}
+
+.logo-container {
+    padding-top: 5vh;
+    
+}
+.user-container {
+    padding-top: 5vh;
+}
+
+#user-img {
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+    border: 2px solid rgb(61, 60, 61);
+    border-radius: 50%;
+}
+
+#search-box {
+    margin-top: 15vh;
+    padding: 15px;
+    background-color: rgb(255, 108, 71);
+    border-radius: 10px;
+}
+
+input {
+    height: 5vh;
+    width: 100%;
+    font-size: 14px;
+}
+
+#pax-input {
+    width: 50%;
+    float: left;
+}
+
+#date-input{
+    width: 50%;
+    float: left;
+}
+
+#searchBtn {
+    display: block;
+    float: right;
+    margin-top: 2vh;
+    margin-right: -15px;
+    padding: 10px 20px;
+    background-color: rgb(248, 106, 70);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;   
+}
+
+#searchBtn:hover {
+    background-color: rgba(248, 90, 51, 0.986);
+}
+
+
+
+/*****************************
+*REFERENCES
+*****************************/
+
+/*Remove arrows for number input fields 
+@Reference: https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp*/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+/*End @Reference: https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp*/
