@@ -18,6 +18,7 @@ var mysql = require('mysql');
 var mysqlCon = mysql.createConnection({
     host: 'localhost',
     user: 'root',
+    database: 'ChristmasTV',
     password: 'Huacas-SQ-19',
     multipleStatements: true,
 });
@@ -25,9 +26,14 @@ var mysqlCon = mysql.createConnection({
 //Show message if connection is succesfull or there is an error 
 mysqlCon.connect(function(err) {
     if(!err) {
-        console.log(`Connection to database failed: ${err}`);
-    } else {
         console.log('Connected to database!');
+        var q = 'INSERT INTO movies (movie_title, date, time, channel) VALUES  ("home", "12/12/23", "19:00", "c4");';
+        mysqlCon.query(q, function(err, result) {
+            if (err) throw err;
+            console.log('movie added');
+        });
+    } else {
+        console.log(err);
     } 
 });
 
