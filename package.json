@@ -1,0 +1,33 @@
+{
+  "name": "bookinapp",
+  "version": "1.0.0",
+  "description": "Web App Development CA2 - Booking app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbss91/WebApp-CA2.git"
+  },
+  "contributors": [
+    {
+      "name": "Ruby Lennon (x19128355)",
+      "email": "x19128355@student.ncirl.ie"
+    },
+    {
+      "name": "Gabriel Salas (x19104162)",
+      "email": "x19104162@student.ncirl.ie"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbss91/WebApp-CA2/issues"
+  },
+  "homepage": "https://github.com/gbss91/WebApp-CA2#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}

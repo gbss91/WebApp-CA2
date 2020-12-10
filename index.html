@@ -61,26 +61,41 @@
                                 <!--Destination bar-->
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div id="destination-input">
-                                        <input type="text" placeholder="Where to?" id="destination"> 
+                                        <input list="city" name="city" placeholder="Where to?" id="destination"> 
+                                        <datalist id="city">
+                                            <option value="🇨🇿 Prague, Czech Republic">
+                                            <option value="🇩🇰 Copenhagen, Denmark">
+                                            <option value="🇫🇷 Paris, France">
+                                            <option value="🇩🇪 Berlin, Germany">
+                                            <option value="🇭🇺 Budapest, Hungary">
+                                            <option value="🇮🇹 Rome, Italy">
+                                            <option value="🇲🇹 Valletta, Malta">
+                                            <option value="🇳🇱 Amsterdam, Netherlands">
+                                            <option value="🇵🇹 Lisbon, Portugal">
+                                            <option value="🇪🇸 Barcelona, Spain">
+                                            <option value="🇬🇧 London, United Kingdom"> 
+                                        </datalist>
                                     </div>
                                 </div>
                                 <!--Date bar-->
-                                <div class="col-lg-3 col-md-3 col-12">
+                                <div class="col-lg-4 col-md-4 col-12">
                                     <div id="date-input">
                                         <!--Start of @Referece https://www.geeksforgeeks.org/how-to-set-placeholder-value-for-input-type-date-in-html-5/ - Changes text type to date.
-                                        This allows to have a placeholder when there is no date selected-->
-                                        <input type="text" placeholder="Departure" id="dept-date" onfocus="(this.type='date')"">  
+                                        This allows to have a placeholder when there is no date selected. We modified the code to also placeholder dd/MM/YYYY for browsers not
+                                         supporting datapicker (IE and Safari)-->
+                                        <input type="text" placeholder="Departure" id="dept-date" onfocus="(this.type='date', this.placeholder='dd/MM/YYYY')">  
                                         <!--End of @Referece https://www.geeksforgeeks.org/how-to-set-placeholder-value-for-input-type-date-in-html-5/ -->
                                     </div>
                                     <div id="date-input">
                                         <!--Start of @Referece https://www.geeksforgeeks.org/how-to-set-placeholder-value-for-input-type-date-in-html-5/ - Changes text type to date.
-                                        This allows to have a placeholder when there is no date selected-->
-                                        <input type="text" placeholder="Return" id="dept-date" onfocus="(this.type='date')">  
+                                        This allows to have a placeholder when there is no date selected. We modified the code to add placeholder dd/MM/YYYY for browsers not
+                                         supporting datapicker (IE and Safari)-->
+                                        <input type="text" placeholder="Return" id="return-date" onfocus="(this.type='date', this.placeholder='dd/MM/YYYY')">  
                                         <!--End of @Referece https://www.geeksforgeeks.org/how-to-set-placeholder-value-for-input-type-date-in-html-5/ -->
                                     </div>
                                 </div>
                                 <!--Pax number bar-->
-                                <div class="col-lg-3 col-md-3 col-12">
+                                <div class="col-lg-2 col-md-2 col-12">
                                         <div id="pax-input">
                                             <input type="number" placeholder="Adults" id="pax-adult">
                                         </div>
