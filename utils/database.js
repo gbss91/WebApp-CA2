@@ -18,8 +18,8 @@ var mysql = require('mysql');
 var mysqlCon = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    database: 'ChristmasTV',
-    password: 'Huacas-SQ-19',
+    database: 'HolidayBookingSystem',
+    password: 'Your password',
     multipleStatements: true,
 });
 
