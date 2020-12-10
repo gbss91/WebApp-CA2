@@ -27,7 +27,7 @@ var mysqlCon = mysql.createConnection({
 mysqlCon.connect(function(err) {
     if(!err) {
         console.log('Connected to database!');
-        var q = 'INSERT INTO movies (movie_title, date, time, channel) VALUES  ("home", "12/12/23", "19:00", "c4");';
+        var q = 'INSERT INTO users (full_name, first_name, last_name, phone, email, bookings) VALUES  ("John Scott", "John", "Scott", "353876547", "johnSc@email.com", "B103");';
         mysqlCon.query(q, function(err, result) {
             if (err) throw err;
             console.log('movie added');
