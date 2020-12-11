@@ -10,14 +10,20 @@
  
 ******************************************************************************************************
 */
-
+//Import express and the mysqlCon to send queries 
 var express = require("express");
-var mysqlConnection = require("../utils/database");
+var mysqlCon = require("../utils/database");
 
+//Invoke the router method 
 var Router = express.Router();
 
-Router.get("/", (req, res) => {
-
+//GET all users using Router method and a middleware function 
+Router.get("/", function(req, res) {
+    mysqlCon.query('SELECT * FROM users;', //mySQL query 
+    function(err, results, fields){ //Callback functions for error, result and fields
+        if(err) throw err; //If error
+        res.send(results); //Send results back 
+    });
 });
 
 module.exports = Router;

@@ -14,28 +14,23 @@
 //Import mysql 
 var mysql = require('mysql');
 
-//Create connection with database 
+//Create connection with database - Use the credentials for our database 
 var mysqlCon = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'HolidayBookingSystem',
-    password: 'Your password',
+    password: '*****',
     multipleStatements: true,
 });
 
-//Show message if connection is succesfull or there is an error 
+//Connects to database and show a message if connection is successful 
 mysqlCon.connect(function(err) {
     if(!err) {
         console.log('Connected to database!');
-        var q = 'INSERT INTO users (full_name, first_name, last_name, phone, email, bookings) VALUES  ("John Scott", "John", "Scott", "353876547", "johnSc@email.com", "B103");';
-        mysqlCon.query(q, function(err, result) {
-            if (err) throw err;
-            console.log('movie added');
-        });
     } else {
         console.log(err);
     } 
 });
 
-//We export the connection to use it in the queries file. This allows to have the connection in one file and the queries in other 
+//Export the connection method to use it in the queries file. This allows to have the connection in one file and the queries in other 
 module.exports = mysqlCon;
