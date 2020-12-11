@@ -19,7 +19,7 @@ var mysqlCon = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'HolidayBookingSystem',
-    password: 'Huacas-SQ-19',
+    password: '*****',
     multipleStatements: true,
 });
 
