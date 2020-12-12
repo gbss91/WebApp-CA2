@@ -11,6 +11,7 @@
 ******************************************************************************************************
 */
 //Import express and the mysqlCon to send queries 
+const { request } = require('express');
 var express = require('express');
 var mysqlCon = require('../utils/database');
 
@@ -18,6 +19,19 @@ var mysqlCon = require('../utils/database');
 var Router = express.Router();
 
 var userID;
+
+//POST - Assign user id sent by client to variable - You can GET response and send it to the client
+/*Router.post('/queries', function (req, res) {
+    userID = req.body;
+    console.log(userID);
+    mysqlCon.query(`SELECT full_name, phone, email FROM users WHERE user_id = 101;`, //mySQL query 
+    function(err, results, fields){ //Callback functions for error, result and fields
+        if(err) throw err; //If error
+        res.send(results); //Send results back 
+    });
+    
+});*/
+
 
 //POST - Assign user id sent by client to variable - You can GET response and send it to the client
 Router.post('/queries', function (req, res) {
@@ -31,13 +45,19 @@ Router.post('/queries', function (req, res) {
     
 });
 
-//GET all users using Router method and a middleware function 
-/*Router.get('/queries', function(req, res) {
-    mysqlCon.query(`SELECT full_name FROM users WHERE user_id = 101;`, //mySQL query 
-    function(err, results, fields){ //Callback functions for error, result and fields
+//POSTing an user - Use express router method and middleware funtion
+Router.post('/user', function (req, res) {
+    userID = req.body.user_id;
+    res.send("User added!");
+});
+
+//GETing user - Use express router method and middleware funtion
+Router.get('/user', function(req, res) {
+    mysqlCon.query(`SELECT full_name, phone, email FROM users WHERE user_id = ${userID};`, //mySQL query 
+    function(err, results){ //Callback functions for error and results
         if(err) throw err; //If error
         res.send(results); //Send results back 
     });
-});*/
+});
 
 module.exports = Router;

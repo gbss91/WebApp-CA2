@@ -14,12 +14,10 @@
 ******************************************************************************************************
 */
 
-
+//Add and remove background color for menu options in profile page 
 $('#aOverview').click(function(){
     $('.bRow').removeClass('menu-active');
     $('.oRow').addClass('menu-active'); 
-
-    
 });
 
 $('#aBookings').click(function(){
@@ -32,32 +30,38 @@ var fullname;
 var email;
 var phone; 
 
+var user = {
+    user_id: 101,
+    fullname: 'John Smith',
+}
+
 $(document).ready(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries',
+        url: 'http://localhost:4000/user',
         type: 'POST',
-        data: {'user_id':'101'},
-        dataType: "json",
-        success: function (data) {
-            console.log(data);
-            
-            //Parse the data from the server into object
-            obj = JSON.parse(data);
-            //Assign property of object to variable
-            fullname = obj.full_name;
-            //Update name in profile page 
-
-        },
+        body: JSON.stringify(user),
+        dataType: 'JSON'
     });
 });
 
 $('#overview-img').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries',
+        url: 'http://localhost:4000/user',
         type: 'GET',
-        dataType: "json",
+        dataType: 'JSON',
         success: function (data) {
+            //Print results in console 
             console.log(data);
+           
+            //Assign property of object to variable
+            fullname = data[0].full_name;
+            email = data[0].email;
+            phone = data[0].phone;
+            //Update name in profile page 
+            $('#hello').html(`Hello, ${fullname}`);
+            $('#overview-name p').html(fullname);
+            $('#overview-email p').html(email);
+            $('#overview-phone p').html(phone);
         },
     });
 });
