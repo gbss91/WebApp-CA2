@@ -2,7 +2,7 @@
 Booking App 
 
 
-File Struture 
+File Struture
 
 '/' Root Directory 
 |
@@ -23,4 +23,4 @@ File Struture
 |
 |-- package.json - metadata for the app 
 |
-|-- server.js - main file, creates node server 
+|-- server.js - main file, creates node.js server 
