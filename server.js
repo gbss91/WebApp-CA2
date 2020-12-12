@@ -12,8 +12,8 @@
 
 //Import node.js packages
 var express = require('express'); //Express framework 
-var mysql = require('mysql');
-var bodyParser = require('body-parser');
+var mysql = require('mysql'); 
+var bodyParser = require('body-parser'); //Parse data from client 
 var path = require('path');
 
 //Import router files
@@ -23,14 +23,14 @@ var queryRouter = require('./routes/queries'); //This is where we execute the qu
 var app = express();
 
 //1. GLOBAL MIDDLEWARES
-//Serving static content in public file
+//Serving static content in public directory (HTML, CSS, JS and Images)
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Body parserer to read data
 app.use(bodyParser.json());
 
 //2. ROUTES - Pass the router files 
-app.use(queryRouter);gm
+app.use(queryRouter);
 
 //3.Server listens on port 4000
 app.listen(4000); 

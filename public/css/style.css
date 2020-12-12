@@ -12,6 +12,7 @@
    
    Supporting Files: 
    - index.html
+   - script.js
 ******************************************************************************************************
 */
 
@@ -19,7 +20,15 @@
 *GENERAL
 *****************************/
 
+ion-icon {
+    font-size: 24px; 
+    color: #212121;
+}
 
+p {
+    font-size: 14px; 
+    color: #3d3c3d;
+}
 
 /*****************************
 *APP BODY 
@@ -52,6 +61,11 @@
     border: 2px solid #3d3c3d;
     border-radius: 50%;
 }
+
+
+/*****************************
+*MAIN PAGE
+*****************************/
 
 #search-box {
     margin-top: 15vh;
@@ -97,6 +111,65 @@ input {
     background-color: #f85a33fb;
 }
 
+/*****************************
+*PROFILE PAGE
+*****************************/
+.menu-row:hover {
+    background-color: #d1d1d17a;
+    cursor: pointer;
+}
+
+.menu-active{
+    background-color: #49c0f77a;
+}
+
+.menu-row a .menu-row a:active .menu-row a:hover{
+    color: #212121;
+    text-decoration: none;
+}
+
+.user-menu {
+    float: left;
+    padding: 10px 0;
+    color: #212121;
+}
+
+.user-menu h4{
+    padding-left: 10px;
+}
+
+#overview {
+    display: block;
+}
+
+#bookings {
+    display: none;
+}
+
+#overview-img {
+    height: 80px;
+    display: block;
+    margin: 0 auto;
+    border: 2px solid #3d3c3d;
+    border-radius: 50%;
+    margin-top: 25px;
+}
+
+#hello {
+    padding: 15px;
+}
+
+.details-box {
+    background-color: #d1d1d156;
+    border-radius: 5px;
+    padding: 20px;
+
+}
+
+/*#overview-nameL {
+    float: left;
+    padding-right: 15px;
+}*/
 /*****************************
 *REFERENCES
 *****************************/
