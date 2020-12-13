@@ -31,27 +31,29 @@ var email;
 var phone; 
 
 var user = {
-    user_id: 101,
+    user_id: 106,
     fullname: 'John Smith'
 };
 
 $('#aOverview').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/user',
-        type: 'POST',
-        body: JSON.stringify(user),
-        dataType: 'JSON',
-        success: function (textStatus) {
-            console.log(textStatus);
-        }
+        url: 'http://localhost:4000/user', //Path 
+        type: 'POST', 
+        data: JSON.stringify(user), //Convert object to JSON
+        contentType: 'application/json', //Type of data sent to the server 
+        success: function(data){ //A function to be called if the request succeeds. Returns response from server  
+            console.log(data);
+        } 
+
     });
 });
 
-$('#overview-img').click(function() {
+
+$('.details-box').click(function() {
     $.ajax({
         url: 'http://localhost:4000/user',
         type: 'GET',
-        dataType: 'JSON',
+        dataType: 'json',
         success: function (data) {
             //Print results in console 
             console.log(data);

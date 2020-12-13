@@ -22,12 +22,14 @@ var userID;
 //POSTing an user - Use express router method and middleware funtion
 Router.post('/user', function (req, res) {
     userID = req.body.user_id;
+    console.log(req.body);
     res.send("User added!");
 });
 
 //GETing user - Use express router method and middleware funtion
 Router.get('/user', function(req, res) {
-    mysqlCon.query(`SELECT full_name, phone, email FROM users WHERE user_id = 101`, //mySQL query 
+    mysqlCon.query('SELECT full_name, phone, email FROM users WHERE user_id = ?', //mySQL query 
+    [userID],
     function(err, results){ //Callback functions for error and results
         if(err) throw err; //If error
         res.send(results); //Send results back 

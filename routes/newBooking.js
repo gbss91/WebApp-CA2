@@ -72,8 +72,8 @@ Router.get('/newbooking/activities', function(req, res) {
 });
 
 //PUT reservation in database 
+//Step 1. Add the flight reservation 
 Router.put('/newbooking/final-flight', function(req, res) {
-
     //Options chosen by user are stored in variables to be used in query 
     var bookingRef = req.body.booking_ref;
     var bookingDate = req.body.booking_date;
@@ -84,7 +84,9 @@ Router.put('/newbooking/final-flight', function(req, res) {
     var ticketQty = req.body.ticket_qty;
     var ticketPrice = req.body.ticket_price;
     var currency = 'EUR';
-    mysqlCon.query('INSERT INTO flight_booking (booking_ref, booking_date, user_id, flight_no, dept_date, travel_class, ticket_qty, ticket_price, currency) VALUES (?,?,?,?,?,?,?,?,?);', [bookingRef, bookingDate, userId, flightNo, deptDate, travelClass, ticketQty, ticketPrice, currency], //Escaped query values 
+
+    mysqlCon.query('INSERT INTO flight_booking (booking_ref, booking_date, user_id, flight_no, dept_date, travel_class, ticket_qty, ticket_price, currency) VALUES (?,?,?,?,?,?,?,?,?);', 
+    [bookingRef, bookingDate, userId, flightNo, deptDate, travelClass, ticketQty, ticketPrice, currency], //Escaped query values 
     function(err, results){ //Callback functions for error and results
         if (!err) {
             res.send('Data added!');
@@ -94,5 +96,69 @@ Router.put('/newbooking/final-flight', function(req, res) {
         }
     });
 });
+
+//Step 2. Add hotel reservation 
+Router.put('/newbooking/final-hotel', function(req, res) {
+    //Options chosen by user are stored in variables to be used in query 
+    var bookingRef = req.body.booking_ref;
+    var bookingDate = req.body.booking_date;
+    var userId = req.body.user_id;
+    var hotelId = req.body.hotelId;
+    var checkIn = req.body.check_in_date;
+    var checkOut = req.body.check_out_date;
+    var nights = req.body.no_nights;
+    var rooms = req.body.room_qty;
+    var netPrice = req.body.price_net;
+    var vat = req.body.vat;
+    var totalPrice = req.body.total_price;
+    var currency = 'EUR'
+
+
+
+    mysqlCon.query('INSERT INTO hotel_booking (hotel_booking_ref, booking_date, user_id, hotel_id, check_in_date, check_out_date, no_nights, room_qty, price_net, vat, total_price, currency) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);', 
+    [bookingRef, bookingDate, userId, hotelId, checkIn, checkOut, nights, rooms, netPrice, vat, totalPrice, currency], //Escaped values 
+    function(err, results){ //Callback functions for error and results
+        if (!err) {
+            res.send('Data added!');
+        } else {
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+        }
+    });
+});
+
+//Step 3. Add activities reservation if any 
+Router.put('/newbooking/final-hotel', function(req, res) {
+    //Options chosen by user are stored in variables to be used in query 
+    var bookingRef = req.body.booking_ref;
+    var bookingDate = req.body.booking_date;
+    var userId = req.body.user_id;
+    var hotelId = req.body.hotelId;
+    var checkIn = req.body.check_in_date;
+    var checkOut = req.body.check_out_date;
+    var nights = req.body.no_nights;
+    var rooms = req.body.room_qty;
+    var netPrice = req.body.price_net;
+    var vat = req.body.vat;
+    var totalPrice = req.body.total_price;
+    var currency = 'EUR'
+
+
+
+    mysqlCon.query('INSERT INTO hotel_booking (hotel_booking_ref, booking_date, user_id, hotel_id, check_in_date, check_out_date, no_nights, room_qty, price_net, vat, total_price, currency) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);', 
+    [bookingRef, bookingDate, userId, hotelId, checkIn, checkOut, nights, rooms, netPrice, vat, totalPrice, currency], //Escaped values 
+    function(err, results){ //Callback functions for error and results
+        if (!err) {
+            res.send('Data added!');
+        } else {
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+        }
+    });
+});
+
+
+
+
 
 module.exports = Router;
