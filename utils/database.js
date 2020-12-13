@@ -21,8 +21,7 @@ var mysqlCon = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'HolidayBookingSystem',
-    password: '*****',
-    multipleStatements: true,
+    password: 'Huacas-SQ-19',
 });
 
 //Connects to database and show a message if connection is successful 

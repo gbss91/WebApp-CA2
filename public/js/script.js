@@ -32,15 +32,18 @@ var phone;
 
 var user = {
     user_id: 101,
-    fullname: 'John Smith',
-}
+    fullname: 'John Smith'
+};
 
-$(document).ready(function() {
+$('#aOverview').click(function() {
     $.ajax({
         url: 'http://localhost:4000/user',
         type: 'POST',
         body: JSON.stringify(user),
-        dataType: 'JSON'
+        dataType: 'JSON',
+        success: function (textStatus) {
+            console.log(textStatus);
+        }
     });
 });
 
@@ -62,7 +65,7 @@ $('#overview-img').click(function() {
             $('#overview-name p').html(fullname);
             $('#overview-email p').html(email);
             $('#overview-phone p').html(phone);
-        },
+        }
     });
 });
 

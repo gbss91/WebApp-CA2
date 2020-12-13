@@ -20,7 +20,8 @@ var bodyParser = require('body-parser'); //Parse data from client
 var path = require('path');
 
 //Import router files
-var queryRouter = require('./routes/queries'); //This is where we execute the queries 
+var userBookings = require('./routes/queries'); 
+var newBookingRouter = require('./routes/newBooking'); 
 
 //Create express app 
 var app = express();
@@ -33,7 +34,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
 //2. ROUTES - Pass the router files 
-app.use(queryRouter);
+app.use(newBookingRouter);
+app.use(userBookings);
 
 //3.Server listens on port 4000
 app.listen(4000); 
