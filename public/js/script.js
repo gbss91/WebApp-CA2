@@ -31,7 +31,7 @@ var email;
 var phone; 
 
 var user = {
-    user_id: 106,
+    userID: 108,
     fullname: 'John Smith'
 };
 
@@ -49,11 +49,11 @@ $('#aOverview').click(function() {
 });
 
 
-$('.details-box').click(function() {
+$('#overview-img').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/user',
-        type: 'GET',
-        dataType: 'json',
+        url: 'http://localhost:4000/queries/userDetails',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
             //Print results in console 
             console.log(data);
