@@ -18,6 +18,7 @@ var express = require('express'); //Express framework
 var mysql = require('mysql'); 
 var bodyParser = require('body-parser'); //Parse data from client 
 var path = require('path');
+var cors = require('cors');
 
 //Import router files
 var userBookingRouter = require('./routes/userBooking'); 
@@ -27,6 +28,9 @@ var newBookingRouter = require('./routes/newBooking');
 var app = express();
 
 //1. GLOBAL MIDDLEWARES
+// Implement CORS
+app.use(cors()); // Access-Control-Allow-Origin *
+
 //Serving static content in public directory (HTML, CSS, JS and Images)
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -39,4 +43,3 @@ app.use(userBookingRouter);
 
 //3.Server listens on port 4000
 app.listen(4000); 
-

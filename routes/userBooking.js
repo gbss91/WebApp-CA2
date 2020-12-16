@@ -28,8 +28,7 @@ var flightBookingRef;
 Router.post('/user', function (req, res) {
     //Assign data from the user to variables that will be used in mysql queries 
     userID = req.body.userID;
-    res.send('Data recieved!');
-    console.log(userID);
+    res.send('User ID recieved!');
 });
 
 //POSTing User Details by User ID

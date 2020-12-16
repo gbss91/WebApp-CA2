@@ -69,19 +69,64 @@
                                 </div>
                             </span>
                         </div>
-                        <!--Bookings menu-->
-                        <div class="row menu-row bRow">
+                        <!--Bookings Overview menu-->
+                        <div class="row menu-row aRow">
                             <span href="" id="aBookings"> 
                                 <div class="container">
+                                    <ion-icon name="book-outline" class="user-menu"></ion-icon>
+                                    <div class="user-menu"><h4>Booking Overview</h4></div>
+                                </div>
+                            </span>
+                        </div>
+                        <!--Departure flight-->
+                        <div class="row menu-row bRow">
+                            <span href="" id="aDeptFlightBooking"> 
+                                <div class="container">
                                     <ion-icon name="airplane-outline" class="user-menu"></ion-icon>
-                                    <div class="user-menu"><h4>Bookings</h4></div>
+                                    <div class="user-menu"><h4>Departure Flight</h4></div>
+                                </div>
+                            </span>
+                        </div>
+                        <!--Return flight-->
+                        <div class="row menu-row cRow">
+                            <span href="" id="aReturnFlightBooking"> 
+                                <div class="container">
+                                    <ion-icon name="airplane-outline" class="user-menu"></ion-icon>
+                                    <div class="user-menu"><h4>Return Flight</h4></div>
+                                </div>
+                            </span>
+                        </div>
+                        <!--hotel booking-->
+                        <div class="row menu-row dRow">
+                            <span href="" id="aHotelBooking"> 
+                                <div class="container">
+                                    <ion-icon name="bed-outline" class="user-menu"></ion-icon>
+                                    <div class="user-menu"><h4>Hotel Booking</h4></div>
+                                </div>
+                            </span>
+                        </div>
+                        <!--activity booking one-->
+                        <div class="row menu-row eRow">
+                            <span href="" id="aActivityBookingOne"> 
+                                <div class="container">
+                                    <ion-icon name="ticket-outline" class="user-menu"></ion-icon>
+                                    <div class="user-menu"><h4>Activity Booking One</h4></div>
+                                </div>
+                            </span>
+                        </div>
+                        <!--activity booking two-->
+                        <div class="row menu-row fRow">
+                            <span href="" id="aActivityBookingTwo"> 
+                                <div class="container">
+                                    <ion-icon name="ticket-outline" class="user-menu"></ion-icon>
+                                    <div class="user-menu"><h4>Activity Booking Two</h4></div>
                                 </div>
                             </span>
                         </div>
                     </div>
 
                     <!--Main content for Overview-->
-                    <div class="col-lg-9 col-md-9 col-12" id="overview">
+                    <div class="col-lg-9 col-md-9 col-12 display oSection" id="overview">
                         <div class="row align-items-center">
                             <div class="col-lg-12 col-md-12 col-12">
                                 <img src="img/user.jpg" alt="User image" id="overview-img">
@@ -101,7 +146,7 @@
                                             <p>Name:</p>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-10" id="overview-name">
-                                            <p>John Smith</p>
+                                            <p></p>
                                         </div>
                                     </div>
                                     <!--Email-->
@@ -110,7 +155,7 @@
                                             <p>Email:</p>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-10" id="overview-email">
-                                            <p>john.smith123@email.com</p>
+                                            <p></p>
                                         </div>
                                     </div>
                                     <!--Phone number-->
@@ -119,7 +164,591 @@
                                             <p>Phone:</p>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-10" id="overview-phone">
-                                            <p>+353(83)1234567</p>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+							<div class="col-lg-12 col-md-12 col-12">
+								<button type="button" id="deleteBooking">Click Me!</button>
+							</div>
+                        </div>
+                    </div>
+					
+                    <!--Main content for Booking Overview-->
+                    <div class="col-lg-9 col-md-9 col-12 hide aSection" id="bookings">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="details-box">
+									<!--Booking Ref-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="bookings-bookingReF">
+                                            <p>Booking Ref:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="bookings-bookingRef">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--User ID-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="bookings-userID">
+                                            <p>User ID:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="bookings-userId">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Destination-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="bookings-destinatioN">
+                                            <p>Destination:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="bookings-destination">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Dept Flight Booking Ref-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="bookings-deptFlightBookinG">
+                                            <p>Departure Flight Booking Reference:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="bookings-deptFlightBooking">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Return Flight Booking Ref-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="bookings-returnFlightBookinG">
+                                            <p>Return Flight Booking Reference:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="bookings-returnFlightBooking">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Hotel Booking-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="bookings-hotelBookinG">
+                                            <p>Hotel Booking Reference:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="bookings-hotelBooking">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Activity Booking Ref One-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="bookings-activityBookingOnE">
+                                            <p>Activity Booking Reference One:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="bookings-activityBookingOne">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Activity Booking Ref Two-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="bookings-activityBookingTwO">
+                                            <p>Activity Booking Reference One:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="bookings-activityBookingTwo">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+
+                        </div>
+                    </div>
+					
+                    <!--Main content for departure flight booking -->
+                    <div class="col-lg-9 col-md-9 col-12 hide bSection" id="deptFlightBookings">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="details-box">
+									<!--Booking Ref-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="deptFlightBooking-bookingReF">
+                                            <p>Booking Ref:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="deptFlightBooking-bookingRef">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Booking date-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="deptFlightBooking-bookingDatE">
+                                            <p>Booking Date:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="deptFlightBooking-bookingDate">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--User ID-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="deptFlightBooking-userID">
+                                            <p>User ID:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="deptFlightBooking-userId">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--flight No-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="deptFlightBooking-flightNO">
+                                            <p>Flight No:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="deptFlightBooking-flightNo">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Dept Date-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="deptFlightBooking-deptDatE">
+                                            <p>Departure Date:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="deptFlightBooking-deptDate">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Travel Class-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="deptFlightBooking-travelClasS">
+                                            <p>Travel Class:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="deptFlightBooking-travelClass">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Qty-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="deptFlightBooking-ticketQtY">
+                                            <p>Ticket Qty:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="deptFlightBooking-ticketQty">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Price Ref One-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="deptFlightBooking-ticketPricE">
+                                            <p>Ticket Price:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="deptFlightBooking-ticketPrice">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Total Price-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="deptFlightBooking-totalPricE">
+                                            <p>Total Price:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="deptFlightBooking-totalPrice">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Total Currency-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="deptFlightBooking-currencY">
+                                            <p>Currency:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="deptFlightBooking-currency">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+
+                        </div>
+                    </div>
+					
+                    <!--Main content for return flight booking -->
+                    <div class="col-lg-9 col-md-9 col-12 hide cSection" id="returnFlightBookings">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="details-box">
+									<!--Booking Ref-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="returnFlightBookings-flightBookingReF">
+                                            <p>Booking Ref:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="returnFlightBookings-flightBookingRef">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Booking date-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="returnFlightBookings-bookingDatE">
+                                            <p>Booking Date:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="returnFlightBookings-bookingDate">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--User ID-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="returnFlightBookings-userID">
+                                            <p>User ID:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="returnFlightBookings-userId">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--flight No-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="returnFlightBookings-flightNO">
+                                            <p>Flight No:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="returnFlightBookings-flightNo">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Dept Date-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="returnFlightBookings-deptDatE">
+                                            <p>Departure Date:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="returnFlightBookings-deptDate">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Travel Class-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="returnFlightBookings-travelClasS">
+                                            <p>Travel Class:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="returnFlightBookings-travelClass">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Qty-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="returnFlightBookings-ticketQtY">
+                                            <p>Ticket Qty:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="returnFlightBookings-ticketQty">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Price Ref One-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="returnFlightBookings-ticketPricE">
+                                            <p>Ticket Price:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="returnFlightBookings-ticketPrice">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Total Price-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="returnFlightBookings-totalPricE">
+                                            <p>Total Price:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="returnFlightBookings-totalPrice">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Total Currency-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="returnFlightBookings-currencY">
+                                            <p>Currency:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="returnFlightBookings-currency">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+
+                        </div>
+                    </div>
+					
+                    <!--Main content for hotel booking -->
+                    <div class="col-lg-9 col-md-9 col-12 hide dSection" id="hotelBookings">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="details-box">
+									<!--Booking Ref-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="hotelBookings-bookingReF">
+                                            <p>Booking Ref:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="hotelBookings-bookingRef">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Booking date-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="hotelBookings-bookingDatE">
+                                            <p>Booking Date:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="hotelBookings-bookingDate">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--User ID-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="hotelBookings-userID">
+                                            <p>User ID:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="hotelBookings-userId">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Hotel ID-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="hotelBookings-hotelID">
+                                            <p>Hotel ID:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="hotelBookings-hotelId">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Dept Date-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="hotelBookings-checkInDatE">
+                                            <p>Check-in Date:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="hotelBookings-checkInDate">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Travel Class-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="hotelBookings-checkOutDatE">
+                                            <p>Check-out Date:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="hotelBookings-checkOutDate">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Qty-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="hotelBookings-numberNightS">
+                                            <p>Number of Nights:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="hotelBookings-numberNights">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Price Ref One-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="hotelBookings-roomQtY">
+                                            <p>Room Quantity:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="hotelBookings-roomQty">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Total Price-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="hotelBookings-totalPricE">
+                                            <p>Total Price:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="hotelBookings-totalPrice">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Total Currency-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="hotelBookings-currencY">
+                                            <p>Currency:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="hotelBookings-currency">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+
+                        </div>
+                    </div>
+					
+                    <!--Main content for activity booking one -->
+                    <div class="col-lg-9 col-md-9 col-12 hide eSection" id="activityBookingOne">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="details-box">
+									<!--Booking Ref-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingOne-bookingReF">
+                                            <p>Booking Ref:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingOne-bookingRef">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Booking date-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingOne-bookingDatE">
+                                            <p>Booking Date:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingOne-bookingDate">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--User ID-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingOne-userID">
+                                            <p>User ID:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingOne-userId">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Hotel ID-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingOne-activityID">
+                                            <p>Activity ID:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingOne-activityId">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Dept Date-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingOne-activityDatE">
+                                            <p>Activity Date:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingOne-activityDate">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Travel Class-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingOne-ticketQtY">
+                                            <p>Ticket Qty:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingOne-ticketQty">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Qty-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingOne-totalPricE">
+                                            <p>Total Price:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingOne-totalPrice">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Price Ref One-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingOne-currencY">
+                                            <p>Currency:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingOne-currency">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Price Ref One-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingOne-bookingStatuS">
+                                            <p>Booking Status:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingOne-bookingStatus">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+
+                        </div>
+                    </div>
+					
+                    <!--Main content for activity booking two -->
+                    <div class="col-lg-9 col-md-9 col-12 hide fSection" id="activityBookingTwo">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="details-box">
+									<!--Booking Ref-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingTwo-bookingReF">
+                                            <p>Booking Ref:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingTwo-bookingRef">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Booking date-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingTwo-bookingDatE">
+                                            <p>Booking Date:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingTwo-bookingDate">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--User ID-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingTwo-userID">
+                                            <p>User ID:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingTwo-userId">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Hotel ID-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingTwo-activityID">
+                                            <p>Activity ID:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingTwo-activityId">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Dept Date-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingTwo-activityDatE">
+                                            <p>Activity Date:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingTwo-activityDate">
+                                            <p></p>
+                                        </div>
+                                    </div>
+									<!--Travel Class-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingTwo-ticketQtY">
+                                            <p>Ticket Qty:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingTwo-ticketQty">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Qty-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingTwo-totalPricE">
+                                            <p>Total Price:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingTwo-totalPrice">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Price Ref One-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingTwo-currencY">
+                                            <p>Currency:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingTwo-currency">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <!--Ticket Price Ref One-->
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-4 col-md-2 col-2" id="activityBookingTwo-bookingStatuS">
+                                            <p>Booking Status:</p>
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 col-10" id="activityBookingTwo-bookingStatus">
+                                            <p></p>
                                         </div>
                                     </div>
                                 </div>
@@ -130,13 +759,6 @@
                         </div>
                     </div>
 
-                    <!--Main content for Bookings-->
-                    <div class="col-lg-9 col-md-9 col-12" id="bookings">
-
-
-                    </div>
-
-                
                 </div>
             </div>
             <!-- APP MAIN CONTENT END -->

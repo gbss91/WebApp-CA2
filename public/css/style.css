@@ -123,7 +123,7 @@ input {
     background-color: #49c0f77a;
 }
 
-.menu-row a .menu-row a:active .menu-row a:hover{
+.menu-row a.menu-row a:active .menu-row a:hover{
     color: #212121;
     text-decoration: none;
 }
@@ -138,12 +138,12 @@ input {
     padding-left: 10px;
 }
 
-#overview {
-    display: block;
+.display {
+	display: block;
 }
 
-#bookings {
-    display: none;
+.hide {
+	display: none;
 }
 
 #overview-img {
