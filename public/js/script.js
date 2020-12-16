@@ -309,15 +309,6 @@ $('#aOverview').click(function() {
     });
 });
 
-//booking information
-var bookingRef;
-var bookingDestination; 
-var bookingDeptFlightBooking;
-var bookingReturnFlightBooking;
-var bookingHotelBooking;
-var bookingActivityBookingOne;
-var bookingActivityBookingTwo;
-
 //get and display main booking details for user ID
 $('#aBookings').click(function() {
     $.ajax({
@@ -353,7 +344,7 @@ $('#aBookings').click(function() {
 //get and display departure flight booking details for user ID
 $('#aDeptFlightBooking').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries/flightBookingInfo',
+        url: 'http://localhost:4000/queries/deptFlightBookingInfo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -389,7 +380,7 @@ $('#aDeptFlightBooking').click(function() {
 //get and display return flight booking details for user ID
 $('#aReturnFlightBooking').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries/flightBookingInfo',
+        url: 'http://localhost:4000/queries/returnFlightBookingInfo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -397,16 +388,16 @@ $('#aReturnFlightBooking').click(function() {
             console.log(data);
            
             //Assign property of object to variable
-            returnFlightBookingRef = data[1].booking_ref;
-            returnFlightBookingDate = data[1].booking_date;
-            userID = data[1].user_id;
-            returnFlightNo = data[1].flight_no;
-            returnFlightDate = data[1].dept_date;
-            returnFlightTravelClass = data[1].travel_class;
-            returnFlightTicketQty = data[1].ticket_qty;
-            returnFlightTicketPrice = data[1].ticket_price;
-            returnFlightTotalPrice = data[1].total_price;
-            returnFlightCurrency = data[1].currency;
+            returnFlightBookingRef = data[0].booking_ref;
+            returnFlightBookingDate = data[0].booking_date;
+            userID = data[0].user_id;
+            returnFlightNo = data[0].flight_no;
+            returnFlightDate = data[0].dept_date;
+            returnFlightTravelClass = data[0].travel_class;
+            returnFlightTicketQty = data[0].ticket_qty;
+            returnFlightTicketPrice = data[0].ticket_price;
+            returnFlightTotalPrice = data[0].total_price;
+            returnFlightCurrency = data[0].currency;
             //Update name in profile page
             $('#returnFlightBookings-flightBookingRef p').html(returnFlightBookingRef);
             $('#returnFlightBookings-bookingDate p').html(returnFlightBookingDate);
@@ -461,7 +452,7 @@ $('#aHotelBooking').click(function() {
 //get and activity booking one details for user ID
 $('#aActivityBookingOne').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries/activityBookingInfo',
+        url: 'http://localhost:4000/queries/primaryActivityBookingInfo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -495,7 +486,7 @@ $('#aActivityBookingOne').click(function() {
 //get and activity booking two details for user ID
 $('#aActivityBookingTwo').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries/activityBookingInfo',
+        url: 'http://localhost:4000/queries/secondaryActivityBookingInfo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -503,15 +494,15 @@ $('#aActivityBookingTwo').click(function() {
             console.log(data);
            
             //Assign property of object to variable
-            activityBookingTwoBookingRef = data[1].activity_booking_ref;
-            activityBookingTwoBookingDate = data[1].booking_date;
-            userID = data[1].user_id;
-            activityBookingTwoActivityID = data[1].activity_id;
-            activityBookingTwoActivityDate = data[1].activity_date;
-            activityBookingTwoTicketQty = data[1].ticket_qty;
-            activityBookingTwoTotalPrice = data[1].total_price;
-            activityBookingTwoCurrency = data[1].currency;
-            activityBookingTwoBookingStatus = data[1].booking_status;
+            activityBookingTwoBookingRef = data[0].activity_booking_ref;
+            activityBookingTwoBookingDate = data[0].booking_date;
+            userID = data[0].user_id;
+            activityBookingTwoActivityID = data[0].activity_id;
+            activityBookingTwoActivityDate = data[0].activity_date;
+            activityBookingTwoTicketQty = data[0].ticket_qty;
+            activityBookingTwoTotalPrice = data[0].total_price;
+            activityBookingTwoCurrency = data[0].currency;
+            activityBookingTwoBookingStatus = data[0].booking_status;
             //Update name in profile page 
             $('#activityBookingTwo-bookingRef p').html(activityBookingTwoBookingRef);
             $('#activityBookingTwo-bookingDate p').html(activityBookingTwoBookingDate);
@@ -523,5 +514,159 @@ $('#aActivityBookingTwo').click(function() {
             $('#activityBookingTwo-currency p').html(activityBookingTwoCurrency);			
             $('#activityBookingTwo-bookingStatus p').html(activityBookingTwoBookingStatus);
         }
+    });
+});
+
+//get user ID & display on page
+$('#deleteBooking').click(function() {
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+});
+
+//get user ID & display on page
+$('#deleteHotelBooking').click(function() {
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteHotelBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteHotelBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+});
+
+//get user ID & display on page
+$('#deleteDeptFlightBooking').click(function() {
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteDeptFlightBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteDeptFlightBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+});
+
+//get user ID & display on page
+$('#deleteReturnFlightBooking').click(function() {
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteReturnFlightBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteReturnFlightBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+});
+
+//get user ID & display on page
+$('#deleteReturnFlightBooking').click(function() {
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteReturnFlightBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteReturnFlightBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+});
+
+//get user ID & display on page
+$('#deleteActivityOneBooking').click(function() {
+    $.ajax({
+        url: 'http://localhost:4000/queries/deletePrimaryActivityBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+    $.ajax({
+        url: 'http://localhost:4000/queries/deletePrimaryActivityBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+});
+
+//get user ID & display on page
+$('#deleteActivityTwoBooking').click(function() {
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteSecondaryActivityBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
+    });
+    $.ajax({
+        url: 'http://localhost:4000/queries/deleteSecondaryActivityBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+        } 
     });
 });
