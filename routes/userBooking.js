@@ -19,10 +19,6 @@ var Router = express.Router();
 
 //Variables used to store data from requests 
 var userID;
-var bookingRef;
-var activityBookingRef;
-var hotelBookingRef;
-var flightBookingRef;
 
 //POSTing user ID
 Router.post('/user', function (req, res) {
@@ -57,7 +53,7 @@ Router.post('/queries/fullBookingInfo', function (req, res) {
     });  
 });
 
-//POSTing Flight Booking Info by User ID
+//POSTing Departure Flight Booking Info by User ID
 Router.post('/queries/deptFlightBookingInfo', function (req, res) {
     mysqlCon.query('SELECT booking_ref, booking_date, user_id, flight_no, dept_date, travel_class, ticket_qty, ticket_price, total_price, currency FROM flight_booking WHERE journey="Departure" AND user_id = ?;',[userID], //mySQL query 
     function(err, results, fields){ //Callback functions for error, result and fields
@@ -70,7 +66,7 @@ Router.post('/queries/deptFlightBookingInfo', function (req, res) {
     });
 });
 
-//POSTing Flight Booking Info by User ID
+//POSTing Return Flight Booking Info by User ID
 Router.post('/queries/returnFlightBookingInfo', function (req, res) {
     mysqlCon.query('SELECT booking_ref, booking_date, user_id, flight_no, dept_date, travel_class, ticket_qty, ticket_price, total_price, currency FROM flight_booking WHERE journey="Return" AND user_id = ?;',[userID], //mySQL query 
     function(err, results, fields){ //Callback functions for error, result and fields
@@ -96,7 +92,7 @@ Router.post('/queries/hotelBookingInfo', function (req, res) {
     });    
 });
 
-//GETing Activity Booking Info by User ID
+//GETing Primary Activity Booking Info by User ID
 Router.post('/queries/primaryActivityBookingInfo', function (req, res) {
     mysqlCon.query('SELECT activity_booking_ref, booking_date, user_id, activity_id, activity_date, ticket_qty, total_price, currency, booking_status FROM activity_booking WHERE booking = "Primary" AND user_id = ?;',[userID], //mySQL query 
     function(err, results, fields){ //Callback functions for error, result and fields
@@ -109,7 +105,7 @@ Router.post('/queries/primaryActivityBookingInfo', function (req, res) {
     });    
 });
 
-//GETing Activity Booking Info by User ID
+//GETing Secondary Activity Booking Info by User ID
 Router.post('/queries/secondaryActivityBookingInfo', function (req, res) {
     mysqlCon.query('SELECT activity_booking_ref, booking_date, user_id, activity_id, activity_date, ticket_qty, total_price, currency, booking_status FROM activity_booking WHERE booking = "Secondary" AND user_id = ?;',[userID], //mySQL query 
     function(err, results, fields){ //Callback functions for error, result and fields
@@ -122,7 +118,7 @@ Router.post('/queries/secondaryActivityBookingInfo', function (req, res) {
     });    
 });
 
-//DELETE Flight Booking by user id & flight booking reference sent by client to variables
+//DELETE Flight Booking by user id sent by client to variables
 //STEP 1 - Set departure flight booking reference in the bookings table to null
 Router.post('/queries/deleteDeptFlightBookingOne', function (req, res) {
     mysqlCon.query('UPDATE bookings SET dept_flight_booking = null WHERE user_id = ?;',[userID], //mySQL query 
@@ -135,7 +131,7 @@ Router.post('/queries/deleteDeptFlightBookingOne', function (req, res) {
 		}
     });
 });
-//STEP 2 - Delete the Flight Booking from the flight_booking table
+//STEP 2 - Delete the departure Flight Booking from the flight_booking table
 Router.post('/queries/deleteDeptFlightBookingTwo', function (req, res) {
     mysqlCon.query('DELETE FROM flight_booking WHERE journey = "Departure" AND user_id = ?;',[userID], //mySQL query 
     function(err, results, fields){ //Callback functions for error, result and fields
@@ -146,7 +142,7 @@ Router.post('/queries/deleteDeptFlightBookingTwo', function (req, res) {
             res.send('An error has occurred!'); //Sent error message to user 
 		}
     });
-}); 
+});
 
 //STEP 1 - Set return flight booking reference in the bookings table to null
 Router.post('/queries/deleteReturnFlightBookingOne', function (req, res) {
@@ -171,9 +167,9 @@ Router.post('/queries/deleteReturnFlightBookingTwo', function (req, res) {
             res.send('An error has occurred!'); //Sent error message to user 
 		}
     });
-}); 
+});
 
-//DELETE Hotel Booking by user id & flight booking reference sent by client to variables
+//DELETE Hotel Booking by user id sent by client to variables
 //STEP 1 - Set hotel booking reference in the bookings table to null
 Router.post('/queries/deleteHotelBookingOne', function (req, res) {
     mysqlCon.query('UPDATE bookings SET hotel_booking = null WHERE user_id = ?;',[userID], //mySQL query 
@@ -199,8 +195,8 @@ Router.post('/queries/deleteHotelBookingTwo', function (req, res) {
     });
 });
 
-//DELETE Activity Booking by user id & flight booking reference sent by client to variables
-//STEP 1 - Set activity booking reference in the bookings table to null
+//DELETE Primary Activity Booking by user id sent by client to variables
+//STEP 1 - Set primary activity booking reference in the bookings table to null
 Router.post('/queries/deletePrimaryActivityBookingOne', function (req, res) {
     mysqlCon.query('UPDATE bookings SET activity_booking_one = null WHERE user_id = ?;',[userID], //mySQL query 
     function(err, results, fields){ //Callback functions for error, result and fields
@@ -212,7 +208,7 @@ Router.post('/queries/deletePrimaryActivityBookingOne', function (req, res) {
 		}
     });
 });
-//STEP 2 - Delete the activity booking from the activity_booking table
+//STEP 2 - Delete the primary activity booking from the activity_booking table
 Router.post('/queries/deletePrimaryActivityBookingTwo', function (req, res) {
     mysqlCon.query('DELETE FROM activity_booking WHERE booking = "Primary" AND user_id = ?;',[userID], //mySQL query 
     function(err, results, fields){ //Callback functions for error, result and fields
@@ -225,8 +221,8 @@ Router.post('/queries/deletePrimaryActivityBookingTwo', function (req, res) {
     });
 });
 
-//DELETE Activity Booking Two by user id & flight booking reference sent by client to variables
-//STEP 1 - Set activity booking reference in the bookings table to null
+//DELETE Secondary Activity Booking Two by user id sent by client to variables
+//STEP 1 - Set secondary activity booking reference in the bookings table to null
 Router.post('/queries/deleteSecondaryActivityBookingOne', function (req, res) {
     mysqlCon.query('UPDATE bookings SET activity_booking_two = null WHERE user_id = ?;',[userID], //mySQL query 
     function(err, results, fields){ //Callback functions for error, result and fields
@@ -238,7 +234,7 @@ Router.post('/queries/deleteSecondaryActivityBookingOne', function (req, res) {
 		}
     });
 });
-//STEP 2 - Delete the activity booking from the activity_booking table
+//STEP 2 - Delete the secondary activity booking from the activity_booking table
 Router.post('/queries/deleteSecondaryActivityBookingTwo', function (req, res) {
     mysqlCon.query('DELETE FROM activity_booking WHERE booking = "Secondary" AND user_id = ?;',[userID], //mySQL query 
     function(err, results, fields){ //Callback functions for error, result and fields
@@ -251,7 +247,7 @@ Router.post('/queries/deleteSecondaryActivityBookingTwo', function (req, res) {
     });
 });
 
-//POST - (Delete Booking) Assign user id / booking reference sent by client to variables - You can GET response and send it to the client
+//DELETE - (Delete Booking) Assign user id / booking reference sent by client to variables
 //STEP 1 - Set booking reference in the bookings table to null
 Router.post('/queries/deleteBookingOne', function (req, res) {
     mysqlCon.query('UPDATE users SET bookings = null WHERE user_id = ?;',[userID], //mySQL query 
