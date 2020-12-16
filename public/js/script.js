@@ -217,12 +217,12 @@ var phone;
 
 //booking information
 var bookingRef;
-var destination; 
-var deptFlightBooking;
-var returnFlightBooking;
-var hotelBooking;
-var activityBookingOne;
-var activityBookingTwo;
+var bookingDestination; 
+var bookingDeptFlightBooking;
+var bookingReturnFlightBooking;
+var bookingHotelBooking;
+var bookingActivityBookingOne;
+var bookingActivityBookingTwo;
 
 //departure flight booking information
 var deptFlightBookingRef;
@@ -309,6 +309,15 @@ $('#aOverview').click(function() {
     });
 });
 
+//booking information
+var bookingRef;
+var bookingDestination; 
+var bookingDeptFlightBooking;
+var bookingReturnFlightBooking;
+var bookingHotelBooking;
+var bookingActivityBookingOne;
+var bookingActivityBookingTwo;
+
 //get and display main booking details for user ID
 $('#aBookings').click(function() {
     $.ajax({
@@ -322,21 +331,21 @@ $('#aBookings').click(function() {
             //Assign property of object to variable
             bookingRef = data[0].booking_ref;
             userID = data[0].user_id;
-            destination = data[0].destination;
-            deptFlightBooking = data[0].dept_flight_booking;
-            returnFlightBooking = data[0].return_flight_booking;
-            hotelBooking = data[0].hotel_booking;
-            activityBookingOne = data[0].activity_booking_one;
-            activityBookingTwo = data[0].activity_booking_two;
+            bookingDestination = data[0].destination;
+            bookingDeptFlightBooking = data[0].dept_flight_booking;
+            bookingReturnFlightBooking = data[0].return_flight_booking;
+            bookingHotelBooking = data[0].hotel_booking;
+            bookingActivityBookingOne = data[0].activity_booking_one;
+            bookingActivityBookingTwo = data[0].activity_booking_two;
             //Update name in profile page 
             $('#bookings-bookingRef p').html(bookingRef);
             $('#bookings-userId p').html(userID);
-            $('#bookings-destination p').html(destination);
-            $('#bookings-deptFlightBooking p').html(deptFlightBooking);
-            $('#bookings-returnFlightBooking p').html(returnFlightBooking);
-            $('#bookings-hotelBooking p').html(hotelBooking);
-            $('#bookings-activityBookingOne p').html(activityBookingOne);
-            $('#bookings-activityBookingTwo p').html(activityBookingTwo);
+            $('#bookings-destination p').html(bookingDestination);
+            $('#bookings-deptFlightBooking p').html(bookingDeptFlightBooking);
+            $('#bookings-returnFlightBooking p').html(bookingReturnFlightBooking);
+            $('#bookings-hotelBooking p').html(bookingHotelBooking);
+            $('#bookings-activityBookingOne p').html(bookingActivityBookingOne);
+            $('#bookings-activityBookingTwo p').html(bookingActivityBookingTwo);
         }
     });
 });
