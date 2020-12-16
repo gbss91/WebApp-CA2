@@ -15,6 +15,8 @@
 */
 
 //Add and remove background color for menu options in profile page 
+
+//Overview menu
 $('#aOverview').click(function(){
     $('.oRow').addClass('menu-active');
     $('.aRow').removeClass('menu-active');
@@ -25,6 +27,7 @@ $('#aOverview').click(function(){
     $('.fRow').removeClass('menu-active'); 
 });
 
+//Booking menu
 $('#aBookings').click(function(){
     $('.oRow').removeClass('menu-active');
     $('.aRow').addClass('menu-active');
@@ -35,6 +38,7 @@ $('#aBookings').click(function(){
     $('.fRow').removeClass('menu-active'); 
 });
 
+//Dept Flight menu
 $('#aDeptFlightBooking').click(function(){
     $('.oRow').removeClass('menu-active');
     $('.aRow').removeClass('menu-active');
@@ -45,6 +49,7 @@ $('#aDeptFlightBooking').click(function(){
     $('.fRow').removeClass('menu-active'); 
 });
 
+//Return Flight menu
 $('#aReturnFlightBooking').click(function(){
     $('.oRow').removeClass('menu-active');
     $('.aRow').removeClass('menu-active');
@@ -55,6 +60,7 @@ $('#aReturnFlightBooking').click(function(){
     $('.fRow').removeClass('menu-active'); 
 });
 
+//Hotel Booking menu
 $('#aHotelBooking').click(function(){
     $('.oRow').removeClass('menu-active');
     $('.aRow').removeClass('menu-active');
@@ -65,6 +71,7 @@ $('#aHotelBooking').click(function(){
     $('.fRow').removeClass('menu-active'); 
 });
 
+//Primary Activity Booking menu
 $('#aActivityBookingOne').click(function(){
     $('.oRow').removeClass('menu-active');
     $('.aRow').removeClass('menu-active');
@@ -75,6 +82,7 @@ $('#aActivityBookingOne').click(function(){
     $('.fRow').removeClass('menu-active'); 
 });
 
+//Secondary Activity Booking menu
 $('#aActivityBookingTwo').click(function(){
     $('.oRow').removeClass('menu-active');
     $('.aRow').removeClass('menu-active');
@@ -86,6 +94,8 @@ $('#aActivityBookingTwo').click(function(){
 });
 
 //Add and remove main content sections in profile page based on button clicked
+
+//Overview main content
 $('#aOverview').click(function(){
     $('.oSection').addClass('display');
     $('.aSection').removeClass('display');
@@ -103,6 +113,7 @@ $('#aOverview').click(function(){
 	$('.fSection').addClass('hide');
 });
 
+//Booking main content
 $('#aBookings').click(function(){
     $('.oSection').removeClass('display');
     $('.aSection').addClass('display');
@@ -120,6 +131,7 @@ $('#aBookings').click(function(){
 	$('.fSection').addClass('hide');
 });
 
+//Dept Flight Booking main content
 $('#aDeptFlightBooking').click(function(){
     $('.oSection').removeClass('display');
     $('.aSection').removeClass('display');
@@ -137,6 +149,7 @@ $('#aDeptFlightBooking').click(function(){
 	$('.fSection').addClass('hide');
 });
 
+//Return Flight Booking main content
 $('#aReturnFlightBooking').click(function(){
     $('.oSection').removeClass('display');
     $('.aSection').removeClass('display');
@@ -154,6 +167,7 @@ $('#aReturnFlightBooking').click(function(){
 	$('.fSection').addClass('hide');
 });
 
+//Hotel Booking main content
 $('#aHotelBooking').click(function(){
     $('.oSection').removeClass('display');
     $('.aSection').removeClass('display');
@@ -171,6 +185,7 @@ $('#aHotelBooking').click(function(){
 	$('.fSection').addClass('hide');
 });
 
+//Primary Activity Booking main content
 $('#aActivityBookingOne').click(function(){
     $('.oSection').removeClass('display');
     $('.aSection').removeClass('display');
@@ -188,6 +203,7 @@ $('#aActivityBookingOne').click(function(){
 	$('.fSection').addClass('hide');
 });
 
+//Secondary Activity Booking main content
 $('#aActivityBookingTwo').click(function(){
     $('.oSection').removeClass('display');
     $('.aSection').removeClass('display');
@@ -300,7 +316,7 @@ $('#aOverview').click(function() {
             fullname = data[0].full_name;
             email = data[0].email;
             phone = data[0].phone;
-            //Update name in profile page 
+            //Update user details in profile page 
             $('#hello').html(`Hello, ${fullname}`);
             $('#overview-name p').html(fullname);
             $('#overview-email p').html(email);
@@ -328,7 +344,7 @@ $('#aBookings').click(function() {
             bookingHotelBooking = data[0].hotel_booking;
             bookingActivityBookingOne = data[0].activity_booking_one;
             bookingActivityBookingTwo = data[0].activity_booking_two;
-            //Update name in profile page 
+            //Update booking details profile page 
             $('#bookings-bookingRef p').html(bookingRef);
             $('#bookings-userId p').html(userID);
             $('#bookings-destination p').html(bookingDestination);
@@ -398,7 +414,7 @@ $('#aReturnFlightBooking').click(function() {
             returnFlightTicketPrice = data[0].ticket_price;
             returnFlightTotalPrice = data[0].total_price;
             returnFlightCurrency = data[0].currency;
-            //Update name in profile page
+            //Update return booking details in profile page
             $('#returnFlightBookings-flightBookingRef p').html(returnFlightBookingRef);
             $('#returnFlightBookings-bookingDate p').html(returnFlightBookingDate);
             $('#returnFlightBookings-userId p').html(userID);
@@ -434,7 +450,7 @@ $('#aHotelBooking').click(function() {
             hotelBookingRoomQty = data[0].room_qty;
             hotelBookingTotalPrice = data[0].total_price;
             hotelBookingCurrency = data[0].currency;
-            //Update name in profile page 
+            //Update hotel booking details in profile page 
             $('#hotelBookings-bookingRef p').html(hotelBookingRef);
             $('#hotelBookings-bookingDate p').html(hotelBookingDate);
             $('#hotelBookings-userId p').html(userID);
@@ -449,7 +465,7 @@ $('#aHotelBooking').click(function() {
     });
 });
 
-//get and activity booking one details for user ID
+//get and display primary activity booking details for user ID
 $('#aActivityBookingOne').click(function() {
     $.ajax({
         url: 'http://localhost:4000/queries/primaryActivityBookingInfo',
@@ -469,7 +485,7 @@ $('#aActivityBookingOne').click(function() {
             activityBookingOneTotalPrice = data[0].total_price;
             activityBookingOneCurrency = data[0].currency;
             activityBookingOneBookingStatus = data[0].booking_status;
-            //Update name in profile page 
+            //Update primary activity booking details in profile page 
             $('#activityBookingOne-bookingRef p').html(activityBookingOneBookingRef);
             $('#activityBookingOne-bookingDate p').html(activityBookingOneBookingDate);
             $('#activityBookingOne-userId p').html(userID);
@@ -483,7 +499,7 @@ $('#aActivityBookingOne').click(function() {
     });
 });
 
-//get and activity booking two details for user ID
+//get and display secondary activity booking two details for user ID
 $('#aActivityBookingTwo').click(function() {
     $.ajax({
         url: 'http://localhost:4000/queries/secondaryActivityBookingInfo',
@@ -503,7 +519,7 @@ $('#aActivityBookingTwo').click(function() {
             activityBookingTwoTotalPrice = data[0].total_price;
             activityBookingTwoCurrency = data[0].currency;
             activityBookingTwoBookingStatus = data[0].booking_status;
-            //Update name in profile page 
+            //Update secondary activity booking details in profile page 
             $('#activityBookingTwo-bookingRef p').html(activityBookingTwoBookingRef);
             $('#activityBookingTwo-bookingDate p').html(activityBookingTwoBookingDate);
             $('#activityBookingTwo-userId p').html(userID);
@@ -517,8 +533,9 @@ $('#aActivityBookingTwo').click(function() {
     });
 });
 
-//get user ID & display on page
+//delete booking by user id
 $('#deleteBooking').click(function() {
+	//delete the booking reference from the user table
     $.ajax({
         url: 'http://localhost:4000/queries/deleteBookingOne',
         type: 'POST',
@@ -528,6 +545,7 @@ $('#deleteBooking').click(function() {
             console.log(data);
         } 
     });
+	//delete booking record by user id
     $.ajax({
         url: 'http://localhost:4000/queries/deleteBookingTwo',
         type: 'POST',
@@ -539,8 +557,9 @@ $('#deleteBooking').click(function() {
     });
 });
 
-//get user ID & display on page
+//delete hotel booking by user id
 $('#deleteHotelBooking').click(function() {
+	//delete the hotel booking reference from the bookings table
     $.ajax({
         url: 'http://localhost:4000/queries/deleteHotelBookingOne',
         type: 'POST',
@@ -550,6 +569,7 @@ $('#deleteHotelBooking').click(function() {
             console.log(data);
         } 
     });
+	//delete the hotel booking by user id
     $.ajax({
         url: 'http://localhost:4000/queries/deleteHotelBookingTwo',
         type: 'POST',
@@ -561,8 +581,9 @@ $('#deleteHotelBooking').click(function() {
     });
 });
 
-//get user ID & display on page
+//delete dept flight booking by user id
 $('#deleteDeptFlightBooking').click(function() {
+	//delete the dept flight booking reference from the bookings table
     $.ajax({
         url: 'http://localhost:4000/queries/deleteDeptFlightBookingOne',
         type: 'POST',
@@ -572,6 +593,7 @@ $('#deleteDeptFlightBooking').click(function() {
             console.log(data);
         } 
     });
+	//delete the dept flight booking by user id
     $.ajax({
         url: 'http://localhost:4000/queries/deleteDeptFlightBookingTwo',
         type: 'POST',
@@ -583,8 +605,9 @@ $('#deleteDeptFlightBooking').click(function() {
     });
 });
 
-//get user ID & display on page
+//delete return flight booking by user id
 $('#deleteReturnFlightBooking').click(function() {
+	//delete the return flight booking reference from the bookings table
     $.ajax({
         url: 'http://localhost:4000/queries/deleteReturnFlightBookingOne',
         type: 'POST',
@@ -594,6 +617,7 @@ $('#deleteReturnFlightBooking').click(function() {
             console.log(data);
         } 
     });
+	//delete the return flight booking by user id
     $.ajax({
         url: 'http://localhost:4000/queries/deleteReturnFlightBookingTwo',
         type: 'POST',
@@ -605,30 +629,9 @@ $('#deleteReturnFlightBooking').click(function() {
     });
 });
 
-//get user ID & display on page
-$('#deleteReturnFlightBooking').click(function() {
-    $.ajax({
-        url: 'http://localhost:4000/queries/deleteReturnFlightBookingOne',
-        type: 'POST',
-        //dataType: 'json', //Type of data recieved - Response from server is json 
-        success: function (data) {
-            //Print results in console 
-            console.log(data);
-        } 
-    });
-    $.ajax({
-        url: 'http://localhost:4000/queries/deleteReturnFlightBookingTwo',
-        type: 'POST',
-        //dataType: 'json', //Type of data recieved - Response from server is json 
-        success: function (data) {
-            //Print results in console 
-            console.log(data);
-        } 
-    });
-});
-
-//get user ID & display on page
+//delete primary activity booking by user id
 $('#deleteActivityOneBooking').click(function() {
+	//delete the primary activity booking reference from the bookings table
     $.ajax({
         url: 'http://localhost:4000/queries/deletePrimaryActivityBookingOne',
         type: 'POST',
@@ -638,6 +641,7 @@ $('#deleteActivityOneBooking').click(function() {
             console.log(data);
         } 
     });
+	//delete the primary activity booking by user id
     $.ajax({
         url: 'http://localhost:4000/queries/deletePrimaryActivityBookingTwo',
         type: 'POST',
@@ -649,7 +653,7 @@ $('#deleteActivityOneBooking').click(function() {
     });
 });
 
-//get user ID & display on page
+//delete secondary activity booking by user id
 $('#deleteActivityTwoBooking').click(function() {
     $.ajax({
         url: 'http://localhost:4000/queries/deleteSecondaryActivityBookingOne',
@@ -660,6 +664,7 @@ $('#deleteActivityTwoBooking').click(function() {
             console.log(data);
         } 
     });
+	//delete the secondary activity booking by user id
     $.ajax({
         url: 'http://localhost:4000/queries/deleteSecondaryActivityBookingTwo',
         type: 'POST',
