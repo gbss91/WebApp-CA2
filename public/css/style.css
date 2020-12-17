@@ -241,8 +241,8 @@ input {
     display: block;
 }
 
-#bookings {
-    display: none;
+.hide {
+	display: none;
 }
 
 #overview-img {

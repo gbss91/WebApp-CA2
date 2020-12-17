@@ -43,4 +43,3 @@ app.use(userBookingRouter);
 
 //3.Server listens on port 4000
 app.listen(4000); 
-
