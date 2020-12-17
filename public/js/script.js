@@ -296,7 +296,7 @@ var activityBookingTwoBookingStatus;
 //get user ID & display on page
 $('#aOverview').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/user', //Path 
+        url: 'http://83.212.127.26/user', //Path 
         type: 'POST', 
         data: JSON.stringify(user), //Convert object to JSON
         contentType: 'application/json', //Type of data sent to the server 
@@ -305,7 +305,7 @@ $('#aOverview').click(function() {
         } 
     });
     $.ajax({
-        url: 'http://localhost:4000/queries/userDetails',
+        url: 'http://83.212.127.26/queries/userDetails',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -324,6 +324,7 @@ $('#aOverview').click(function() {
         }
     });
 });
+
 
 //get and display main booking details for user ID
 $('#aBookings').click(function() {
@@ -675,3 +676,4 @@ $('#deleteActivityTwoBooking').click(function() {
         } 
     });
 });
+

@@ -32,9 +32,22 @@ Router.post('/newbooking', function (req, res) {
     res.send('Data recieved MSG One!');
 });
 
-//GETing flights for destination chosen by user 
-Router.get('/newbooking/flights', function(req, res) {
+//GETing outbound flights for destination chosen by user 
+Router.get('/newbooking/outbound', function(req, res) {
     mysqlCon.query('SELECT * FROM flights WHERE destination = ?;', [destination], //mySQL query 
+    function(err, results){ //Callback functions for error and results
+        if (!err) {
+            res.send(results);
+        } else {
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+        }
+    });
+});
+
+//GETing inbound flight from destination chosen by user 
+Router.get('/newbooking/inbound', function(req, res) {
+    mysqlCon.query('SELECT * FROM flights WHERE origin = ? and destination = "DUB";', [destination], //mySQL query 
     function(err, results){ //Callback functions for error and results
         if (!err) {
             res.send(results);
@@ -75,18 +88,19 @@ Router.get('/newbooking/activities', function(req, res) {
 //Step 1. Add the flight reservation 
 Router.put('/newbooking/final-flight', function(req, res) {
     //Options chosen by user are stored in variables to be used in query 
-    var bookingRef = req.body.booking_ref;
-    var bookingDate = req.body.booking_date;
-    var userId = req.body.user_id;
-    var flightNo = req.body.flight_no;
-    var deptDate = req.body.dept_date;
-    var travelClass = req.body.travel_class;
-    var ticketQty = req.body.ticket_qty;
-    var ticketPrice = req.body.ticket_price;
+    //var bookingRef = req.body.fBookingRef; This has been set to auto increment in mySQL
+    var bookingDate = req.body.bookingDate;
+    var userId = req.body.userId;
+    var flightNo = req.body.flightNo;
+    var deptDate = req.body.deptDate;
+    var travelClass = req.body.travelClass;
+    var ticketQty = req.body.fTicketQty;
+    var ticketPrice = req.body.fTicketPrice;
     var currency = 'EUR';
+    var journey = req.body.journey;
 
     mysqlCon.query('INSERT INTO flight_booking (booking_ref, booking_date, user_id, flight_no, dept_date, travel_class, ticket_qty, ticket_price, currency) VALUES (?,?,?,?,?,?,?,?,?);', 
-    [bookingRef, bookingDate, userId, flightNo, deptDate, travelClass, ticketQty, ticketPrice, currency], //Escaped query values 
+    [bookingDate, userId, flightNo, deptDate, travelClass, ticketQty, ticketPrice, currency, journey], //Escaped query values 
     function(err, results){ //Callback functions for error and results
         if (!err) {
             res.send('Data added!');
@@ -100,23 +114,21 @@ Router.put('/newbooking/final-flight', function(req, res) {
 //Step 2. Add hotel reservation 
 Router.put('/newbooking/final-hotel', function(req, res) {
     //Options chosen by user are stored in variables to be used in query 
-    var bookingRef = req.body.booking_ref;
-    var bookingDate = req.body.booking_date;
-    var userId = req.body.user_id;
+    //var bookingRef = req.body.hBookingRef; This has been set to auto increment in mySQL
+    var bookingDate = req.body.bookingDate;
+    var userId = req.body.userId;
     var hotelId = req.body.hotelId;
-    var checkIn = req.body.check_in_date;
-    var checkOut = req.body.check_out_date;
-    var nights = req.body.no_nights;
-    var rooms = req.body.room_qty;
-    var netPrice = req.body.price_net;
-    var vat = req.body.vat;
-    var totalPrice = req.body.total_price;
+    var checkIn = req.body.deptDate;
+    var checkOut = req.body.returnDate;
+    var nights = req.body.nights;
+    var rooms = req.body.roomQty;
+    var totalPrice = req.body.hTotalPrice;
     var currency = 'EUR'
 
 
 
-    mysqlCon.query('INSERT INTO hotel_booking (hotel_booking_ref, booking_date, user_id, hotel_id, check_in_date, check_out_date, no_nights, room_qty, price_net, vat, total_price, currency) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);', 
-    [bookingRef, bookingDate, userId, hotelId, checkIn, checkOut, nights, rooms, netPrice, vat, totalPrice, currency], //Escaped values 
+    mysqlCon.query('INSERT INTO hotel_booking (hotel_booking_ref, booking_date, user_id, hotel_id, check_in_date, check_out_date, no_nights, room_qty, total_price, currency) VALUES (?,?,?,?,?,?,?,?,?,?);', 
+    [bookingRef, bookingDate, userId, hotelId, checkIn, checkOut, nights, rooms, totalPrice, currency], //Escaped values 
     function(err, results){ //Callback functions for error and results
         if (!err) {
             res.send('Data added!');
@@ -128,25 +140,21 @@ Router.put('/newbooking/final-hotel', function(req, res) {
 });
 
 //Step 3. Add activities reservation if any 
-Router.put('/newbooking/final-hotel', function(req, res) {
+Router.put('/newbooking/final-activity', function(req, res) {
     //Options chosen by user are stored in variables to be used in query 
-    var bookingRef = req.body.booking_ref;
-    var bookingDate = req.body.booking_date;
-    var userId = req.body.user_id;
-    var hotelId = req.body.hotelId;
-    var checkIn = req.body.check_in_date;
-    var checkOut = req.body.check_out_date;
-    var nights = req.body.no_nights;
-    var rooms = req.body.room_qty;
-    var netPrice = req.body.price_net;
-    var vat = req.body.vat;
-    var totalPrice = req.body.total_price;
+    var bookingRef = req.body.aBookingRef;
+    var bookingDate = req.body.bookingDate;
+    var userId = req.body.userId;
+    var activityID = req.body.activityID;
+    var activityDate = req.body.activityDate;
+    var aTickets = req.body.aTickets;
+    var totalPrice = req.body.aTotalPrice;
     var currency = 'EUR'
+    var bookingStatus = req.body.bookingStatus;
 
 
-
-    mysqlCon.query('INSERT INTO hotel_booking (hotel_booking_ref, booking_date, user_id, hotel_id, check_in_date, check_out_date, no_nights, room_qty, price_net, vat, total_price, currency) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);', 
-    [bookingRef, bookingDate, userId, hotelId, checkIn, checkOut, nights, rooms, netPrice, vat, totalPrice, currency], //Escaped values 
+    mysqlCon.query('INSERT INTO activity_booking (activity_booking_ref, booking_date, user_id, activity_id, activity_date, ticket_qty, total_price, currency, booking_status) VALUES (?,?,?,?,?,?,?,?,?);', 
+    [bookingRef, bookingDate, userId, activityID, activityDate, aTickets, totalPrice, currency, bookingStatus], //Escaped values 
     function(err, results){ //Callback functions for error and results
         if (!err) {
             res.send('Data added!');

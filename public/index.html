@@ -13,7 +13,8 @@
    @Referece https://www.geeksforgeeks.org/how-to-set-placeholder-value-for-input-type-date-in-html-5/ - Allow placeholder in date input 
    
    Supporting Files: 
-   - profile.css
+   - profile.html
+   - flights.html
    - style.css
  
 ----------------------------------------------------------------------------------------------------------------------------------------------- 
@@ -59,27 +60,28 @@
             <!-- HEADER END -->
 
             <!-- APP MAIN CONTENT START -->
-            <div class="container-fluid" id="main-cont">
+            <!-- BOOKING SEARCH - Shows and hides-->
+            <div class="container-fluid" id="search-wrap">
                 <div class="row">
                     <div class="container">
                         <div id="search-box">
                             <div class="row" >
                                 <!--Destination bar-->
-                                <div class="col-lg-6 col-md-6 col-12">
+                                <div class="col-lg-5 col-md-5 col-12">
                                     <div id="destination-input">
                                         <input list="city" name="city" placeholder="Where to?" id="destination"> 
                                         <datalist id="city">
-                                            <option value="🇨🇿 Prague, Czech Republic">
-                                            <option value="🇩🇰 Copenhagen, Denmark">
-                                            <option value="🇫🇷 Paris, France">
-                                            <option value="🇩🇪 Berlin, Germany">
-                                            <option value="🇭🇺 Budapest, Hungary">
-                                            <option value="🇮🇹 Rome, Italy">
-                                            <option value="🇲🇹 Valletta, Malta">
-                                            <option value="🇳🇱 Amsterdam, Netherlands">
-                                            <option value="🇵🇹 Lisbon, Portugal">
-                                            <option value="🇪🇸 Barcelona, Spain">
-                                            <option value="🇬🇧 London, United Kingdom"> 
+                                            <option value="🇨🇿 Prague, Czech Republic (PRG)">
+                                            <option value="🇩🇰 Copenhagen, Denmark (CPH)">
+                                            <option value="🇫🇷 Paris, France (CDG)">
+                                            <option value="🇩🇪 Berlin, Germany (BER)">
+                                            <option value="🇭🇺 Budapest, Hungary (BUD)">
+                                            <option value="🇮🇹 Rome, Italy (FCO)">
+                                            <option value="🇲🇹 Valletta, Malta (MLA)">
+                                            <option value="🇳🇱 Amsterdam, Netherlands (ASM)">
+                                            <option value="🇵🇹 Lisbon, Portugal (LIS)">
+                                            <option value="🇪🇸 Barcelona, Spain (BCN)">
+                                            <option value="🇬🇧 London, United Kingdom (STN)"> 
                                         </datalist>
                                     </div>
                                 </div>
@@ -101,12 +103,15 @@
                                     </div>
                                 </div>
                                 <!--Pax number bar-->
-                                <div class="col-lg-2 col-md-2 col-12">
+                                <div class="col-lg-3 col-md-3 col-12">
                                         <div id="pax-input">
                                             <input type="number" placeholder="Adults" id="pax-adult">
                                         </div>
                                         <div id="pax-input">
                                             <input type="number" placeholder="Children" id="pax-child">
+                                        </div>
+                                        <div id="pax-input">
+                                            <input type="number" placeholder="Rooms" id="rooms">
                                         </div>
                                 </div>
                             </div>
@@ -117,9 +122,70 @@
                 <div class="row align-items-center">
                     <div class="container">
                         <div class="col-lg-12 col-md-12 col-12">
-                            <button type="button" id="searchBtn">Search</button>
+                            <button type="button"  id="searchBtn" onclick="startSearchBtn()">Search</button>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- BOOKING BODY - Hides and shows-->
+            <div class="container-fluid" id="booking-body-wrap">
+                <div class="row">
+                    <!--Menu - This indicates booking steps-->
+                    <div class="col-lg-3 col-md-5 col-12" id="booking-menu">
+                        <!--Departure flight-->
+                        <div class="row menu-row menu-active deptRow"> 
+                            <span id="aDeptFlight">
+                                <div class="container">
+                                    <ion-icon name="airplane-outline" class="user-menu"></ion-icon>
+                                    <div class="user-menu"><h4>1. Outbound Flight</h4></div>
+                                </div>
+                            </span>
+                        </div>
+                        <!--Return flight-->
+                        <div class="row menu-row returnRow">
+                            <span id="aReturnFlight"> 
+                                <div class="container">
+                                    <ion-icon name="airplane-outline" class="user-menu"></ion-icon>
+                                    <div class="user-menu"><h4>2. Inbound Flight</h4></div>
+                                </div>
+                            </span>
+                        </div>
+                        <!--Hotel-->
+                        <div class="row menu-row hotelRow">
+                            <span id="aHotel"> 
+                                <div class="container">
+                                    <ion-icon name="bed-outline" class="user-menu"></ion-icon>
+                                    <div class="user-menu"><h4>3. Hotel</h4></div>
+                                </div>
+                            </span>
+                        </div>
+                        <!--Activities-->
+                        <div class="row menu-row activityRow">
+                            <span id="aActivity"> 
+                                <div class="container">
+                                    <ion-icon name="ticket-outline" class="user-menu"></ion-icon>
+                                    <div class="user-menu"><h4>4. Activities</h4></div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!--Main content for departure flight-->
+                    <div class="col-lg-6 col-md-7 col-12" id="dept-wrap">
+                       <!-- The result boxes will be added dynamically with JavaScript according to the result from server -->
+                    </div>
+
+                    <!--Main content for return flight-->
+                    <div class="col-lg-6 col-md-7 col-12" id="return-wrap">
+                        <!-- The result boxes will be added dynamically with JavaScript according to the result from server -->     
+                    </div>
+
+                    <!--Main content for hotel results -->
+                    <div class="col-lg-6 col-md-7 col-12" id="hotel-wrap">
+                        <!--The result boxes will be added dynamically with JavaScript according to the result from server-->
+                    </div>
+                    
                 </div>
             </div>
             <!-- APP MAIN CONTENT END -->
@@ -132,6 +198,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <!-- Own script -->
         <script src="js/script.js"></script>
+        <script src="js/newBooking.js"></script>
         <!-- SCRIPT END -->
 
     </body>

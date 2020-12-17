@@ -12,6 +12,8 @@
    
    Supporting Files: 
    - index.html
+   - profile.html
+   - flights.html
    - script.js
 ******************************************************************************************************
 */
@@ -30,8 +32,32 @@ p {
     color: #3d3c3d;
 }
 
+.menu-row:hover {
+    background-color: #d1d1d17a;
+    cursor: pointer;
+}
+
+.menu-active{
+    background-color: #49c0f77a;
+}
+
+.menu-row a .menu-row a:active .menu-row a:hover{
+    color: #212121;
+    text-decoration: none;
+}
+
+.user-menu {
+    float: left;
+    padding: 10px 0;
+    color: #212121;
+}
+
+.user-menu h4{
+    padding-left: 10px;
+}
+
 /*****************************
-*APP BODY 
+*APP BODY STRUCTURE 
 *****************************/
 
 .app-container {
@@ -42,8 +68,48 @@ p {
     height: 20vh;
 }
 
-#main-cont {
+#search-wrap {
     min-height: 80vh;
+    display: block;
+}
+
+#booking-body-wrap {
+    min-height: 80vh;
+    display: none;
+}
+
+#dept-wrap {
+    display: block;
+}
+
+#return-wrap {
+    display: none;
+}
+
+#hotel-wrap {
+    display: none;
+
+}
+
+#activity-wrap {
+    display: none;
+
+}
+
+.deptRow { 
+    display: flex;
+}
+
+.returnRow { 
+    display: none;
+}
+
+.hotelRow { 
+    display: none;
+}
+
+.activityRow { 
+    display: none;
 }
 
 .logo-container {
@@ -64,7 +130,7 @@ p {
 
 
 /*****************************
-*MAIN PAGE
+*BOOKING SEARCH
 *****************************/
 
 #search-box {
@@ -78,10 +144,11 @@ input {
     height: 5vh;
     width: 100%;
     font-size: 14px;
+    border: 0.5px solid #cecdced0;
 }
 
 #pax-input {
-    width: 50%;
+    width: 33.33%;
     float: left;
 }
 
@@ -107,39 +174,71 @@ input {
     background-color: #f85a33fb;
 }
 
-#searchBtn:hover {
+/*****************************
+*BOOKING BODY
+*****************************/
+
+#booking-menu {
+    margin-bottom: 5vh;
+}
+
+.result-box {
+    background-color: #d1d1d156;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 3vh;
+    clear: both;
+}
+
+.result-box p {
+    margin: 0;
+}
+
+.fTime, .fDestination, .fTotalPrice{
+    color: #212121;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.fNum, .airline, .aircraft{
+    font-size: 10px;
+}
+
+.selectBtn {
+    margin-top: 1vh;
+    padding: 5px 15px;
+    background-color: #f86a46;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;   
+
+}
+
+.selectBtn:hover {
     background-color: #f85a33fb;
+}
+
+.selectBtn:hover {
+    background-color: #f85a33fb;
+}
+
+.hName, .hTotalPrice {
+    color: #212121;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.hDetails {
+    font-size: 10px;
 }
 
 /*****************************
 *PROFILE PAGE
 *****************************/
-.menu-row:hover {
-    background-color: #d1d1d17a;
-    cursor: pointer;
-}
 
-.menu-active{
-    background-color: #49c0f77a;
-}
-
-.menu-row a.menu-row a:active .menu-row a:hover{
-    color: #212121;
-    text-decoration: none;
-}
-
-.user-menu {
-    float: left;
-    padding: 10px 0;
-    color: #212121;
-}
-
-.user-menu h4{
-    padding-left: 10px;
-}
-
-.display {
-	display: block;
+#overview {
+    display: block;
 }
 
 .hide {
