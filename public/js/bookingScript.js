@@ -12,6 +12,9 @@
    - index.html
    - style.css
    - script.js
+
+   @Reference - Moment package - https://momentjs.com - JS package used to calculate dates 
+
 ******************************************************************************************************
 */
 
@@ -28,6 +31,7 @@ var returnInput;
 var adultsInput;
 var childInput;
 var roomInput;
+var nights; 
 var numPax;
 
 //Empty arrays to store temporary search results 
@@ -44,6 +48,7 @@ var preBookingObj = {
 //Departure flight object. Will be used to send data to server and create reservation
 var deptFlightObj = {
     bookingDate: '',
+    userId: 0,
     flightNo: '',
     deptDate: '',
     travelClass: 'Economy',
@@ -54,6 +59,7 @@ var deptFlightObj = {
 //Return flight object. Will be used to server and create reservation
 var returnFlightObj = {
     bookingDate: '',
+    userId: 0,
     flightNo: '',
     deptDate: '',
     travelClass: 'Economy',
@@ -64,11 +70,14 @@ var returnFlightObj = {
 };
 //Hotel object. Will be used to server and create reservation
 var hotelObj = {
+    bookingDate: '',
+    userId: 0,
     hotelId: '',
+    deptDate: '',
+    returnDate: '',
     nights: '',
     roomQty: 1,
-    hTotalPrice: '', 
-    bookingDate: ''
+    hTotalPrice: 0, 
 };
 
 //1.Validate the new booking inputs. Will be called when clicking search button
@@ -164,11 +173,18 @@ function newSearch(){
     //Calculate ticket quantity 
     numPax = ((parseInt(adultsInput)) + (parseInt(childInput)));
 
+    /*@Reference Start - Moment package - https://momentjs.com*/
     //Get current date - Booking date 
-    var today = new Date();
+    var date = new Date();
     //Store using the same format in mySql (YYYY-MM-dd)
-    bookingDate = `${today.getFullYear()}-${(today.getMonth()+1)}-${today.getDate()}`;
-
+    //bookingDate = `${date.getFullYear()}-${(date.getMonth()+1)}-${date.getDate()}`;
+    bookingDate = moment().year().month().date();
+    
+    //Calculate nights
+    var checkIn = moment(deptInput, 'YYYY-MM-DD')
+    var checkOut = moment(returnInput, 'YYYY-MM-DD');
+    nights = moment.duration(checkIn.diff(checkOut)).asDays();
+    /*@Reference End- Moment package - https://momentjs.com*/
 };
 
 //3. Search button function - This will run all functions (including the 2AJAX calls) in respective order when user clicks search 
@@ -206,7 +222,7 @@ function getOutbound(){
         url: 'http://localhost:4000/newbooking/outbound', //Path 
         type: 'GET', 
         dataType: 'json', //Type recieved from server
-        timeout: 200, //Gives pre-booking some time to complete
+        timeout: 100, //Gives pre-booking some time to complete
         success: function(data){ //Updates HTML with details of the flight returned by server
 
             //Renders results for outbound flights 
@@ -299,18 +315,67 @@ function getHotel(){
     });
 };
 
+//10.Select button for return flights. It takes the result ID assigned by renderFlightResult()
+//Result ID will be used to access activities in temporay Array
+function hotelBtn(resultID) {
+
+    //Get the flight selected by user using Result ID
+    var hotel = hotelResults[resultID];
+
+    //Details of the selected flight will be stored in the departure flight object to be ready for the booking creation 
+    hotelObj.bookingDate = bookingDate;
+    //User ID will be added at the end. This allows non-registered users to search 
+    hotelObj.hotelId = hotel.hotelId;
+    hotelObj.deptDate = deptInput;
+    hotelObj.returnDate = returnInput;
+    hotelObj.nights = nights;
+    hotelObj.roomQty = roomInput;
+    hotelObj.hTotalPrice = 
+    //Hide the return flight wrap(page)
+    $('#return-wrap').hide()
+
+    //Show return hotel menu and wrap(page) and add active class to menu 
+    $('.hotelRow').css('display','flex');
+    $('#hotel-wrap').show();
+    $('.returnRow').removeClass('menu-active');
+    $('.hotelRow').addClass('menu-active');
+
+    getActivity(); //AJAX call to get activities 
+
+};
+
+//11.AJAX call to get activities results  
+function getActivity(){
+    $.ajax({
+        url: 'http://localhost:4000/newbooking/activities', //Path 
+        type: 'GET', 
+        dataType: 'json', //Type recieved from server
+        success: function(data){ //Updates HTML with details of the flight returned by server
+        
+            //Renders results in HTML 
+            renderHotelResult(data, '#activity-wrap', 'activityBtn'); 
+        } 
+    });
+};
+
 
 
 /////////////////////////////////////////////////
 // RENDERING FUNCTIONS
-// Use: Renders the HTML block for the result boxes 
+// Use: To dynamically render result boxes, as the number of rows/boxes will depend on the results from server
 /////////////////////////////////////////////////
 
-/*Function to dynamically render result boxes, as the number of boxes will depend on the results from server
- *It takes 3 arguments: data from ther server, the HTML ID where the html should be rendered and the name of the  
- *the select fucntion. Only the name, ()s will be added  byt this function with the index of array as argument, 
- *to know which option was clicked, as there could be several select buttons/flights*/
+/*It takes 3 arguments: data from ther server, the HTML ID where the html should be rendered and the name of the  
+ *the select fucntion. Only the name, ()s will be added  by this function with the index of the array as argument, 
+ *to specify which option was clicked, as there could be several results per page*/
 function renderFlightResult(data, htmlID, selectBtn) {
+
+    //Clear any previous result to avoid results being printed and stored on top of each other 
+    //a.Empty return flight Array 
+    returnFlightResults = [];
+
+    //b.Clear HTML. 
+    $(htmlID).html('');
 
     //The server returns a JSON array of object with the details for each flight. Multiple flights can be returned. 
     //This loops array and creates a search box in the HTML document for each JSON object in the array 
@@ -365,10 +430,16 @@ function renderFlightResult(data, htmlID, selectBtn) {
     }
 };
 
-/*Function to dynamically render result boxes, as the number of boxes will depend on the results from server
- *It takes 3 arguments: data from ther server, the HTML ID where the html should be rendered and the function 
- for the select button as String, to avoid calling whilst being passed*/
+/*It takes 3 arguments: data from ther server, the HTML ID where the html should be rendered and the function 
+ *for the select button as String*/
 function renderHotelResult(data, htmlID, selectBtn) {
+
+    //Clear any previous result to avoid results being printed and stored on top of each other 
+    //Empty hotel results Array 
+    hotelResults = [];
+
+    //b.Clear HTML. 
+    $(htmlID).html('');
 
     //The server returns a JSON array of object with the details for each hotel.
     //This loops array and creates a search box in the HTML document for each JSON object in the array 
@@ -406,7 +477,64 @@ function renderHotelResult(data, htmlID, selectBtn) {
                 </div>
             </div>
         </div>`;
+        
+        //Add the HTML to the HTML document right after the HTML ID passed in funtion 
+        $(htmlID).append(html);
+    }
+};
 
+/*It takes 3 arguments: data from ther server, the HTML ID where the html should be rendered and the function 
+ *for the select button as String*/
+function renderActivitiesResult(data, htmlID, selectBtn) {
+
+    //Clear any previous result to avoid results being printed and stored on top of each other 
+    //Empty activity results Array 
+    activitiesResults = [];
+
+    //b.Clear HTML. 
+    $(htmlID).html('');
+
+    //The server returns a JSON array of object with the details for each hotel.
+    //This loops array and creates a search box in the HTML document for each JSON object in the array 
+    for(var i in data) { //For-in loop
+
+        //Add hotel results to Array 
+        activitiesResults.push(data[i]);
+
+        //Store values of the flight
+        var aName = data[i].activity_description;
+        var aCity = data[i].city;
+        var aCountry = data[i].country;
+        var aTicketType = data[i].ticket_type;
+        var aRate= data[i].price;
+        var ticketNum = (aTicketType == 'Per Person') ? (ticketNum = numPax) : (ticketNum = 1); //Conditional operator
+        var aTotalPrice = (ticketNum * aRate);
+
+        //Store html block required to render a result box, and assign data return from server
+        var html = `
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12 col-12">
+                <div class="result-box" id=${i}>
+                    <div class="d-flex flex-row">
+                        <div class="col-lg-8 col-md-8 col-8">
+                            <p class="hName">${aName}</p>
+                            <p class="hDetails">${aCity}. ${aCountry}</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-4 d-flex justify-content-center">
+                            <p class="fDestination">${ticketNum} x ${aRate}</p>
+                            <p class="hDetails">Ticket type: ${aTicketType}.</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-4 d-flex justify-content-end">
+                            <div class="row-fluid">
+                                <p class="hTotalPrice">€${aTotalPrice}</p>
+                                <button type="button" class="selectBtn" onclick="${selectBtn}(${i})">Select</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        
         //Add the HTML to the HTML document right after the HTML ID passed in funtion 
         $(htmlID).append(html);
     }
