@@ -29,7 +29,7 @@ Router.post('/newbooking', function (req, res) {
     //Assign data from the user to variables that will be used in mysql queries 
     destination = req.body.destination;
     city = req.body.city;
-    res.send('Data recieved MSG One!');
+    res.send('Data recieved!');
 });
 
 //GETing outbound flights for destination chosen by user 
