@@ -233,10 +233,6 @@ input {
     font-size: 10px;
 }
 
-
-
-
-
 /*****************************
 *PROFILE PAGE
 *****************************/
@@ -245,8 +241,8 @@ input {
     display: block;
 }
 
-#bookings {
-    display: none;
+.hide {
+	display: none;
 }
 
 #overview-img {
