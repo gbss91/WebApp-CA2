@@ -96,6 +96,10 @@ p {
 
 }
 
+#review-wrap {
+    display: none;
+}
+
 .deptRow { 
     display: flex;
 }
@@ -109,6 +113,10 @@ p {
 }
 
 .activityRow { 
+    display: none;
+}
+
+.reviewRow { 
     display: none;
 }
 
@@ -233,12 +241,17 @@ input {
     font-size: 10px;
 }
 
+.activityCheck input {
+    padding: 5px;
+
+}
+
 /*****************************
 *PROFILE PAGE
 *****************************/
 
-#overview {
-    display: block;
+#profile-menu {
+    margin-bottom: 5vh;
 }
 
 .hide {

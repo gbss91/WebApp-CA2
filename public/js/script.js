@@ -294,7 +294,7 @@ var activityBookingTwoCurrency;
 var activityBookingTwoBookingStatus;
 
 //get user ID & display on page
-$('#aOverview').click(function() {
+$('document').ready(function() {
     $.ajax({
         url: 'http://83.212.127.26/user', //Path 
         type: 'POST', 

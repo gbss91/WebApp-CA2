@@ -91,14 +91,14 @@
                                         <!--Start of @Referece https://www.geeksforgeeks.org/how-to-set-placeholder-value-for-input-type-date-in-html-5/ - Changes text type to date.
                                         This allows to have a placeholder when there is no date selected. We modified the code to also placeholder dd/MM/YYYY for browsers not
                                          supporting datapicker (IE and Safari)-->
-                                        <input type="text" placeholder="Departure" id="dept-date" onfocus="(this.type='date', this.placeholder='dd/MM/YYYY')">  
+                                        <input type="text" placeholder="Departure" id="dept-date" onfocus="(this.type='date', this.placeholder='YYYY/MM/dd')">  
                                         <!--End of @Referece https://www.geeksforgeeks.org/how-to-set-placeholder-value-for-input-type-date-in-html-5/ -->
                                     </div>
                                     <div id="date-input">
                                         <!--Start of @Referece https://www.geeksforgeeks.org/how-to-set-placeholder-value-for-input-type-date-in-html-5/ - Changes text type to date.
                                         This allows to have a placeholder when there is no date selected. We modified the code to add placeholder dd/MM/YYYY for browsers not
                                          supporting datapicker (IE and Safari)-->
-                                        <input type="text" placeholder="Return" id="return-date" onfocus="(this.type='date', this.placeholder='dd/MM/YYYY')">  
+                                        <input type="text" placeholder="Return" id="return-date" onfocus="(this.type='date', this.placeholder='YYYY/MM/dd')">  
                                         <!--End of @Referece https://www.geeksforgeeks.org/how-to-set-placeholder-value-for-input-type-date-in-html-5/ -->
                                     </div>
                                 </div>
@@ -170,11 +170,11 @@
                             </span>
                         </div>
                         <!--Activities-->
-                        <div class="row menu-row activityRow">
-                            <span id="aActivity"> 
+                        <div class="row menu-row reviewRow">
+                            <span id="aReview"> 
                                 <div class="container">
-                                    <ion-icon name="ticket-outline" class="user-menu"></ion-icon>
-                                    <div class="user-menu"><h4>4. Review</h4></div>
+                                    <ion-icon name="checkmark-outline" class="user-menu"></ion-icon>
+                                    <div class="user-menu"><h4>5. Review Total</h4></div>
                                 </div>
                             </span>
                         </div>
@@ -195,11 +195,78 @@
                         <!--The result boxes will be added dynamically with JavaScript according to the result from server-->
                     </div>
 
-                    <!--Main content for hotel results -->
+                    <!--Main content for activity results -->
                     <div class="col-lg-6 col-md-7 col-12" id="activity-wrap">
                         <!--The result boxes will be added dynamically with JavaScript according to the result from server-->
                     </div>
-                    
+
+                    <!--Review content -->
+                    <div class="col-lg-6 col-md-7 col-12" id="review-wrap">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="result-box" id="flights"> 
+                                    <div class="d-flex flex-row">
+                                        <!--Name-->
+                                        <div class="col-lg-8 col-md-8 col-8">
+                                            <p class="fTime">Flights</p>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-4 d-flex justify-content-end">
+                                            <div class="row-fluid">
+                                                <p class="fTotalPrice"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="result-box" id="hotel">
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-8 col-md-8 col-8">
+                                            <p class="hName"></p>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-4 d-flex justify-content-end">
+                                            <div class="row-fluid">
+                                                <p class="hTotalPrice"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="result-box" id="activity">
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-8 col-md-8 col-8">
+                                            <p class="hName">Activities</p>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-4 d-flex justify-content-end">
+                                            <div class="row-fluid">
+                                                <p class="hTotalPrice" id="aTotal"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 col-12 d-flex justify-content-end">
+                                <p class="hTotalPrice" id="bookingTotal"></p>
+                            </div>
+                        </div>`
+
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 col-12 d-flex justify-content-end">
+                                <button type="button" class="selectBtn" onclick="finishBtn()">Confirm Booking</button>
+                            </div>
+                        </div>`
+                    </div>
+
                 </div>
             </div>
             <!-- APP MAIN CONTENT END -->

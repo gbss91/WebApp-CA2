@@ -20,12 +20,12 @@
 
 /////////////////////////////////////////////////
 // NEW BOOKING PROCESS 
-// Use: Allows user to search for the flights, hotel and activities, and creates the booking
+// Use: Allows users to search for the flights, hotel and activities, and creates the booking
 /////////////////////////////////////////////////
 
 //Global variables  
 var bookingDate;
-var destInput;
+var destinationInput;
 var deptInput;
 var returnInput;
 var adultsInput;
@@ -33,43 +33,32 @@ var childInput;
 var roomInput;
 var nights; 
 var numPax;
+var aticketNum;
+var aTotalPrice;
+var deptFlight;
+var returnFlight;
+var hotel;
+var aTotal;
 
-//Empty arrays to store temporary search results 
+
+
+//Empty arrays to store search results returned by server. Each result can contain several JSON objects 
 var deptFlightResults = [];
 var returnFlightResults = [];
 var hotelResults = [];
 var activitiesResults = [];
 
-//Object with prebooking information. Will be used to send data in AJAX call
+//Object with pre-booking information. Used to send pre-booking details to server 
 var preBookingObj = {
     destination: '',
     city: ''
 };
-//Departure flight object. Will be used to send data to server and create reservation
-var deptFlightObj = {
-    bookingDate: '',
-    userId: 0,
-    flightNo: '',
-    deptDate: '',
-    travelClass: 'Economy',
-    fTicketQty: 0,
-    fTicketPrice: 0,
-    journey: 'Departure'
-};
-//Return flight object. Will be used to server and create reservation
-var returnFlightObj = {
-    bookingDate: '',
-    userId: 0,
-    flightNo: '',
-    deptDate: '',
-    travelClass: 'Economy',
-    fTicketQty: 0,
-    fTicketPrice: 0,
-    journey: 'Return'
-    
-};
-//Hotel object. Will be used to server and create reservation
-var hotelObj = {
+
+//Flights Array. Used to store departure[0] and return[1] flight objects, send them to the server, and create the final booking
+var flights = [];
+
+//Hotel object. Used to send data to server and create final hotel booking 
+var hotel = {
     bookingDate: '',
     userId: 0,
     hotelId: '',
@@ -80,17 +69,20 @@ var hotelObj = {
     hTotalPrice: 0, 
 };
 
+//Activity Array. Used to store activities selected by user and create final reservation 
+var activities = [];
+
 //1.Validate the new booking inputs. Will be called when clicking search button
 function preBookingValidation(){
     //Assing input to variables 
-    destInput = $('#destination').val();
+    destinationInput = $('#destination').val();
     deptInput = $('#dept-date').val();
     returnInput = $('#return-date').val();
     adultsInput = $('#pax-adult').val();
     childInput = $('#pax-child').val();
     roomInput = $('#rooms').val();
     //Validate destination
-    if(destInput === '' || destInput === null){
+    if(destinationInput === '' || destinationInput === null){
         alert('Please enter destination');
         return false;
     }
@@ -122,50 +114,50 @@ function preBookingValidation(){
     return true;
 };
 
-//2.Assign values to preBooking object with the inputs from the search box. Will be called when clicking search button
+//2.Assign values to pre-booking object with the inputs from the search box. Will be called when clicking search button
 function newSearch(){
     //Assing destination and city  to prebooking object 
-    if(destInput.includes('Prague')){
+    if(destinationInput.includes('Prague')){
         preBookingObj.destination = 'PRG';
         preBookingObj.city = 'Prague';
     } 
-    else if(destInput.includes('Copenhagen')){
+    else if(destinationInput.includes('Copenhagen')){
         preBookingObj.destination = 'CPH';
         preBookingObj.city = 'Copenhagen';
     }
-    else if(destInput.includes('Paris')){
+    else if(destinationInput.includes('Paris')){
         preBookingObj.destination = 'CDG';
         preBookingObj.city = 'Paris';
     }
-    else if(destInput.includes('Berlin')){
+    else if(destinationInput.includes('Berlin')){
         preBookingObj.destination = 'BER';
         preBookingObj.city = 'Berlin';
     }
-    else if(destInput.includes('Budapest')){
+    else if(destinationInput.includes('Budapest')){
         preBookingObj.destination = 'BUD';
         preBookingObj.city = 'Budapest';
     }
-    else if(destInput.includes('Rome')){
+    else if(destinationInput.includes('Rome')){
         preBookingObj.destination = 'FCO';
         preBookingObj.city = 'Rome';
     }
-    else if(destInput.includes('Valletta')){
+    else if(destinationInput.includes('Valletta')){
         preBookingObj.destination = 'MLA';
         preBookingObj.city = 'Valletta';
     }
-    else if(destInput.includes('Amsterdam')){
+    else if(destinationInput.includes('Amsterdam')){
         preBookingObj.destination = 'AMS';
         preBookingObj.city = 'Amsterdam';
     }
-    else if(destInput.includes('Lisbon')){
+    else if(destinationInput.includes('Lisbon')){
         preBookingObj.destination = 'LIS';
         preBookingObj.city = 'Lisbon';
     }
-    else if(destInput.includes('Barcelona')){
+    else if(destinationInput.includes('Barcelona')){
         preBookingObj.destination = 'BCN';
         preBookingObj.city = 'Barcelona';
     }
-    else if(destInput.includes('London')){
+    else if(destinationInput.includes('London')){
         preBookingObj.destination = 'STN';
         preBookingObj.city = 'London';
     }
@@ -173,21 +165,19 @@ function newSearch(){
     //Calculate ticket quantity 
     numPax = ((parseInt(adultsInput)) + (parseInt(childInput)));
 
-    /*@Reference Start - Moment package - https://momentjs.com*/
     //Get current date - Booking date 
     var date = new Date();
     //Store using the same format in mySql (YYYY-MM-dd)
-    //bookingDate = `${date.getFullYear()}-${(date.getMonth()+1)}-${date.getDate()}`;
-    bookingDate = moment().year().month().date();
-    
-    //Calculate nights
+    bookingDate = `${date.getFullYear()}-${(date.getMonth()+1)}-${date.getDate()}`;
+
+    /*@Reference Start - Moment package - https://momentjs.com*/
     var checkIn = moment(deptInput, 'YYYY-MM-DD')
     var checkOut = moment(returnInput, 'YYYY-MM-DD');
-    nights = moment.duration(checkIn.diff(checkOut)).asDays();
+    nights = moment.duration(checkOut.diff(checkIn)).asDays(); //Calculate nights
     /*@Reference End- Moment package - https://momentjs.com*/
 };
 
-//3. Search button function - This will run all functions (including the 2AJAX calls) in respective order when user clicks search 
+//3. Search button function - This will run all functions in respective order when user clicks search 
 function startSearchBtn(){
     //Only runs if validation is successful (returns true)
     if(preBookingValidation()){
@@ -222,7 +212,7 @@ function getOutbound(){
         url: 'http://localhost:4000/newbooking/outbound', //Path 
         type: 'GET', 
         dataType: 'json', //Type recieved from server
-        timeout: 100, //Gives pre-booking some time to complete
+        //timeout: 1000, //Gives pre-booking some time to complete
         success: function(data){ //Updates HTML with details of the flight returned by server
 
             //Renders results for outbound flights 
@@ -232,18 +222,24 @@ function getOutbound(){
 };
 
 //6.Select button for departure flights. It takes the result ID assigned by renderFlightResult()
-//Result ID will be used to access flight in temporay Array
+//Result ID will be used to access flight in results Array
 function deptBtn(resultID) {
     //Get the flight selected by user using Result ID
-    var flight = deptFlightResults[resultID];
+    deptFlight = deptFlightResults[resultID];
 
-    //Details of the selected flight will be stored in the departure flight object to be ready for the booking creation 
-    deptFlightObj.bookingDate = bookingDate;
-    //User ID will be added at the end. This allows non-registered users to search 
-    deptFlightObj.flightNo = flight.flight_no; 
-    deptFlightObj.deptDate = deptInput
-    deptFlightObj.fTicketQty = numPax;
-    deptFlightObj.fTicketPrice = flight.flight_no;
+    //Details of the selected flight will be stored in a temporary object 
+    var tempObj = new Object();
+    tempObj.bookingDate = bookingDate;
+    tempObj.userId = '101'; //User ID will be added at the end. This allows non-registered users to search 
+    tempObj.flightNo = deptFlight.flight_no; 
+    tempObj.deptDate = deptInput;
+    tempObj.travelClass = 'Economy';
+    tempObj.fTicketQty = numPax;
+    tempObj.fTicketPrice = deptFlight.ticket_price;
+    tempObj.journey = 'Departure';
+
+    //Delete object in index 0 (in case there was already a departure flight selected) and add temporay object 
+    flights.splice(0, 1, tempObj);
 
     //Hide the departure flight wrap(page)
     $('#dept-wrap').hide()
@@ -273,19 +269,25 @@ function getInbound(){
 };
 
 //8.Select button for return flights. It takes the result ID assigned by renderFlightResult()
-//Result ID will be used to access flight in temporay Array
+//Result ID will be used to access flight in results Array
 function returnBtn(resultID) {
 
     //Get the flight selected by user using Result ID
-    var flight = returnFlightResults[resultID];
+    returnFlight = returnFlightResults[resultID];
 
-    //Details of the selected flight will be stored in the departure flight object to be ready for the booking creation 
-    returnFlightObj.bookingDate = bookingDate;
-    //User ID will be added at the end. This allows non-registered users to search 
-    returnFlightObj.flightNo = flight.flight_no; 
-    returnFlightObj.deptDate = deptInput
-    returnFlightObj.fTicketQty = numPax;
-    returnFlightObj.fTicketPrice = flight.flight_no;
+    //Details of the selected flight will be stored in a temporary object 
+    var tempObj = new Object();
+    tempObj.bookingDate = bookingDate;
+    tempObj.userId = '101'; //User ID will be added at the end. This allows non-registered users to search 
+    tempObj.flightNo = returnFlight.flight_no; 
+    tempObj.deptDate = deptInput;
+    tempObj.travelClass = 'Economy';
+    tempObj.fTicketQty = numPax;
+    tempObj.fTicketPrice = returnFlight.ticket_price;
+    tempObj.journey = 'Return';
+
+    //Delete object in index 1 (in case there was already a return flight selected) and add temporay object 
+    flights.splice(1, 1, tempObj);
 
     //Hide the return flight wrap(page)
     $('#return-wrap').hide()
@@ -296,9 +298,7 @@ function returnBtn(resultID) {
     $('.returnRow').removeClass('menu-active');
     $('.hotelRow').addClass('menu-active');
 
-
     getHotel(); //AJAX call to get hotels 
-
 };
 
 //9.AJAX call to get hotel results  
@@ -320,25 +320,26 @@ function getHotel(){
 function hotelBtn(resultID) {
 
     //Get the flight selected by user using Result ID
-    var hotel = hotelResults[resultID];
+    hotel = hotelResults[resultID];
 
     //Details of the selected flight will be stored in the departure flight object to be ready for the booking creation 
-    hotelObj.bookingDate = bookingDate;
-    //User ID will be added at the end. This allows non-registered users to search 
-    hotelObj.hotelId = hotel.hotelId;
-    hotelObj.deptDate = deptInput;
-    hotelObj.returnDate = returnInput;
-    hotelObj.nights = nights;
-    hotelObj.roomQty = roomInput;
-    hotelObj.hTotalPrice = 
-    //Hide the return flight wrap(page)
-    $('#return-wrap').hide()
+    this.hotel.bookingDate = bookingDate;
+    this.hotel.userId = '101';
+    this.hotel.hotelId = hotel.hotel_id;
+    this.hotel.deptDate = deptInput;
+    this.hotel.returnDate = returnInput;
+    this.hotel.nights = nights;
+    this.hotel.roomQty = roomInput;
+    this.hotel.hTotalPrice = roomInput*(nights * (hotel.night_rate));
+    
+    //Hide hotel wrap(page)
+    $('#hotel-wrap').hide()
 
-    //Show return hotel menu and wrap(page) and add active class to menu 
-    $('.hotelRow').css('display','flex');
-    $('#hotel-wrap').show();
-    $('.returnRow').removeClass('menu-active');
-    $('.hotelRow').addClass('menu-active');
+    //Show hotel menu and wrap(page) and add active class to menu 
+    $('.activityRow').css('display','flex');
+    $('#activity-wrap').show();
+    $('.hotelRow').removeClass('menu-active');
+    $('.activityRow').addClass('menu-active');
 
     getActivity(); //AJAX call to get activities 
 
@@ -353,11 +354,125 @@ function getActivity(){
         success: function(data){ //Updates HTML with details of the flight returned by server
         
             //Renders results in HTML 
-            renderHotelResult(data, '#activity-wrap', 'activityBtn'); 
+            renderActivitiesResult(data, '#activity-wrap', 'activityBtn'); 
         } 
     });
 };
 
+//12.Complete resertion and review it 
+function completeBtn() {
+
+    //Clear any previous selection when user changes selection to avoid results being added on top of each other 
+    //Empty activity results Array 
+    activities = [];
+    aTotal = 0;
+
+    //For each checked checkbox it will add data to the activities Array of objects. This is used to post final booking
+    $('input[type=checkbox]:checked').each(function (){
+
+        //Get the value of the checkbox. This matches the index in the activities results Array 
+        var index = $(this).val();
+
+        //Check if date has been entered, and only runs when date has been entered
+        var activityDate = $(`#activity-date${index}`).val(); //Use index to find correct activity date 
+
+        //Loop the activity results Array to look for the activity selected by user
+        var activity = activitiesResults[index];
+
+        //Store the data of the selected acticity into temporary object. 
+        var tempObj = new Object();
+        tempObj.bookingDate = bookingDate;
+        tempObj.activityID = activity.activity_id;
+        tempObj.activityDate = activityDate;
+        tempObj.aTickets = aticketNum;
+        tempObj.aTotalPrice = aTotalPrice;
+        tempObj.bookingStatus = (activityDate === '' || activityDate === null) ? tempObj.bookingStatus = 'Not Confirmed' : tempObj.bookingStatus = 'Confirmed';
+        tempObj.booking = null;
+        aTotal = (aTotal + aTotalPrice);
+
+        //Push temp object into activity Array 
+        activities.push(tempObj);   
+    });
+
+    //Hide activity wrap(page)
+    $('#activity-wrap').hide();
+
+    //Show review menu and wrap(page) and add active class to menu 
+    $('.reviewRow').css('display','flex');
+    $('#review-wrap').show();
+    $('.activityRow').removeClass('menu-active');
+    $('.reviewRow').addClass('menu-active');
+
+    var fTotal = ((deptFlight.ticket_price+returnFlight.ticket_price) * numPax);
+    var hTotal = (roomInput * (hotel.night_rate * nights));
+    var bookingTotal = fTotal + hTotal + aTotal;
+
+    //Print booking breakdown with total
+    $('#flights').find('.fDestination').html(`${preBookingObj.city}`);
+    $('#flights').find('.fTotalPrice').html(`€${fTotal}`);
+    $('#hotel').find('.hName').html(`${hotel.hotel_name}`);
+    $('#hotel').find('.hTotalPrice').html(`${hTotal}`);
+    $('#aTotal').html(`€${aTotal}`);
+    $('#bookingTotal').html(`Total: €${bookingTotal}`);
+
+};
+
+//13.Finalise Booking and send data to database 
+function finishBtn(){
+
+    //Sent flights
+    for(i in flights){
+        putFlights(flights[i]); //AJAX call post each flight in flights Array 
+    }
+
+    //Sent hotel data
+    putHotel(hotel); 
+
+    //Only sends activities if an activity has been selected 
+    if(activities.length > 0){
+        for(i in activities){
+            putActivities(activities[i]); //Sent each activity to database
+        }
+    }
+};
+
+//AJAX call to PUT flight booking  
+function putFlights(object){
+    $.ajax({
+        url: 'http://localhost:4000/newbooking/final-flight', //Path 
+        type: 'PUT', 
+        contentType: 'application/json', //Type of data sent 
+        data: JSON.stringify(object),//Data sent to the server 
+        success: function(data){ //Updates HTML with details of the flight returned by server
+            console.log(data);
+        } 
+    });
+};
+
+//AJAX call to PUT hotel booking  
+function putHotel(object){
+    $.ajax({
+        url: 'http://localhost:4000/newbooking/final-hotel', //Path 
+        type: 'PUT', 
+        contentType: 'application/json', //Type of data sent 
+        data: JSON.stringify(object),//Data sent to the server 
+        success: function(data){ //Updates HTML with details of the flight returned by server
+            console.log(data);
+        } 
+    });
+};
+//AJAX call to PUT activity booking
+function putActivities(object){
+    $.ajax({
+        url: 'http://localhost:4000/newbooking/final-activity', //Path 
+        type: 'PUT', 
+        contentType: 'application/json', //Type of data sent 
+        data: JSON.stringify(object),//Data sent to the server 
+        success: function(data){ //Updates HTML with details of the flight returned by server
+            console.log(data);
+        } 
+    });
+};
 
 
 /////////////////////////////////////////////////
@@ -435,7 +550,7 @@ function renderFlightResult(data, htmlID, selectBtn) {
 function renderHotelResult(data, htmlID, selectBtn) {
 
     //Clear any previous result to avoid results being printed and stored on top of each other 
-    //Empty hotel results Array 
+    //a.Empty hotel results Array 
     hotelResults = [];
 
     //b.Clear HTML. 
@@ -454,7 +569,7 @@ function renderHotelResult(data, htmlID, selectBtn) {
         var hCity = data[i].city;
         var hPhone = data[i].phone;
         var hRate= data[i].night_rate;
-        var hTotalPrice = (numPax * hRate);
+        var hTotalPrice = roomInput*(nights * hRate);
 
         //Store html block required to render a result box, and assign data return from server
         var html = `
@@ -462,10 +577,16 @@ function renderHotelResult(data, htmlID, selectBtn) {
             <div class="col-lg-12 col-md-12 col-12">
                 <div class="result-box" id=${i}>
                     <div class="d-flex flex-row">
-                        <div class="col-lg-8 col-md-8 col-8">
+                        <div class="col-lg-4 col-md-4 col-4">
                             <p class="hName">${hName}</p>
                             <p class="hDetails">${hAddress1}. ${hCity}</p>
                             <p class="hDetails">${hPhone}</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-4 d-flex align-items-center justify-content-center">
+                            <div class="text-center">
+                                <p class="hDetails">Rate per room </p>
+                                <p class="hDetails">€${hRate} x ${nights} nights</p>
+                            </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-4 d-flex justify-content-end">
                             <div class="row-fluid">
@@ -483,12 +604,11 @@ function renderHotelResult(data, htmlID, selectBtn) {
     }
 };
 
-/*It takes 3 arguments: data from ther server, the HTML ID where the html should be rendered and the function 
- *for the select button as String*/
-function renderActivitiesResult(data, htmlID, selectBtn) {
+/*It takes 2 arguments: data from ther server and the HTML ID where the html should be rendered*/
+function renderActivitiesResult(data, htmlID) {
 
     //Clear any previous result to avoid results being printed and stored on top of each other 
-    //Empty activity results Array 
+    //a.Empty activity results Array 
     activitiesResults = [];
 
     //b.Clear HTML. 
@@ -507,27 +627,33 @@ function renderActivitiesResult(data, htmlID, selectBtn) {
         var aCountry = data[i].country;
         var aTicketType = data[i].ticket_type;
         var aRate= data[i].price;
-        var ticketNum = (aTicketType == 'Per Person') ? (ticketNum = numPax) : (ticketNum = 1); //Conditional operator
-        var aTotalPrice = (ticketNum * aRate);
+        aticketNum = (aTicketType === 'Per Person') ? (aticketNum = numPax) : (aticketNum = 1); //Conditional operator
+        aTotalPrice = (aticketNum * aRate);
 
         //Store html block required to render a result box, and assign data return from server
+        //Array index number is assigned to several id's to help identify each result 
         var html = `
         <div class="row align-items-center">
             <div class="col-lg-12 col-md-12 col-12">
                 <div class="result-box" id=${i}>
                     <div class="d-flex flex-row">
-                        <div class="col-lg-8 col-md-8 col-8">
+                        <div class="col-lg-4 col-md-4 col-4">
                             <p class="hName">${aName}</p>
                             <p class="hDetails">${aCity}. ${aCountry}</p>
+                            <div id="date-input"> <!-- Activity date -->
+                                <input type="date" placeholder="Date" id="activity-date${i}")"> 
+                            </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-4 d-flex justify-content-center">
-                            <p class="fDestination">${ticketNum} x ${aRate}</p>
-                            <p class="hDetails">Ticket type: ${aTicketType}.</p>
+                        <div class="col-lg-4 col-md-4 col-4 d-flex align-items-center justify-content-center">
+                            <div class="text-center">
+                                <p class="fDestination">${aticketNum} x ${aRate}</p>
+                                <p class="hDetails">Ticket type: ${aTicketType}.</p>
+                            </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-4 d-flex justify-content-end">
                             <div class="row-fluid">
                                 <p class="hTotalPrice">€${aTotalPrice}</p>
-                                <button type="button" class="selectBtn" onclick="${selectBtn}(${i})">Select</button>
+                                <input type="checkbox" class="activityCheck" value="${i}">
                             </div>
                         </div>
                     </div>
@@ -538,8 +664,16 @@ function renderActivitiesResult(data, htmlID, selectBtn) {
         //Add the HTML to the HTML document right after the HTML ID passed in funtion 
         $(htmlID).append(html);
     }
-};
 
+    //Add submit button 
+    $(htmlID).append(`
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12 col-12 d-flex justify-content-end">
+                <button type="button" class="selectBtn" onclick="completeBtn()">Complete</button>
+            </div>
+        </div>`
+    );
+};
 
 
 /////////////////////////////////////////////////
@@ -551,10 +685,11 @@ function renderActivitiesResult(data, htmlID, selectBtn) {
 $('#aDeptFlight').click(function(){
     $('.returnRow').removeClass('menu-active');
     $('.hotelRow').removeClass('menu-active');
-    //$('.activityRow').removeClass('menu-active');
-    $('#return-wrap').hide()
-    $('#hotel-wrap').hide()
-    //$('#activity-wrap').hide()
+    $('.activityRow').removeClass('menu-active');
+    $('#return-wrap').hide();
+    $('#hotel-wrap').hide();
+    $('#activity-wrap').hide();
+    $('#review-wrap').hide();
     $('.deptRow').addClass('menu-active');
     $('#dept-wrap').show();
 });
@@ -563,10 +698,12 @@ $('#aDeptFlight').click(function(){
 $('#aReturnFlight').click(function(){
     $('.deptRow').removeClass('menu-active');
     $('.hotelRow').removeClass('menu-active');
-    //$('.activityRow').removeClass('menu-active');
-    $('#dept-wrap').hide()
-    $('#hotel-wrap').hide()
-    //$('#activity-wrap').hide()
+    $('.activityRow').removeClass('menu-active');
+    $('.reviewRow').removeClass('menu-active');
+    $('#dept-wrap').hide();
+    $('#hotel-wrap').hide();
+    $('#activity-wrap').hide();
+    $('#review-wrap').hide();
     $('.returnRow').addClass('menu-active');
     $('#return-wrap').show();
 });
@@ -575,10 +712,12 @@ $('#aReturnFlight').click(function(){
 $('#aHotel').click(function(){
     $('.deptRow').removeClass('menu-active');
     $('.returnRow').removeClass('menu-active');
-    //$('.activityRow').removeClass('menu-active');
-    $('#dept-wrap').hide()
-    $('#return-wrap').hide()
-    //$('#activity-wrap').hide()
+    $('.activityRow').removeClass('menu-active');
+    $('.reviewRow').removeClass('menu-active');
+    $('#dept-wrap').hide();
+    $('#return-wrap').hide();
+    $('#activity-wrap').hide();
+    $('#review-wrap').hide();
     $('.hotelRow').addClass('menu-active');
     $('#hotel-wrap').show();
 });
@@ -588,11 +727,27 @@ $('#aActivity').click(function(){
     $('.deptRow').removeClass('menu-active');
     $('.returnRow').removeClass('menu-active');
     $('.hotelRow').removeClass('menu-active');
-    $('#dept-wrap').hide()
-    $('#return-wrap').hide()
-    $('#hotel-wrap').hide()
+    $('.reviewRow').removeClass('menu-active');
+    $('#dept-wrap').hide();
+    $('#return-wrap').hide();
+    $('#hotel-wrap').hide();
+    $('#review-wrap').hide();
     $('.activityRow').addClass('menu-active');
     $('#activity-wrap').show();
+});
+
+//Review tab - Shows review and hides everything else 
+$('#aReview').click(function(){
+    $('.deptRow').removeClass('menu-active');
+    $('.returnRow').removeClass('menu-active');
+    $('.hotelRow').removeClass('menu-active');
+    $('.activityRow').removeClass('menu-active');
+    $('#dept-wrap').hide();
+    $('#return-wrap').hide();
+    $('#hotel-wrap').hide();
+    $('#activity-wrap').hide();
+    $('.aReview').addClass('menu-active');
+    $('#review-wrap').show();
 });
 
 
