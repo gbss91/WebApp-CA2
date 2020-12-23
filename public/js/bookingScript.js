@@ -206,7 +206,7 @@ function startSearchBtn(){
 //4.AJAX call to post pre-booking details to server. Will be called when clicking search button
 function postPreBooking(){
     $.ajax({
-        url: 'http://localhost:4000/newbooking', //Path 
+        url: 'http://83.212.127.26/newbooking', //Path 
         type: 'POST', 
         data: JSON.stringify(preBookingObj), //Convert pre-booking object to JSON
         contentType: 'application/json', //Type of data sent to the server 
@@ -219,7 +219,7 @@ function postPreBooking(){
 //5. AJAX call to get outbound flights. Will be called when clicking search button 
 function getOutbound(){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/outbound', //Path 
+        url: 'http://83.212.127.26/newbooking/outbound', //Path 
         type: 'GET', 
         dataType: 'json', //Type recieved from server
         //timeout: 1000, //Gives pre-booking some time to complete
@@ -265,7 +265,7 @@ function deptBtn(resultID) {
 //7. AJAX call to get inbound flights. Will be called when selecting flight. 
 function getInbound(){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/inbound', //Path 
+        url: 'http://83.212.127.26/newbooking/inbound', //Path 
         type: 'GET', 
         dataType: 'json', //Type recieved from server
         success: function(data){ //Updates HTML with details of the flight returned by server
@@ -310,7 +310,7 @@ function returnBtn(resultID) {
 //9.AJAX call to get hotel results  
 function getHotel(){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/hotels', //Path 
+        url: 'http://83.212.127.26/newbooking/hotels', //Path 
         type: 'GET', 
         dataType: 'json', //Type recieved from server
         success: function(data){ //Updates HTML with details of the flight returned by server
@@ -352,7 +352,7 @@ function hotelBtn(resultID) {
 //11.AJAX call to get activities results  
 function getActivity(){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/activities', //Path 
+        url: 'http://83.212.127.26/newbooking/activities', //Path 
         type: 'GET', 
         dataType: 'json', //Type recieved from server
         success: function(data){ //Updates HTML with details of the flight returned by server
@@ -476,7 +476,7 @@ function addFinal() {
 //AJAX call to PUT flight booking  
 function putFlights(object){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/final-flight', //Path 
+        url: 'http://83.212.127.26/newbooking/final-flight', //Path 
         type: 'PUT', 
         contentType: 'application/json', //Type of data sent 
         data: JSON.stringify(object),//Data sent to the server 
@@ -489,7 +489,7 @@ function putFlights(object){
 //AJAX call to PUT hotel booking  
 function putHotel(object){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/final-hotel', //Path 
+        url: 'http://83.212.127.26/newbooking/final-hotel', //Path 
         type: 'PUT', 
         contentType: 'application/json', //Type of data sent 
         data: JSON.stringify(object),//Data sent to the server 
@@ -501,7 +501,7 @@ function putHotel(object){
 //AJAX call to PUT activity booking
 function putActivities(object){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/final-activity', //Path 
+        url: 'http://83.212.127.26/newbooking/final-activity', //Path 
         type: 'PUT', 
         contentType: 'application/json', //Type of data sent 
         data: JSON.stringify(object),//Data sent to the server 
@@ -514,7 +514,7 @@ function putActivities(object){
 //AJAX get departure flight booking reference for final booking  
 function flightReference(object){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/flightReference', //Path 
+        url: 'http://83.212.127.26/newbooking/flightReference', //Path 
         type: 'POST', 
         contentType: 'application/json', //Type of data sent 
         dataType: 'json', //Type recieved from server
@@ -528,7 +528,7 @@ function flightReference(object){
 //AJAX get hotel booking reference for final booking  
 function hotelReference(object){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/hotelReference', //Path 
+        url: 'http://83.212.127.26/newbooking/hotelReference', //Path 
         type: 'POST',
         contentType: 'application/json', //Type of data sent 
         dataType: 'json', //Type recieved from server
@@ -542,7 +542,7 @@ function hotelReference(object){
 //AJAX get activity booking reference for final booking  
 function activityReference(object){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/activityReference', //Path 
+        url: 'http://83.212.127.26/newbooking/activityReference', //Path 
         type: 'POST', 
         contentType: 'application/json', //Type of data sent 
         dataType: 'json', //Type recieved from server
@@ -556,7 +556,7 @@ function activityReference(object){
 //AJAX call to PUT final booking
 function putBooking(object){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/final-booking', //Path 
+        url: 'http://83.212.127.26/newbooking/final-booking', //Path 
         type: 'PUT', 
         contentType: 'application/json', //Type of data sent 
         data: JSON.stringify(object),//Data sent to the server 
@@ -569,7 +569,7 @@ function putBooking(object){
 //AJAX call to GET final booking reference
 function getBooking(){
     $.ajax({
-        url: 'http://localhost:4000/newbooking/final-booking', //Path 
+        url: 'http://83.212.127.26/newbooking/final-booking', //Path 
         type: 'POST', 
         contentType: 'application/json', //Type of data sent 
         dataType: 'json', //Type recieved from server
