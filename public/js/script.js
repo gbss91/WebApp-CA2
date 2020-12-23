@@ -329,7 +329,7 @@ $('document').ready(function() {
 //get and display main booking details for user ID
 $('#aBookings').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries/fullBookingInfo',
+        url: 'http://83.212.127.26/queries/fullBookingInfo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -361,7 +361,7 @@ $('#aBookings').click(function() {
 //get and display departure flight booking details for user ID
 $('#aDeptFlightBooking').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries/deptFlightBookingInfo',
+        url: 'http://83.212.127.26/queries/deptFlightBookingInfo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -397,7 +397,7 @@ $('#aDeptFlightBooking').click(function() {
 //get and display return flight booking details for user ID
 $('#aReturnFlightBooking').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries/returnFlightBookingInfo',
+        url: 'http://83.212.127.26/queries/returnFlightBookingInfo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -433,7 +433,7 @@ $('#aReturnFlightBooking').click(function() {
 //get and display hotel booking details for user ID
 $('#aHotelBooking').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries/hotelBookingInfo',
+        url: 'http://83.212.127.26/queries/hotelBookingInfo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -469,7 +469,7 @@ $('#aHotelBooking').click(function() {
 //get and display primary activity booking details for user ID
 $('#aActivityBookingOne').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries/primaryActivityBookingInfo',
+        url: 'http://83.212.127.26/queries/primaryActivityBookingInfo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -503,7 +503,7 @@ $('#aActivityBookingOne').click(function() {
 //get and display secondary activity booking two details for user ID
 $('#aActivityBookingTwo').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries/secondaryActivityBookingInfo',
+        url: 'http://83.212.127.26/queries/secondaryActivityBookingInfo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -538,7 +538,7 @@ $('#aActivityBookingTwo').click(function() {
 $('#deleteBooking').click(function() {
 	//delete the booking reference from the user table
     $.ajax({
-        url: 'http://localhost:4000/queries/deleteBookingOne',
+        url: 'http://83.212.127.26/queries/deleteBookingOne',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -548,7 +548,7 @@ $('#deleteBooking').click(function() {
     });
 	//delete booking record by user id
     $.ajax({
-        url: 'http://localhost:4000/queries/deleteBookingTwo',
+        url: 'http://83.212.127.26/queries/deleteBookingTwo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -562,7 +562,7 @@ $('#deleteBooking').click(function() {
 $('#deleteHotelBooking').click(function() {
 	//delete the hotel booking reference from the bookings table
     $.ajax({
-        url: 'http://localhost:4000/queries/deleteHotelBookingOne',
+        url: 'http://83.212.127.26/queries/deleteHotelBookingOne',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -572,7 +572,7 @@ $('#deleteHotelBooking').click(function() {
     });
 	//delete the hotel booking by user id
     $.ajax({
-        url: 'http://localhost:4000/queries/deleteHotelBookingTwo',
+        url: 'http://83.212.127.26/queries/deleteHotelBookingTwo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -586,7 +586,7 @@ $('#deleteHotelBooking').click(function() {
 $('#deleteDeptFlightBooking').click(function() {
 	//delete the dept flight booking reference from the bookings table
     $.ajax({
-        url: 'http://localhost:4000/queries/deleteDeptFlightBookingOne',
+        url: 'http://83.212.127.26/queries/deleteDeptFlightBookingOne',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -596,7 +596,7 @@ $('#deleteDeptFlightBooking').click(function() {
     });
 	//delete the dept flight booking by user id
     $.ajax({
-        url: 'http://localhost:4000/queries/deleteDeptFlightBookingTwo',
+        url: 'http://83.212.127.26/queries/deleteDeptFlightBookingTwo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -610,7 +610,7 @@ $('#deleteDeptFlightBooking').click(function() {
 $('#deleteReturnFlightBooking').click(function() {
 	//delete the return flight booking reference from the bookings table
     $.ajax({
-        url: 'http://localhost:4000/queries/deleteReturnFlightBookingOne',
+        url: 'http://83.212.127.26/queries/deleteReturnFlightBookingOne',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -620,7 +620,7 @@ $('#deleteReturnFlightBooking').click(function() {
     });
 	//delete the return flight booking by user id
     $.ajax({
-        url: 'http://localhost:4000/queries/deleteReturnFlightBookingTwo',
+        url: 'http://83.212.127.26/queries/deleteReturnFlightBookingTwo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -634,7 +634,7 @@ $('#deleteReturnFlightBooking').click(function() {
 $('#deleteActivityOneBooking').click(function() {
 	//delete the primary activity booking reference from the bookings table
     $.ajax({
-        url: 'http://localhost:4000/queries/deletePrimaryActivityBookingOne',
+        url: 'http://83.212.127.26/queries/deletePrimaryActivityBookingOne',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -644,7 +644,7 @@ $('#deleteActivityOneBooking').click(function() {
     });
 	//delete the primary activity booking by user id
     $.ajax({
-        url: 'http://localhost:4000/queries/deletePrimaryActivityBookingTwo',
+        url: 'http://83.212.127.26/queries/deletePrimaryActivityBookingTwo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -657,7 +657,7 @@ $('#deleteActivityOneBooking').click(function() {
 //delete secondary activity booking by user id
 $('#deleteActivityTwoBooking').click(function() {
     $.ajax({
-        url: 'http://localhost:4000/queries/deleteSecondaryActivityBookingOne',
+        url: 'http://83.212.127.26/queries/deleteSecondaryActivityBookingOne',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {
@@ -667,7 +667,7 @@ $('#deleteActivityTwoBooking').click(function() {
     });
 	//delete the secondary activity booking by user id
     $.ajax({
-        url: 'http://localhost:4000/queries/deleteSecondaryActivityBookingTwo',
+        url: 'http://83.212.127.26/queries/deleteSecondaryActivityBookingTwo',
         type: 'POST',
         //dataType: 'json', //Type of data recieved - Response from server is json 
         success: function (data) {

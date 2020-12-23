@@ -420,30 +420,21 @@ function completeBtn() {
 
 };
 
-//13.Finalise Booking and send data to database 
+//13. Finalise booking - Create all bookings and get booking reference numbers 
 function finishBtn(){
 
     referenceResult = []; //Clear reference from previous results 
 
-    //Create bookings and request booking reference when done 
+    //Create all bookings first (activities is set as callback for hotel booking) 
     $.when(putFlights(flights[0]), putFlights(flights[1]), putHotel(hotel)).done(function(){
-
-        if(activities.length > 0){
-            for(i in activities){
-                putActivities(activities[i]); //Sent each activity to database
-            }
-        }
-
-        //Get booking references 
+        
+        //Once all bookings have been created, get booking reference numbers for those bookings 
         flightReference(flights[0]);
         flightReference(flights[1]);
         hotelReference(hotel);
-        if(activities.length > 0){
-            for(i in activities){
-                activityReference(activities[i]); 
-            }
-        }
-        setTimeout(addFinal, 200);
+        
+        //Add booking references to the final booking object, and create final booking 
+        setTimeout(addFinal, 500); //Timeout to complete previous calls
 
         //Hide activity wrap(page)
         $('#review-wrap').hide();
@@ -468,9 +459,8 @@ function addFinal() {
         }
     }
     //Creates final booking
-    setTimeout(putBooking(finalBooking), 200);
-    //Get final booking reference and print it 
-    getBooking(); 
+    setTimeout(putBooking(finalBooking), 100);
+    
 };
 
 //AJAX call to PUT flight booking  
@@ -486,7 +476,7 @@ function putFlights(object){
     });
 };
 
-//AJAX call to PUT hotel booking  
+//AJAX call to PUT hotel booking and activities once it has finished
 function putHotel(object){
     $.ajax({
         url: 'http://83.212.127.26/newbooking/final-hotel', //Path 
@@ -495,6 +485,13 @@ function putHotel(object){
         data: JSON.stringify(object),//Data sent to the server 
         success: function(data){ 
             console.log(data);
+
+            if(activities.length > 0){
+                for(i in activities){
+                    putActivities(activities[i]); //Sent each activity to database
+                }
+            }
+
         } 
     });
 };
@@ -535,6 +532,12 @@ function hotelReference(object){
         data: JSON.stringify(object),//Data sent to the server 
         success: function(data){ 
             referenceResult.push(data[0].hotel_booking_ref);
+
+            if(activities.length > 0){
+                for(i in activities){
+                    activityReference(activities[i]); 
+                }
+            }
         } 
     });
 };
@@ -562,6 +565,8 @@ function putBooking(object){
         data: JSON.stringify(object),//Data sent to the server 
         success: function(data){ 
             console.log(data);
+            //Get final booking reference and print it 
+            getBooking(); 
         } 
     });
 };
