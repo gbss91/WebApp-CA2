@@ -32,13 +32,17 @@ p {
     color: #3d3c3d;
 }
 
+#logo {
+    height: 10vh;
+}
+
 .menu-row:hover {
     background-color: #d1d1d17a;
     cursor: pointer;
 }
 
 .menu-active{
-    background-color: #49c0f77a;
+    background-color: #aee6e6;
 }
 
 .menu-row a .menu-row a:active .menu-row a:hover{
@@ -100,6 +104,10 @@ p {
     display: none;
 }
 
+#final-wrap {
+    display: none;
+}
+
 .deptRow { 
     display: flex;
 }
@@ -144,7 +152,7 @@ p {
 #search-box {
     margin-top: 15vh;
     padding: 15px;
-    background-color: #ff6c47;
+    background-color: #fd8e34;
     border-radius: 10px;
 }
 
@@ -171,7 +179,7 @@ input {
     margin-top: 2vh;
     margin-right: -15px;
     padding: 10px 20px;
-    background-color: #f86a46;
+    background-color: #fd8e34;
     border: none;
     border-radius: 5px;
     font-size: 16px;
@@ -191,7 +199,7 @@ input {
 }
 
 .result-box {
-    background-color: #d1d1d156;
+    background-color: #fbf6f0;
     border-radius: 5px;
     padding: 20px;
     margin-bottom: 3vh;
@@ -215,7 +223,7 @@ input {
 .selectBtn {
     margin-top: 1vh;
     padding: 5px 15px;
-    background-color: #f86a46;
+    background-color: #fd8e34;
     border: none;
     border-radius: 5px;
     font-size: 14px;
@@ -272,7 +280,7 @@ input {
 }
 
 .details-box {
-    background-color: #d1d1d156;
+    background-color: #fbf6f0;
     border-radius: 5px;
     padding: 20px;
 

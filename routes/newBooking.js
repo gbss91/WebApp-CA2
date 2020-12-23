@@ -6,7 +6,7 @@
    
    Date: 13 November 2020
 
-   Filename: booking.js
+   Filename: newBooking.js
  
 ******************************************************************************************************
 */
@@ -26,6 +26,8 @@ var Router = express.Router();
 //Variables used to store data from requests 
 var destination;
 var city;
+var userId;
+var bookingDate;
 var validResult;
 
 
@@ -35,6 +37,8 @@ Router.post('/newbooking', function (req, res) {
     //Assign data from the user to variables that will be used in mysql queries 
     destination = req.body.destination;
     city = req.body.city;
+    userId = req.body.userId;
+    bookingDate = req.body.bookingDate;
     res.send('Data recieved!');
 });
 
@@ -102,8 +106,6 @@ Router.put('/newbooking/final-flight', function(req, res) {
     if(validResult.errors.length <= 0){
         //Options chosen by user are stored in variables to be used in query 
         //var bookingRef = req.body.fBookingRef; This has been set to auto increment in mySQL
-        var bookingDate = req.body.bookingDate;
-        var userId = req.body.userId;
         var flightNo = req.body.flightNo;
         var deptDate = req.body.deptDate;
         var travelClass = req.body.travelClass;
@@ -124,7 +126,7 @@ Router.put('/newbooking/final-flight', function(req, res) {
         });
     } else {
         console.log('Invalid data');
-        res.send('Invalid data has been submited');
+        res.send('Invalid data has been submitted');
     }
 });
 
@@ -139,8 +141,6 @@ Router.put('/newbooking/final-hotel', function(req, res) {
     if(validResult.errors.length <= 0){
         //Options chosen by user are stored in variables to be used in query 
         //var bookingRef = req.body.hBookingRef; This has been set to auto increment in mySQL
-        var bookingDate = req.body.bookingDate;
-        var userId = req.body.userId;
         var hotelId = req.body.hotelId;
         var checkIn = req.body.deptDate;
         var checkOut = req.body.returnDate;
@@ -148,8 +148,6 @@ Router.put('/newbooking/final-hotel', function(req, res) {
         var rooms = req.body.roomQty;
         var totalPrice = req.body.hTotalPrice;
         var currency = 'EUR'
-
-
 
         mysqlCon.query('INSERT INTO hotel_booking (booking_date, user_id, hotel_id, check_in_date, check_out_date, no_nights, room_qty, total_price, currency) VALUES (?,?,?,?,?,?,?,?,?);', 
         [bookingDate, userId, hotelId, checkIn, checkOut, nights, rooms, totalPrice, currency], //Escaped values 
@@ -163,7 +161,7 @@ Router.put('/newbooking/final-hotel', function(req, res) {
         });
     } else {
         console.log('Invalid data');
-        res.send('Invalid data has been submited');
+        res.send('Invalid data has been submitted');
     }
 });
 
@@ -177,8 +175,6 @@ Router.put('/newbooking/final-activity', function(req, res) {
     //If resulst errors equal to 0 - Continue with the request 
     if(validResult.errors.length <= 0){
         //Options chosen by user are stored in variables to be used in query 
-        var bookingDate = req.body.bookingDate;
-        var userId = req.body.userId;
         var activityID = req.body.activityID;
         var activityDate = req.body.activityDate;
         var aTickets = req.body.aTickets;
@@ -187,8 +183,8 @@ Router.put('/newbooking/final-activity', function(req, res) {
         var bookingStatus = req.body.bookingStatus;
         var booking = req.body.booking;
 
-        mysqlCon.query('INSERT INTO activity_booking (booking_date, user_id, activity_id, activity_date, ticket_qty, total_price, currency, booking_status) VALUES (?,?,?,?,?,?,?,?);', 
-        [bookingDate, userId, activityID, activityDate, aTickets, totalPrice, currency, bookingStatus], //Escaped values 
+        mysqlCon.query('INSERT INTO activity_booking (booking_date, user_id, activity_id, activity_date, ticket_qty, total_price, currency, booking_status, booking) VALUES (?,?,?,?,?,?,?,?,?);', 
+        [bookingDate, userId, activityID, activityDate, aTickets, totalPrice, currency, bookingStatus, booking], //Escaped values 
         function(err, results){ //Callback functions for error and results
             if (!err) {
                 res.send('Data added!');
@@ -199,9 +195,109 @@ Router.put('/newbooking/final-activity', function(req, res) {
         });
     } else {
         console.log('Invalid data');
-        res.send('Invalid data has been submited');
+        res.send('Invalid data has been submitted');
     }
 });
+
+//Step 5. Get booking reference for flight, hotel and activity
+Router.post('/newbooking/flightReference', function(req, res){
+
+    var flightNo = req.body.flightNo
+
+    mysqlCon.query('SELECT booking_ref FROM flight_booking WHERE booking_date = ? and user_id = ? and flight_no = ?;', [bookingDate, userId, flightNo], //mySQL query 
+    function(err, results){ //Callback functions for error and results
+        if (!err) {
+            res.send(results);
+        } else {
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+        }
+    });
+});
+
+
+Router.post('/newbooking/hotelReference', function(req, res){
+
+    var hotelId = req.body.hotelId;
+
+    mysqlCon.query('SELECT hotel_booking_ref FROM hotel_booking WHERE booking_date = ? and user_id = ? and hotel_id = ?;', [bookingDate, userId, hotelId], //mySQL query 
+    function(err, results){ //Callback functions for error and results
+        if (!err) {
+            res.send(results);
+        } else {
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+        }
+    });
+
+
+});
+
+Router.post('/newbooking/activityReference', function(req, res){
+
+    var activityId = req.body.activityID;
+
+    mysqlCon.query('SELECT activity_booking_ref FROM activity_booking WHERE booking_date = ? and user_id = ? and activity_id = ?;', [bookingDate, userId, activityId], //mySQL query 
+    function(err, results){ //Callback functions for error and results
+        if (!err) {
+            res.send(results);
+        } else {
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+        }
+    });
+
+
+});
+
+//Step 6. Add final booking
+Router.put('/newbooking/final-booking', function(req, res) {
+
+    //Validates JSON, store result in varilavle and prints them for testing 
+    validResult = validator.validate(req.body, schema);
+    console.log(validResult);
+    
+    //If resulst errors equal to 0 - Continue with the request 
+    if(validResult.errors.length <= 0){
+        //Options chosen by user are stored in variables to be used in query 
+        var deptFlight = req.body.deptFlight;
+        var returnFlight = req.body.returnFlight;
+        var hotel = req.body.hotel;
+        var activityOne = req.body.activityOne;
+        var activityTwo = req.body.activityTwo;
+
+        mysqlCon.query('INSERT INTO bookings (user_id, destination, dept_flight_booking, return_flight_booking, hotel_booking, activity_booking_one, activity_booking_two) VALUES (?,?,?,?,?,?,?);', 
+        [userId, destination, deptFlight, returnFlight, hotel, activityOne, activityTwo], //Escaped values 
+        function(err, results){ //Callback functions for error and results
+            if (!err) {
+                res.send('Data added!');
+            } else {
+                console.log(err);
+                res.send('An error has occurred!'); //Sent error message to user 
+            }
+        });
+    } else {
+        console.log('Invalid data');
+        res.send('Invalid data has been submitted');
+    }
+});
+
+//Step 7. Get final booking reference 
+Router.post('/newbooking/final-booking', function(req, res){
+
+    var deptFlight = req.body.deptFlight;
+
+    mysqlCon.query('SELECT booking_ref FROM bookings WHERE user_id = ? and destination = ? and dept_flight_booking = ?;', [userId, destination, deptFlight], //mySQL query 
+    function(err, results){ //Callback functions for error and results
+        if (!err) {
+            res.send(results);
+        } else {
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+        }
+    });
+});
+
 
 
 module.exports = Router;

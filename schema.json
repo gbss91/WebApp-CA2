@@ -6,14 +6,6 @@
             "description" : "Used to validate flight booking sent to server",
             "type": "object",
             "properties": {
-                "bookingDate": {
-                    "type": "string",
-                    "minLength": 10
-                },
-                "userId": {
-                    "type": "number",
-                    "minimum": 1
-                },
                 "flightNo": {
                     "type": "string",
                     "maxLength": 6
@@ -37,30 +29,22 @@
                     "maxLength": 10
                 }
             },
-            "required": ["bookingDate", "userId", "flightNo", "deptDate", "travelClass", "fTicketQty", "fTicketPrice", "journey"]
+            "required": ["flightNo", "deptDate", "travelClass", "fTicketQty", "fTicketPrice", "journey"]
         }, 
         {
             "title" : "Hotel",
             "description" : "Used to validate hotel booking sent to server",
             "type": "object",
             "properties": {
-                "bookingDate": {
-                    "type": "string",
-                    "minLength": 10
-                },
-                "userId": {
-                    "type": "number",
-                    "minimum": 1
-                },
                 "hotelId": {
                     "type": "string",
                     "maxLength": 6
                 },
-                "checkIn": {
+                "deptDate": {
                     "type": "string",
                     "minLength": 10
                 },
-                "checkOut": {
+                "returnDate": {
                     "type": "string",
                     "maxLength": 10
                 },
@@ -68,43 +52,42 @@
                     "type": "number",
                     "maximum": 100
                 },
-                "rooms": {
+                "roomQty": {
                     "type": "number",
                     "maximum": 20
                 },
-                "totalPrice": {
+                "hTotalPrice:": {
                     "type": "number"
                 }
 
             },
-            "required": ["bookingDate", "userId", "hotelId", "checkIn", "checkOut", "nights", "rooms", "totalPrice"]
+            "required": ["hotelId", "deptDate", "returnDate", "nights", "roomQty", "hTotalPrice"]
         },
         {
             "title" : "Activity",
             "description" : "Used to validate activity booking sent to server",
             "type": "object",
             "properties": {
-                "bookingDate": {
-                    "type": "string",
-                    "minLength": 10
-                },
-                "userId": {
-                    "type": "number",
-                    "minimum": 1
-                },
                 "activityID": {
                     "type": "string",
                     "maxLength": 10
                 },
                 "activityDate": {
-                    "type": "string",
-                    "minLength": 10
+                    "anyOf": [
+                        { 
+                            "type": "string",
+                            "maxLength": 10
+                        },
+                        { 
+                            "type": "null" 
+                        }
+                      ]
                 },
                 "aTickets": {
                     "type": "number",
-                    "minimum": 100
+                    "maximum": 100
                 },
-                "totalPrice": {
+                "aTotalPrice": {
                     "type": "number"
                 },
                 "bookingStatus": {
@@ -114,7 +97,47 @@
                     "type": "string"
                 }
             },
-            "required": ["bookingDate", "userId", "activityID", "aTickets", "totalPrice", "booking"]
+            "required": ["activityID", "aTickets", "aTotalPrice", "booking"]
+        },
+        {
+            "title" : "Booking",
+            "description" : "Used to validate final booking sent to server",
+            "type": "object",
+            "properties": {
+                "deptFlight": {
+                    "type": "number",
+                    "minimum": 1
+                },
+                "returnFlight": {
+                    "type": "number",
+                    "minimum": 1
+                },
+                "hotel": {
+                    "type": "number",
+                    "minimum": 1
+                },
+                "activityOne": {
+                    "anyOf": [
+                        { 
+                            "type": "number"
+                        },
+                        { 
+                            "type": "null" 
+                        }
+                      ]
+                },
+                "activityTwo": {
+                    "anyOf": [
+                        { 
+                            "type": "number"
+                        },
+                        { 
+                            "type": "null" 
+                        }
+                      ]
+                }
+            },
+            "required": ["deptFlight", "returnFlight", "hotel"]
         }
 
     ]

@@ -6,11 +6,10 @@
    
    Date: 10 November 2020
 
-   Filename: newBooking.js
+   Filename: bookingScript.js
 
    Supporting Files: 
    - index.html
-   - style.css
    - script.js
 
    @Reference - Moment package - https://momentjs.com - JS package used to calculate dates 
@@ -37,21 +36,23 @@ var aticketNum;
 var aTotalPrice;
 var deptFlight;
 var returnFlight;
-var hotel;
+var hotelOption;
 var aTotal;
-
-
 
 //Empty arrays to store search results returned by server. Each result can contain several JSON objects 
 var deptFlightResults = [];
 var returnFlightResults = [];
 var hotelResults = [];
 var activitiesResults = [];
+var referenceResult = []; //Store booking references 
 
-//Object with pre-booking information. Used to send pre-booking details to server 
+//Object with pre-booking information. Used to send pre-booking details to server, Details shared by all reservations
 var preBookingObj = {
     destination: '',
-    city: ''
+    city: '',
+    userId: 105,
+    bookingDate: ''
+
 };
 
 //Flights Array. Used to store departure[0] and return[1] flight objects, send them to the server, and create the final booking
@@ -59,18 +60,25 @@ var flights = [];
 
 //Hotel object. Used to send data to server and create final hotel booking 
 var hotel = {
-    bookingDate: '',
-    userId: 0,
     hotelId: '',
     deptDate: '',
     returnDate: '',
     nights: '',
     roomQty: 1,
-    hTotalPrice: 0, 
+    hTotalPrice: 0 
 };
 
 //Activity Array. Used to store activities selected by user and create final reservation 
 var activities = [];
+
+//Final object. Used to send data to server and create final booking 
+var finalBooking = {
+    deptFlight: 0,
+    returnFlight: 0, 
+    hotel: 0, 
+    activityOne: null, //Null is the value accepted by mySql when no activity is selected 
+    activityTwo: null
+};
 
 //1.Validate the new booking inputs. Will be called when clicking search button
 function preBookingValidation(){
@@ -169,8 +177,10 @@ function newSearch(){
     var date = new Date();
     //Store using the same format in mySql (YYYY-MM-dd)
     bookingDate = `${date.getFullYear()}-${(date.getMonth()+1)}-${date.getDate()}`;
+    //Adds booking date to pre-booking object 
+    preBookingObj.bookingDate = bookingDate;
 
-    /*@Reference Start - Moment package - https://momentjs.com*/
+    /*@Reference Start - Moment package - https://momentjs.com - Used to calculate nights*/
     var checkIn = moment(deptInput, 'YYYY-MM-DD')
     var checkOut = moment(returnInput, 'YYYY-MM-DD');
     nights = moment.duration(checkOut.diff(checkIn)).asDays(); //Calculate nights
@@ -229,8 +239,6 @@ function deptBtn(resultID) {
 
     //Details of the selected flight will be stored in a temporary object 
     var tempObj = new Object();
-    tempObj.bookingDate = bookingDate;
-    tempObj.userId = '101'; //User ID will be added at the end. This allows non-registered users to search 
     tempObj.flightNo = deptFlight.flight_no; 
     tempObj.deptDate = deptInput;
     tempObj.travelClass = 'Economy';
@@ -277,8 +285,6 @@ function returnBtn(resultID) {
 
     //Details of the selected flight will be stored in a temporary object 
     var tempObj = new Object();
-    tempObj.bookingDate = bookingDate;
-    tempObj.userId = '101'; //User ID will be added at the end. This allows non-registered users to search 
     tempObj.flightNo = returnFlight.flight_no; 
     tempObj.deptDate = deptInput;
     tempObj.travelClass = 'Economy';
@@ -320,17 +326,15 @@ function getHotel(){
 function hotelBtn(resultID) {
 
     //Get the flight selected by user using Result ID
-    hotel = hotelResults[resultID];
+    hotelOption = hotelResults[resultID];
 
     //Details of the selected flight will be stored in the departure flight object to be ready for the booking creation 
-    this.hotel.bookingDate = bookingDate;
-    this.hotel.userId = '101';
-    this.hotel.hotelId = hotel.hotel_id;
+    this.hotel.hotelId = hotelOption.hotel_id;
     this.hotel.deptDate = deptInput;
     this.hotel.returnDate = returnInput;
-    this.hotel.nights = nights;
-    this.hotel.roomQty = roomInput;
-    this.hotel.hTotalPrice = roomInput*(nights * (hotel.night_rate));
+    this.hotel.nights = parseInt(nights);
+    this.hotel.roomQty = parseInt(roomInput);
+    this.hotel.hTotalPrice = roomInput*(nights * (hotelOption.night_rate));
     
     //Hide hotel wrap(page)
     $('#hotel-wrap').hide()
@@ -381,13 +385,12 @@ function completeBtn() {
 
         //Store the data of the selected acticity into temporary object. 
         var tempObj = new Object();
-        tempObj.bookingDate = bookingDate;
         tempObj.activityID = activity.activity_id;
-        tempObj.activityDate = activityDate;
+        tempObj.activityDate = (activityDate === '' || activityDate === null) ? tempObj.activityDate = null : tempObj.activityDate = activityDate;
         tempObj.aTickets = aticketNum;
         tempObj.aTotalPrice = aTotalPrice;
         tempObj.bookingStatus = (activityDate === '' || activityDate === null) ? tempObj.bookingStatus = 'Not Confirmed' : tempObj.bookingStatus = 'Confirmed';
-        tempObj.booking = null;
+        tempObj.booking = index == 0 ? tempObj.booking = 'Primary' : tempObj.booking = 'Secondary';
         aTotal = (aTotal + aTotalPrice);
 
         //Push temp object into activity Array 
@@ -404,14 +407,14 @@ function completeBtn() {
     $('.reviewRow').addClass('menu-active');
 
     var fTotal = ((deptFlight.ticket_price+returnFlight.ticket_price) * numPax);
-    var hTotal = (roomInput * (hotel.night_rate * nights));
+    var hTotal = hotel.hTotalPrice;
     var bookingTotal = fTotal + hTotal + aTotal;
 
     //Print booking breakdown with total
     $('#flights').find('.fDestination').html(`${preBookingObj.city}`);
     $('#flights').find('.fTotalPrice').html(`€${fTotal}`);
-    $('#hotel').find('.hName').html(`${hotel.hotel_name}`);
-    $('#hotel').find('.hTotalPrice').html(`${hTotal}`);
+    $('#hotel').find('.hName').html(`${hotelOption.hotel_name}`);
+    $('#hotel').find('.hTotalPrice').html(`€${hTotal}`);
     $('#aTotal').html(`€${aTotal}`);
     $('#bookingTotal').html(`Total: €${bookingTotal}`);
 
@@ -420,20 +423,54 @@ function completeBtn() {
 //13.Finalise Booking and send data to database 
 function finishBtn(){
 
-    //Sent flights
-    for(i in flights){
-        putFlights(flights[i]); //AJAX call post each flight in flights Array 
-    }
+    referenceResult = []; //Clear reference from previous results 
 
-    //Sent hotel data
-    putHotel(hotel); 
+    //Create bookings and request booking reference when done 
+    $.when(putFlights(flights[0]), putFlights(flights[1]), putHotel(hotel)).done(function(){
 
-    //Only sends activities if an activity has been selected 
-    if(activities.length > 0){
+        if(activities.length > 0){
+            for(i in activities){
+                putActivities(activities[i]); //Sent each activity to database
+            }
+        }
+
+        //Get booking references 
+        flightReference(flights[0]);
+        flightReference(flights[1]);
+        hotelReference(hotel);
+        if(activities.length > 0){
+            for(i in activities){
+                activityReference(activities[i]); 
+            }
+        }
+        setTimeout(addFinal, 200);
+
+        //Hide activity wrap(page)
+        $('#review-wrap').hide();
+        $('#final-wrap').show();
+    
+    });
+};
+
+function addFinal() {
+
+    finalBooking.deptFlight = referenceResult[0];
+    finalBooking.returnFlight = referenceResult[1];
+    finalBooking.hotel = referenceResult[2];
+    if(activities.length > 0){ //Only if activities were selected 
         for(i in activities){
-            putActivities(activities[i]); //Sent each activity to database
+            if(referenceResult[3] != null){
+                finalBooking.activityOne = referenceResult[3];
+            }
+            if(referenceResult[4] != null){
+                finalBooking.activityTwo = referenceResult[4];
+            } 
         }
     }
+    //Creates final booking
+    setTimeout(putBooking(finalBooking), 200);
+    //Get final booking reference and print it 
+    getBooking(); 
 };
 
 //AJAX call to PUT flight booking  
@@ -456,7 +493,7 @@ function putHotel(object){
         type: 'PUT', 
         contentType: 'application/json', //Type of data sent 
         data: JSON.stringify(object),//Data sent to the server 
-        success: function(data){ //Updates HTML with details of the flight returned by server
+        success: function(data){ 
             console.log(data);
         } 
     });
@@ -468,12 +505,81 @@ function putActivities(object){
         type: 'PUT', 
         contentType: 'application/json', //Type of data sent 
         data: JSON.stringify(object),//Data sent to the server 
-        success: function(data){ //Updates HTML with details of the flight returned by server
+        success: function(data){ 
             console.log(data);
         } 
     });
 };
 
+//AJAX get departure flight booking reference for final booking  
+function flightReference(object){
+    $.ajax({
+        url: 'http://localhost:4000/newbooking/flightReference', //Path 
+        type: 'POST', 
+        contentType: 'application/json', //Type of data sent 
+        dataType: 'json', //Type recieved from server
+        data: JSON.stringify(object),//Data sent to the server 
+        success: function(data){ 
+            referenceResult.push(data[0].booking_ref);
+        } 
+    });
+};
+
+//AJAX get hotel booking reference for final booking  
+function hotelReference(object){
+    $.ajax({
+        url: 'http://localhost:4000/newbooking/hotelReference', //Path 
+        type: 'POST',
+        contentType: 'application/json', //Type of data sent 
+        dataType: 'json', //Type recieved from server
+        data: JSON.stringify(object),//Data sent to the server 
+        success: function(data){ 
+            referenceResult.push(data[0].hotel_booking_ref);
+        } 
+    });
+};
+
+//AJAX get activity booking reference for final booking  
+function activityReference(object){
+    $.ajax({
+        url: 'http://localhost:4000/newbooking/activityReference', //Path 
+        type: 'POST', 
+        contentType: 'application/json', //Type of data sent 
+        dataType: 'json', //Type recieved from server
+        data: JSON.stringify(object),//Data sent to the server 
+        success: function(data){ 
+            referenceResult.push(data[0].activity_booking_ref);
+        } 
+    });
+};
+
+//AJAX call to PUT final booking
+function putBooking(object){
+    $.ajax({
+        url: 'http://localhost:4000/newbooking/final-booking', //Path 
+        type: 'PUT', 
+        contentType: 'application/json', //Type of data sent 
+        data: JSON.stringify(object),//Data sent to the server 
+        success: function(data){ 
+            console.log(data);
+        } 
+    });
+};
+
+//AJAX call to GET final booking reference
+function getBooking(){
+    $.ajax({
+        url: 'http://localhost:4000/newbooking/final-booking', //Path 
+        type: 'POST', 
+        contentType: 'application/json', //Type of data sent 
+        dataType: 'json', //Type recieved from server
+        data: JSON.stringify(finalBooking),
+        success: function(data){ 
+            console.log(data);
+            $('#final-ref').html(`Booking Referece: ${data[0].booking_ref}`);
+        } 
+    });
+};
 
 /////////////////////////////////////////////////
 // RENDERING FUNCTIONS
@@ -704,6 +810,7 @@ $('#aReturnFlight').click(function(){
     $('#hotel-wrap').hide();
     $('#activity-wrap').hide();
     $('#review-wrap').hide();
+    $('#final-wrap').hide();
     $('.returnRow').addClass('menu-active');
     $('#return-wrap').show();
 });
@@ -718,6 +825,7 @@ $('#aHotel').click(function(){
     $('#return-wrap').hide();
     $('#activity-wrap').hide();
     $('#review-wrap').hide();
+    $('#final-wrap').hide();
     $('.hotelRow').addClass('menu-active');
     $('#hotel-wrap').show();
 });
@@ -732,6 +840,7 @@ $('#aActivity').click(function(){
     $('#return-wrap').hide();
     $('#hotel-wrap').hide();
     $('#review-wrap').hide();
+    $('#final-wrap').hide();
     $('.activityRow').addClass('menu-active');
     $('#activity-wrap').show();
 });
@@ -746,6 +855,7 @@ $('#aReview').click(function(){
     $('#return-wrap').hide();
     $('#hotel-wrap').hide();
     $('#activity-wrap').hide();
+    $('#final-wrap').hide();
     $('.aReview').addClass('menu-active');
     $('#review-wrap').show();
 });
