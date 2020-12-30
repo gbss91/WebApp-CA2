@@ -38,6 +38,7 @@ var deptFlight;
 var returnFlight;
 var hotelOption;
 var aTotal;
+var userId = localStorage.getItem('userId');
 
 //Empty arrays to store search results returned by server. Each result can contain several JSON objects 
 var deptFlightResults = [];
@@ -50,7 +51,7 @@ var referenceResult = []; //Store booking references
 var preBookingObj = {
     destination: '',
     city: '',
-    userId: 105,
+    userId: 0,
     bookingDate: ''
 
 };
@@ -170,6 +171,9 @@ function newSearch(){
         preBookingObj.city = 'London';
     }
 
+    //Adds user ID to pre-booking object 
+    preBookingObj.userId = userId;
+
     //Calculate ticket quantity 
     numPax = ((parseInt(adultsInput)) + (parseInt(childInput)));
 
@@ -189,18 +193,24 @@ function newSearch(){
 
 //3. Search button function - This will run all functions in respective order when user clicks search 
 function startSearchBtn(){
-    //Only runs if validation is successful (returns true)
-    if(preBookingValidation()){
-        newSearch();
-        postPreBooking(); //1st AJAX call to post pre-booking to server 
+    //Checks if user is logged in 
+    if(userId === 0 || userId === null){
+        alert('Please log in')
+        window.location.href = './login.html'; //Redirect to login page 
+    } else {
+        //Only runs if validation is successful (returns true)
+        if(preBookingValidation()){
+            newSearch();
+            postPreBooking(); //1st AJAX call to post pre-booking to server 
 
-        //Manipulate HTML to creates the illusion of changing pages 
-        $('#search-wrap').hide(); //Hide search bar wrap(page) 
-        $('#booking-body-wrap').show(); //Shows the booking body
+            //Manipulate HTML to creates the illusion of changing pages 
+            $('#search-wrap').hide(); //Hide search bar wrap(page) 
+            $('#booking-body-wrap').show(); //Shows the booking body
 
-        //Renders results for outbound flights
-        getOutbound(); //2nd AJAX call to request flight from server
-    }
+            //Renders results for outbound flights
+            getOutbound(); //2nd AJAX call to request flight from server
+        }
+    }   
 };
 
 //4.AJAX call to post pre-booking details to server. Will be called when clicking search button
