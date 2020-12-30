@@ -38,20 +38,16 @@
 
     <body>
         <div class="app-container">
-
             <!-- HEADER START -->
             <div class="container-fluid" id="top-cont">
                 <div class="row">
-                    <div class="col-lg-10 col-md-10 col-9">
-                        <div class="logo-container">
-                            <a href="index.html" alt="logo" ><h1>Booking<h1></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-3">
-                        <div class="user-container">
-                            <a id="profile" href="profile.html"><img src="img/user.jpg" alt="User image" id="user-img"></a>
-                        </div>
-                    </div>
+                    <div class="col-lg-12 col-md-12 col-12">
+						<div class="logo-container">
+							<a href="index.html">
+								<img src="img/logo3.png" alt="logo" id="logo-img">
+							</a>	
+						</div>
+                    </div>					
                 </div>
             </div>
             <!-- HEADER END -->
@@ -170,6 +166,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row align-items-center">
+							<div class="col-lg-12 col-md-12 col-12">
+							<!-- DELETE BUTTON-->
+								<button type="button" class="selectBtn" id="updateUser">Update Details</button>
+							<!-- REFRESH BUTTON-->
+								<a href="login.html">
+									<button type="button" class="selectBtn" id="logout">Logout</button>
+								</a>
+							</div>
+                        </div>
                     </div>
 					
                     <!--Main content for Booking Overview-->
@@ -253,11 +259,15 @@
                             </div>
                         </div>
                         <div class="row align-items-center">
-							<div class="col-lg-12 col-md-12 col-12">
+							<div class="col-lg-12 col-md-12 col-12">					
 							<!-- DELETE BUTTON-->
 								<button type="button" class="selectBtn" id="deleteBooking" onclick="return confirm('Are you sure?');">Delete Booking</button>
 							<!-- REFRESH BUTTON-->
 								<button class="selectBtn" onClick="window.location.reload();">Refresh Page</button>
+							<!-- CREATE NEW BOOKING BUTTON-->
+								<a href="index.html">
+									<button type="button" class="selectBtn" id="createBooking">Create New Booking</button>
+								</a>	
 							</div>
                         </div>
                     </div>
