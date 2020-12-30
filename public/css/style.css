@@ -33,7 +33,7 @@ p {
 }
 
 #logo {
-    height: 15vh;
+    height: 10vh;
 }
 
 .menu-row:hover {
@@ -129,9 +129,13 @@ p {
 }
 
 .logo-container {
-    padding-top: 5vh;
     
 }
+
+#logo-img{
+	padding-left: 5%;
+}
+
 .user-container {
     padding-top: 5vh;
 }
@@ -283,7 +287,6 @@ input {
     background-color: #fbf6f0;
     border-radius: 5px;
     padding: 20px;
-
 }
 
 /*#overview-nameL {
