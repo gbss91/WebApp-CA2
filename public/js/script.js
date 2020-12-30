@@ -1,17 +1,17 @@
 /*
-******************************************************************************************************
-   Web Application Development CA2 - Booking App
-   
-   Student Names: Student Names: Ruby Lennon (x19128355) & Gabriel Salas (x19104162)
-   
-   Date: 10 November 2020
-
-   Filename: script.js
-
-   Supporting Files: 
-   - index.html
-   - script.js
-******************************************************************************************************
+	******************************************************************************************************
+	Web Application Development CA2 - Booking App
+	
+	Student Names: Student Names: Ruby Lennon (x19128355) & Gabriel Salas (x19104162)
+	
+	Date: 10 November 2020
+	
+	Filename: script.js
+	
+	Supporting Files: 
+	- index.html
+	- script.js
+	******************************************************************************************************
 */
 
 //Add and remove background color for menu options in profile page 
@@ -223,7 +223,7 @@ $('#aActivityBookingTwo').click(function(){
 
 //user ID
 var user = {
-    userID: 102,
+    userID: 114,
 };
 
 //user information
@@ -302,8 +302,8 @@ $('document').ready(function() {
         contentType: 'application/json', //Type of data sent to the server 
         success: function(data){ //A function to be called if the request succeeds. Returns response from server  
             console.log(data);
-        } 
-    });
+		} 
+	});
     $.ajax({
         url: 'http://83.212.127.26/queries/userDetails',
         type: 'POST',
@@ -311,7 +311,7 @@ $('document').ready(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-           
+			
             //Assign property of object to variable
             fullname = data[0].full_name;
             email = data[0].email;
@@ -321,8 +321,8 @@ $('document').ready(function() {
             $('#overview-name p').html(fullname);
             $('#overview-email p').html(email);
             $('#overview-phone p').html(phone);
-        }
-    });
+		}
+	});
 });
 
 
@@ -335,7 +335,7 @@ $('#aBookings').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-           
+			
             //Assign property of object to variable
             bookingRef = data[0].booking_ref;
             userID = data[0].user_id;
@@ -354,8 +354,8 @@ $('#aBookings').click(function() {
             $('#bookings-hotelBooking p').html(bookingHotelBooking);
             $('#bookings-activityBookingOne p').html(bookingActivityBookingOne);
             $('#bookings-activityBookingTwo p').html(bookingActivityBookingTwo);
-        }
-    });
+		}
+	});
 });
 
 //get and display departure flight booking details for user ID
@@ -367,7 +367,7 @@ $('#aDeptFlightBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-           
+			
             //Assign property of object to variable
             deptFlightBookingRef = data[0].booking_ref;
             deptFlightBookingDate = data[0].booking_date;
@@ -390,8 +390,8 @@ $('#aDeptFlightBooking').click(function() {
             $('#deptFlightBooking-ticketPrice p').html(deptFligthTicketPrice);
             $('#deptFlightBooking-totalPrice p').html(deptFligthTotalPrice);
             $('#deptFlightBooking-currency p').html(deptFligthCurrency);
-        }
-    });
+		}
+	});
 });
 
 //get and display return flight booking details for user ID
@@ -403,7 +403,7 @@ $('#aReturnFlightBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-           
+			
             //Assign property of object to variable
             returnFlightBookingRef = data[0].booking_ref;
             returnFlightBookingDate = data[0].booking_date;
@@ -426,8 +426,8 @@ $('#aReturnFlightBooking').click(function() {
             $('#returnFlightBookings-ticketPrice p').html(returnFlightTicketPrice);
             $('#returnFlightBookings-totalPrice p').html(returnFlightTotalPrice);
             $('#returnFlightBookings-currency p').html(returnFlightCurrency);
-        }
-    });
+		}
+	});
 });
 
 //get and display hotel booking details for user ID
@@ -439,7 +439,7 @@ $('#aHotelBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-           
+			
             //Assign property of object to variable
             hotelBookingRef = data[0].hotel_booking_ref;
             hotelBookingDate = data[0].booking_date;
@@ -462,8 +462,8 @@ $('#aHotelBooking').click(function() {
             $('#hotelBookings-roomQty p').html(hotelBookingRoomQty);
             $('#hotelBookings-totalPrice p').html(hotelBookingTotalPrice);
             $('#hotelBookings-currency p').html(hotelBookingCurrency);
-        }
-    });
+		}
+	});
 });
 
 //get and display primary activity booking details for user ID
@@ -475,7 +475,7 @@ $('#aActivityBookingOne').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-           
+			
             //Assign property of object to variable
             activityBookingOneBookingRef = data[0].activity_booking_ref;
             activityBookingOneBookingDate = data[0].booking_date;
@@ -496,8 +496,8 @@ $('#aActivityBookingOne').click(function() {
             $('#activityBookingOne-totalPrice p').html(activityBookingOneTotalPrice);
             $('#activityBookingOne-currency p').html(activityBookingOneCurrency);			
             $('#activityBookingOne-bookingStatus p').html(activityBookingOneBookingStatus);
-        }
-    });
+		}
+	});
 });
 
 //get and display secondary activity booking two details for user ID
@@ -509,7 +509,7 @@ $('#aActivityBookingTwo').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-           
+			
             //Assign property of object to variable
             activityBookingTwoBookingRef = data[0].activity_booking_ref;
             activityBookingTwoBookingDate = data[0].booking_date;
@@ -530,12 +530,15 @@ $('#aActivityBookingTwo').click(function() {
             $('#activityBookingTwo-totalPrice p').html(activityBookingTwoTotalPrice);
             $('#activityBookingTwo-currency p').html(activityBookingTwoCurrency);			
             $('#activityBookingTwo-bookingStatus p').html(activityBookingTwoBookingStatus);
-        }
-    });
+		}
+	});
 });
 
-//delete booking by user id
-$('#deleteBooking').click(function() {
+/*@Reference: https://stackoverflow.com/questions/10310004/jquery-delete-confirmation-box */
+//delete booking by user id - DELETE BOOKING BUTTON FUNCTION
+function deleteBooking(){
+    var checkstr =  confirm('Are you sure you want to delete this booking? This action cannot be undone.');
+    if(checkstr == true){
 	//delete the booking reference from the user table
     $.ajax({
         url: 'http://83.212.127.26/queries/deleteBookingOne',
@@ -544,8 +547,8 @@ $('#deleteBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-        } 
-    });
+		} 
+	});
 	//delete booking record by user id
     $.ajax({
         url: 'http://83.212.127.26/queries/deleteBookingTwo',
@@ -554,36 +557,8 @@ $('#deleteBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-        } 
-    });
-});
-
-//delete hotel booking by user id
-$('#deleteHotelBooking').click(function() {
-	//delete the hotel booking reference from the bookings table
-    $.ajax({
-        url: 'http://83.212.127.26/queries/deleteHotelBookingOne',
-        type: 'POST',
-        //dataType: 'json', //Type of data recieved - Response from server is json 
-        success: function (data) {
-            //Print results in console 
-            console.log(data);
-        } 
-    });
-	//delete the hotel booking by user id
-    $.ajax({
-        url: 'http://83.212.127.26/queries/deleteHotelBookingTwo',
-        type: 'POST',
-        //dataType: 'json', //Type of data recieved - Response from server is json 
-        success: function (data) {
-            //Print results in console 
-            console.log(data);
-        } 
-    });
-});
-
-//delete dept flight booking by user id
-$('#deleteDeptFlightBooking').click(function() {
+		} 
+	});
 	//delete the dept flight booking reference from the bookings table
     $.ajax({
         url: 'http://83.212.127.26/queries/deleteDeptFlightBookingOne',
@@ -592,8 +567,8 @@ $('#deleteDeptFlightBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-        } 
-    });
+		} 
+	});
 	//delete the dept flight booking by user id
     $.ajax({
         url: 'http://83.212.127.26/queries/deleteDeptFlightBookingTwo',
@@ -602,12 +577,8 @@ $('#deleteDeptFlightBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-        } 
-    });
-});
-
-//delete return flight booking by user id
-$('#deleteReturnFlightBooking').click(function() {
+		} 
+	});
 	//delete the return flight booking reference from the bookings table
     $.ajax({
         url: 'http://83.212.127.26/queries/deleteReturnFlightBookingOne',
@@ -616,8 +587,8 @@ $('#deleteReturnFlightBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-        } 
-    });
+		} 
+	});
 	//delete the return flight booking by user id
     $.ajax({
         url: 'http://83.212.127.26/queries/deleteReturnFlightBookingTwo',
@@ -626,12 +597,28 @@ $('#deleteReturnFlightBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-        } 
-    });
-});
-
-//delete primary activity booking by user id
-$('#deleteActivityOneBooking').click(function() {
+		} 
+	});
+	//delete the hotel booking reference from the bookings table
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteHotelBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the hotel booking by user id
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteHotelBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
 	//delete the primary activity booking reference from the bookings table
     $.ajax({
         url: 'http://83.212.127.26/queries/deletePrimaryActivityBookingOne',
@@ -640,8 +627,8 @@ $('#deleteActivityOneBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-        } 
-    });
+		} 
+	});
 	//delete the primary activity booking by user id
     $.ajax({
         url: 'http://83.212.127.26/queries/deletePrimaryActivityBookingTwo',
@@ -650,12 +637,8 @@ $('#deleteActivityOneBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-        } 
-    });
-});
-
-//delete secondary activity booking by user id
-$('#deleteActivityTwoBooking').click(function() {
+		} 
+	});
     $.ajax({
         url: 'http://83.212.127.26/queries/deleteSecondaryActivityBookingOne',
         type: 'POST',
@@ -663,8 +646,8 @@ $('#deleteActivityTwoBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-        } 
-    });
+		} 
+	});
 	//delete the secondary activity booking by user id
     $.ajax({
         url: 'http://83.212.127.26/queries/deleteSecondaryActivityBookingTwo',
@@ -673,7 +656,295 @@ $('#deleteActivityTwoBooking').click(function() {
         success: function (data) {
             //Print results in console 
             console.log(data);
-        } 
-    });
-});
+		} 
+	});
+	var alertMessage =  alert('Booking deleted. Please refresh the page.');
+		}else{
+		return false;
+	}
+}
 
+/*@Reference: https://stackoverflow.com/questions/10310004/jquery-delete-confirmation-box */
+//delete booking by user id - CREATE NEW BOOKING BUTTON FUNCTION
+function createBooking(){
+    var checkstr =  confirm('This action will delete any existing bookings. Would you like to proceed?');
+    if(checkstr == true){
+	//delete the booking reference from the user table
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete booking record by user id
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the dept flight booking reference from the bookings table
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteDeptFlightBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the dept flight booking by user id
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteDeptFlightBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the return flight booking reference from the bookings table
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteReturnFlightBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the return flight booking by user id
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteReturnFlightBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the hotel booking reference from the bookings table
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteHotelBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the hotel booking by user id
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteHotelBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the primary activity booking reference from the bookings table
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deletePrimaryActivityBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the primary activity booking by user id
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deletePrimaryActivityBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteSecondaryActivityBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the secondary activity booking by user id
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteSecondaryActivityBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	var alertMessage =  alert('Booking deleted. You will now be redirected to the booking page.');
+	window.location.replace("http://83.212.127.26/index.html");
+		}else{
+		return false;
+	}
+}
+
+/*@Reference: https://stackoverflow.com/questions/10310004/jquery-delete-confirmation-box */
+//delete dept flight booking by user id
+function deleteDeptFlight(){
+    var checkstr =  confirm('Are you sure you want to delete this booking?');
+    if(checkstr == true){
+	//delete the dept flight booking reference from the bookings table
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteDeptFlightBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the dept flight booking by user id
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteDeptFlightBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	var alertMessage =  alert('Booking deleted. Please refresh the page.');
+		}else{
+		return false;
+	}
+}
+
+/*@Reference: https://stackoverflow.com/questions/10310004/jquery-delete-confirmation-box */
+//delete return flight booking by user id
+function deleteReturnFlight(){
+    var checkstr =  confirm('Are you sure you want to delete this booking?');
+    if(checkstr == true){
+	//delete the return flight booking reference from the bookings table
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteReturnFlightBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the return flight booking by user id
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteReturnFlightBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	var alertMessage =  alert('Booking deleted. Please refresh the page.');
+		}else{
+		return false;
+	}
+}
+
+/*@Reference: https://stackoverflow.com/questions/10310004/jquery-delete-confirmation-box */
+//delete hotel booking by user id
+function deleteHotelBooking(){
+    var checkstr =  confirm('Are you sure you want to delete this booking?');
+    if(checkstr == true){
+	//delete the hotel booking reference from the bookings table
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteHotelBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the hotel booking by user id
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deleteHotelBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	var alertMessage =  alert('Booking deleted. Please refresh the page.');
+		}else{
+		return false;
+	}
+}
+
+/*@Reference: https://stackoverflow.com/questions/10310004/jquery-delete-confirmation-box */
+//delete primary activity booking by user id
+function deleteActivityOne(){
+    var checkstr =  confirm('Are you sure you want to delete this booking?');
+    if(checkstr == true){
+	//delete the primary activity booking reference from the bookings table
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deletePrimaryActivityBookingOne',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	//delete the primary activity booking by user id
+    $.ajax({
+        url: 'http://83.212.127.26/queries/deletePrimaryActivityBookingTwo',
+        type: 'POST',
+        //dataType: 'json', //Type of data recieved - Response from server is json 
+        success: function (data) {
+            //Print results in console 
+            console.log(data);
+		} 
+	});
+	var alertMessage =  alert('Booking deleted. Please refresh the page.');
+		}else{
+		return false;
+	}
+}
+
+/*@Reference: https://stackoverflow.com/questions/10310004/jquery-delete-confirmation-box */
+//delete secondary activity booking by user id
+function deleteActivityTwo(){
+    var checkstr =  confirm('Are you sure you want to delete this booking?');
+    if(checkstr == true){
+		$.ajax({
+			url: 'http://83.212.127.26/queries/deleteSecondaryActivityBookingOne',
+			type: 'POST',
+			//dataType: 'json', //Type of data recieved - Response from server is json 
+			success: function (data) {
+				//Print results in console 
+				console.log(data);
+			} 
+		});
+		//delete the secondary activity booking by user id
+		$.ajax({
+			url: 'http://83.212.127.26/queries/deleteSecondaryActivityBookingTwo',
+			type: 'POST',
+			//dataType: 'json', //Type of data recieved - Response from server is json 
+			success: function (data) {
+				//Print results in console 
+				console.log(data);
+			} 
+		});
+		var alertMessage =  alert('Booking deleted. Please refresh the page.');
+		}else{
+		return false;
+	}
+}
