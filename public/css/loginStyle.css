@@ -1,0 +1,79 @@
+/*
+	----------------------------------------------------------------------------------------------------------------------------------------------- 
+	Web Application Development CA2 - Booking App
+	
+	Student Names: Student Names: Ruby Lennon (x19128355) & Gabriel Salas (x19104162)
+	
+	Date: 11 November 2020
+	
+	Filename: loginStyle.css
+	
+	Supporting Files:
+	- profile.html
+	- index.html
+	- style.css
+	- login.html
+	
+	----------------------------------------------------------------------------------------------------------------------------------------------- 
+*/
+/* @Reference: https://www.c-sharpcorner.com/article/creating-a-simple-login-page-using-html-and-css/ */
+body  
+{  
+    margin: 0;  
+    padding: 0;
+    font-family: 'Arial'; 
+} 
+.logo{  
+	width: 382px;  
+	overflow: hidden;  
+	margin: auto;
+	padding: auto;
+} 
+#logoImg{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	
+}
+.login{  
+	width: 382px;  
+	overflow: hidden;  
+	margin: auto;  
+	margin: 20 0 0 450px;  
+	padding: 80px;  
+	background: #aee6e6;  
+	border-radius: 15px;       
+}  
+h2{  
+    text-align: center;  
+    color: black;  
+    padding: 20px;  
+}  
+label{  
+    color: #black;  
+    font-size: 17px;  
+}  
+#Uname{  
+    width: 350px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+}  
+#Pass{  
+    width: 350px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+}  
+#log{  
+    width: 350px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: black;  
+	background-color: orange;
+}
