@@ -19,6 +19,86 @@ var Router = express.Router();
 
 //Variables used to store data from requests 
 var userID;
+var firstName;
+var lastName;
+var userId;
+var email;
+var phone;
+var fullName;
+
+//POSTing the details for a new booking 
+Router.post('/updateUserDetails', function (req, res) {
+    //Assign data from the user to variables that will be used in mysql queries 
+    firstName = req.body.firstName;
+    lastName = req.body.lastName;
+	fullName = req.body.fullName;
+    userId = req.body.userId;
+    email = req.body.email;
+    phone = req.body.phone;
+    res.send('Data recieved!');
+});
+
+//UPDATE USER DETAILS using updated user details input by user & user ID
+//STEP 1 - Update User First Name
+Router.post('/updateFirstName', function (req, res) {
+    mysqlCon.query('UPDATE users SET first_name = ? WHERE user_id = ?;',[firstName,userId], //mySQL query 
+    function(err, results, fields){ //Callback functions for error, result and fields
+        if(!err) {
+			res.send(results);
+		} else {;
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+		}
+    });
+});
+//STEP 2 - Update User Last Name
+Router.post('/updateLastName', function (req, res) {
+    mysqlCon.query('UPDATE users SET last_name = ? WHERE user_id = ?;',[lastName,userId], //mySQL query 
+    function(err, results, fields){ //Callback functions for error, result and fields
+        if(!err) {
+			res.send(results);
+		} else {;
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+		}
+    });
+});
+//STEP 3 - Update user full name
+Router.post('/updateFullName', function (req, res) {
+    mysqlCon.query('UPDATE users SET full_name = ? WHERE user_id = ?;',[fullName,userId], //mySQL query 
+    function(err, results, fields){ //Callback functions for error, result and fields
+        if(!err) {
+			res.send(results);
+		} else {;
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+		}
+    });
+});
+//STEP 4 - Update user email
+Router.post('/updateEmail', function (req, res) {
+    mysqlCon.query('UPDATE users SET email = ? WHERE user_id = ?;',[email,userId], //mySQL query 
+    function(err, results, fields){ //Callback functions for error, result and fields
+        if(!err) {
+			res.send(results);
+		} else {;
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+		}
+    });
+});
+//STEP 5 - Update user phone
+Router.post('/updatePhone', function (req, res) {
+    mysqlCon.query('UPDATE users SET phone = ? WHERE user_id = ?;',[phone,userId], //mySQL query 
+    function(err, results, fields){ //Callback functions for error, result and fields
+        if(!err) {
+			res.send(results);
+		} else {;
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+		}
+    });
+});
 
 //POSTing user ID
 Router.post('/user', function (req, res) {
