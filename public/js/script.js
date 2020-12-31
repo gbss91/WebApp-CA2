@@ -98,6 +98,7 @@ $('#aActivityBookingTwo').click(function(){
 //Overview main content
 $('#aOverview').click(function(){
     $('.oSection').addClass('display');
+	$('.oaSection').removeClass('display');
     $('.aSection').removeClass('display');
     $('.bSection').removeClass('display');
     $('.cSection').removeClass('display');
@@ -105,6 +106,45 @@ $('#aOverview').click(function(){
     $('.eSection').removeClass('display');
     $('.fSection').removeClass('display');
 	$('.oSection').removeClass('hide');
+	$('.oaSection').addClass('hide');
+	$('.aSection').addClass('hide');
+	$('.bSection').addClass('hide');
+	$('.cSection').addClass('hide');
+	$('.dSection').addClass('hide');
+	$('.eSection').addClass('hide');
+	$('.fSection').addClass('hide');
+});
+
+//display update user details form
+$('#updateUser').click(function(){
+    $('.oSection').addClass('display');
+	$('.oaSection').addClass('display');
+    $('.aSection').removeClass('display');
+    $('.bSection').removeClass('display');
+    $('.cSection').removeClass('display');
+    $('.dSection').removeClass('display');
+    $('.eSection').removeClass('display');
+    $('.fSection').removeClass('display');
+	$('.oaSection').removeClass('hide');
+	$('.aSection').addClass('hide');
+	$('.bSection').addClass('hide');
+	$('.cSection').addClass('hide');
+	$('.dSection').addClass('hide');
+	$('.eSection').addClass('hide');
+	$('.fSection').addClass('hide');
+});
+
+//update user details section - cancel/hide form
+$('#updateUserCancel').click(function(){
+    $('.oSection').addClass('display');
+	$('.oaSection').addClass('hide');
+    $('.aSection').removeClass('display');
+    $('.bSection').removeClass('display');
+    $('.cSection').removeClass('display');
+    $('.dSection').removeClass('display');
+    $('.eSection').removeClass('display');
+    $('.fSection').removeClass('display');
+	$('.oaSection').removeClass('display');
 	$('.aSection').addClass('hide');
 	$('.bSection').addClass('hide');
 	$('.cSection').addClass('hide');
@@ -948,3 +988,154 @@ function deleteActivityTwo(){
 		return false;
 	}
 }
+//UPDATE USER DETAILS FORM
+
+var userId = 114;
+
+//Object with pre-booking information. Used to send pre-booking details to server, Details shared by all reservations
+var updateDetailsObj = {
+    firstName: '',
+    lastName: '',
+	fullName: '',
+    userId: 0,
+    email: '',
+    phone: 0,
+};
+
+/*UPDATE USER DETAILS FORM */
+
+//1.Validate the new user details inputs. Will be called when clicking save button
+function preUserDetailsUpdateValidation(){
+    //Assing input to variables 
+    firstNameInput = $('#fname').val();
+    lastNameInput = $('#lname').val();
+    fullNameInput = $('#fullname').val();
+    emailInput = $('#email').val();
+    phoneInput = $('#phone').val();
+    //Validate first name
+    if(firstNameInput === '' || firstNameInput === null){
+        alert('Please enter your first name.');
+        return false;
+    }
+    //Validate last name 
+    if(lastNameInput === '' || lastNameInput === null){
+        alert('Please enter your last name.');
+        return false;
+    }
+    //Validate last name 
+    if(fullNameInput === '' || fullNameInput === null){
+        alert('Please enter your full name.');
+        return false;
+    }
+    //Validate return date 
+    if(emailInput === '' || emailInput === null){
+        alert('Please enter your email.');
+        return false;
+    }
+    //Validate number adults 
+    if(phoneInput === '' || phoneInput === null){
+        alert('Please enter your phone number.');
+        return false;
+    }
+    return true;
+};
+
+//2.Assign values to user details object with the inputs from the form. Will be called when clicking search button
+function updateUserAssignVar(){
+	
+    //Adds user ID to update details object 
+    updateDetailsObj.userId = userId;
+	
+	//Adds first name to update details object 
+	updateDetailsObj.firstName = firstNameInput;
+	
+	//Adds last name to update details object 
+	updateDetailsObj.lastName = lastNameInput;
+	
+	//Adds last name to update details object 
+	updateDetailsObj.fullName = fullNameInput;
+
+	//Adds email to update details object 
+	updateDetailsObj.email = emailInput;	
+
+	//Adds phone to update details object 
+	updateDetailsObj.phone = phoneInput;
+};
+
+//3. save button function - This will run all functions in respective order when user clicks save 
+function startUserDetailsUpdate(){
+    //Checks if user is logged in 
+    if(userId === 0 || userId === null){
+        alert('Please log in')
+        window.location.href = './login.html'; //Redirect to login page 
+    } else {
+        //Only runs if validation is successful (returns true)
+        if(preUserDetailsUpdateValidation()){
+            updateUserAssignVar();//assign variable values
+            updateUserDetailsOne(); //1st AJAX call to post updated user details to server
+            updateUserDetailsTwo(); //1st AJAX call to post updated user details to server
+        }
+    }   
+};
+
+//4.AJAX call to post updated user details to server. Will be called when clicking save button
+function updateUserDetailsOne(){
+    $.ajax({
+        url: 'http://83.212.127.26/updateUserDetails', //Path 
+        type: 'POST', 
+        data: JSON.stringify(updateDetailsObj), //Convert pre-booking object to JSON
+        contentType: 'application/json', //Type of data sent to the server 
+        success: function(data){ //A function to be called if the request succeeds. Response from server 
+            console.log(data);
+        } 
+    });
+};
+
+//5.AJAX call to post updated user details to server. Will be called when clicking save button
+function updateUserDetailsTwo(){
+	$.ajax({
+		url: 'http://83.212.127.26/updateFirstName',
+		type: 'POST',
+		//dataType: 'json', //Type of data recieved - Response from server is json 
+		success: function (data) {
+			//Print results in console 
+			console.log(data);
+		} 
+	});
+	$.ajax({
+		url: 'http://83.212.127.26/updateLastName',
+		type: 'POST',
+		//dataType: 'json', //Type of data recieved - Response from server is json 
+		success: function (data) {
+			//Print results in console 
+			console.log(data);
+		} 
+	});
+	$.ajax({
+		url: 'http://83.212.127.26/updateFullName',
+		type: 'POST',
+		//dataType: 'json', //Type of data recieved - Response from server is json 
+		success: function (data) {
+			//Print results in console 
+			console.log(data);
+		} 
+	});
+	$.ajax({
+		url: 'http://83.212.127.26/updateEmail',
+		type: 'POST',
+		//dataType: 'json', //Type of data recieved - Response from server is json 
+		success: function (data) {
+			//Print results in console 
+			console.log(data);
+		} 
+	});
+	$.ajax({
+		url: 'http://83.212.127.26/updatePhone',
+		type: 'POST',
+		//dataType: 'json', //Type of data recieved - Response from server is json 
+		success: function (data) {
+			//Print results in console 
+			console.log(data);
+		} 
+	});
+};
