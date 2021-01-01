@@ -93,7 +93,7 @@ $('#aActivityBookingTwo').click(function(){
     $('.fRow').addClass('menu-active'); 
 });
 
-//Add and remove main content sections in profile page based on button clicked
+//Hide or display main content sections in profile page based on menu button clicked
 
 //Overview main content
 $('#aOverview').click(function(){
@@ -261,10 +261,13 @@ $('#aActivityBookingTwo').click(function(){
 	$('.fSection').removeClass('hide');
 });
 
-//user ID
+//user ID object
 var user = {
     userID: 114,
 };
+
+//get user ID from cache to assign to variable
+//var userID = localStorage.getItem('userId');
 
 //user information
 var fullname;
@@ -333,7 +336,7 @@ var activityBookingTwoTotalPrice;
 var activityBookingTwoCurrency;
 var activityBookingTwoBookingStatus;
 
-//get user ID & display on page
+//get user ID & display user details on page
 $('document').ready(function() {
     $.ajax({
         url: 'http://83.212.127.26/user', //Path 
@@ -364,7 +367,6 @@ $('document').ready(function() {
 		}
 	});
 });
-
 
 //get and display main booking details for user ID
 $('#aBookings').click(function() {
@@ -575,7 +577,7 @@ $('#aActivityBookingTwo').click(function() {
 });
 
 /*@Reference: https://stackoverflow.com/questions/10310004/jquery-delete-confirmation-box */
-//delete booking by user id - DELETE BOOKING BUTTON FUNCTION
+//delete booking by user id - DELETE PRIMARY BOOKING BUTTON FUNCTION
 function deleteBooking(){
     var checkstr =  confirm('Are you sure you want to delete this booking? This action cannot be undone.');
     if(checkstr == true){
@@ -698,14 +700,16 @@ function deleteBooking(){
             console.log(data);
 		} 
 	});
-	var alertMessage =  alert('Booking deleted. Please refresh the page.');
+	var alertMessage =  alert('Booking deleted.');
+	//refreshes page
+	window.location.replace("http://83.212.127.26/profile.html");
 		}else{
 		return false;
 	}
 }
 
 /*@Reference: https://stackoverflow.com/questions/10310004/jquery-delete-confirmation-box */
-//delete booking by user id - CREATE NEW BOOKING BUTTON FUNCTION
+//delete booking by user id - CREATE NEW BOOKING BUTTON FUNCTION (deletes any existing bookings before redirecting user to new booking page)
 function createBooking(){
     var checkstr =  confirm('This action will delete any existing bookings. Would you like to proceed?');
     if(checkstr == true){
@@ -829,6 +833,7 @@ function createBooking(){
 		} 
 	});
 	var alertMessage =  alert('Booking deleted. You will now be redirected to the booking page.');
+	//redirects to booking page
 	window.location.replace("http://83.212.127.26/index.html");
 		}else{
 		return false;
@@ -860,7 +865,9 @@ function deleteDeptFlight(){
             console.log(data);
 		} 
 	});
-	var alertMessage =  alert('Booking deleted. Please refresh the page.');
+	var alertMessage =  alert('Booking deleted.');
+	//refreshes page
+	window.location.replace("http://83.212.127.26/profile.html");
 		}else{
 		return false;
 	}
@@ -891,7 +898,9 @@ function deleteReturnFlight(){
             console.log(data);
 		} 
 	});
-	var alertMessage =  alert('Booking deleted. Please refresh the page.');
+	var alertMessage =  alert('Booking deleted.');
+	//refreshes page
+	window.location.replace("http://83.212.127.26/profile.html");
 		}else{
 		return false;
 	}
@@ -922,7 +931,9 @@ function deleteHotelBooking(){
             console.log(data);
 		} 
 	});
-	var alertMessage =  alert('Booking deleted. Please refresh the page.');
+	var alertMessage =  alert('Booking deleted.');
+	//refreshes page
+	window.location.replace("http://83.212.127.26/profile.html");
 		}else{
 		return false;
 	}
@@ -953,7 +964,9 @@ function deleteActivityOne(){
             console.log(data);
 		} 
 	});
-	var alertMessage =  alert('Booking deleted. Please refresh the page.');
+	var alertMessage =  alert('Booking deleted.');
+	//refreshes page
+	window.location.replace("http://83.212.127.26/profile.html");
 		}else{
 		return false;
 	}
@@ -983,16 +996,22 @@ function deleteActivityTwo(){
 				console.log(data);
 			} 
 		});
-		var alertMessage =  alert('Booking deleted. Please refresh the page.');
+	var alertMessage =  alert('Booking deleted.');
+	//refreshes page
+	window.location.replace("http://83.212.127.26/profile.html");
 		}else{
 		return false;
 	}
 }
+
 //UPDATE USER DETAILS FORM
+
+//get user ID from cache to assign to variable
+//var userId = localStorage.getItem('userId');
 
 var userId = 114;
 
-//Object with pre-booking information. Used to send pre-booking details to server, Details shared by all reservations
+//Object with updated user details information. Used to send user details details to server.
 var updateDetailsObj = {
     firstName: '',
     lastName: '',
@@ -1006,7 +1025,7 @@ var updateDetailsObj = {
 
 //1.Validate the new user details inputs. Will be called when clicking save button
 function preUserDetailsUpdateValidation(){
-    //Assing input to variables 
+    //Assigning input to variables 
     firstNameInput = $('#fname').val();
     lastNameInput = $('#lname').val();
     fullNameInput = $('#fullname').val();
@@ -1073,14 +1092,14 @@ function startUserDetailsUpdate(){
         if(preUserDetailsUpdateValidation()){
             updateUserAssignVar();//assign variable values
             updateUserDetailsOne(); //1st AJAX call to post updated user details to server
-            updateUserDetailsTwo(); //1st AJAX call to post updated user details to server
         }
     }   
 };
 
 //4.AJAX call to post updated user details to server. Will be called when clicking save button
+/*@Reference: https://stackoverflow.com/questions/10310004/jquery-delete-confirmation-box */
 function updateUserDetailsOne(){
-    $.ajax({
+	$.ajax({
         url: 'http://83.212.127.26/updateUserDetails', //Path 
         type: 'POST', 
         data: JSON.stringify(updateDetailsObj), //Convert pre-booking object to JSON
@@ -1089,10 +1108,8 @@ function updateUserDetailsOne(){
             console.log(data);
         } 
     });
-};
-
-//5.AJAX call to post updated user details to server. Will be called when clicking save button
-function updateUserDetailsTwo(){
+    var checkstr =  confirm('Please confirm user details update.');
+    if(checkstr == true){
 	$.ajax({
 		url: 'http://83.212.127.26/updateFirstName',
 		type: 'POST',
@@ -1138,4 +1155,12 @@ function updateUserDetailsTwo(){
 			console.log(data);
 		} 
 	});
-};
+		var alertMessage =  alert('User details updated.');
+		//refreshes page
+		window.location.replace("http://83.212.127.26/profile.html");
+		}else{
+		return false;
+		//refreshes page
+		window.location.replace("http://83.212.127.26/profile.html");
+	}
+}
