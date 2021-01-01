@@ -302,6 +302,11 @@ input {
     background-color: #fbf6f0;
     border-radius: 5px;
     padding: 20px;
+
+}
+
+#spacing {
+	height: 10px;
 }
 
 /*#overview-nameL {
