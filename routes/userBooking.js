@@ -26,6 +26,13 @@ var email;
 var phone;
 var fullName;
 
+//POSTing user ID
+Router.post('/user', function (req, res) {
+    //Assign data from the user to variables that will be used in mysql queries 
+    userID = req.body.userID;
+    res.send('User ID recieved!');
+});
+
 //POSTing the details for a new booking 
 Router.post('/updateUserDetails', function (req, res) {
     //Assign data from the user to variables that will be used in mysql queries 
@@ -98,13 +105,6 @@ Router.post('/updatePhone', function (req, res) {
             res.send('An error has occurred!'); //Sent error message to user 
 		}
     });
-});
-
-//POSTing user ID
-Router.post('/user', function (req, res) {
-    //Assign data from the user to variables that will be used in mysql queries 
-    userID = req.body.userID;
-    res.send('User ID recieved!');
 });
 
 //POSTing User Details by User ID
