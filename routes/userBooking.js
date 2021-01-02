@@ -26,6 +26,22 @@ var email;
 var phone;
 var fullName;
 
+//POSTing login details  
+Router.post('/login', function (req, res) {
+    //Assign data from the user to variables that will be used in mysql queries 
+    userID = req.body.userID;
+    email = req.body.email;
+    mysqlCon.query('SELECT * FROM users WHERE user_id = ? AND email = ? ;',[userID, email], //mySQL query 
+    function(err, results){ //Callback functions for error, result and fields
+        if(!err) {
+			res.send(results);
+		} else {;
+            console.log(err);
+            res.send('An error has occurred!'); //Sent error message to user 
+		}
+    });
+});
+
 //POSTing user ID
 Router.post('/user', function (req, res) {
     //Assign data from the user to variables that will be used in mysql queries 
