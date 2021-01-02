@@ -263,11 +263,14 @@ $('#aActivityBookingTwo').click(function(){
 
 //user ID object
 var user = {
-    userID: 114,
+    userID: 0,
 };
 
 //get user ID from cache to assign to variable
-//var userID = localStorage.getItem('userId');
+user.userID = localStorage.getItem('userId');
+
+//get user ID from cache to assign to variable
+var userId = localStorage.getItem('userId');
 
 //user information
 var fullname;
@@ -1005,11 +1008,6 @@ function deleteActivityTwo(){
 }
 
 //UPDATE USER DETAILS FORM
-
-//get user ID from cache to assign to variable
-//var userId = localStorage.getItem('userId');
-
-var userId = 114;
 
 //Object with updated user details information. Used to send user details details to server.
 var updateDetailsObj = {
