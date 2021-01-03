@@ -52,7 +52,7 @@ Router.post('/user', function (req, res) {
     res.send('User ID recieved!');
 });
 
-//POSTing the details for a new booking 
+//POSTing the details to update user details 
 Router.post('/updateUserDetails', function (req, res) {
     //Assign data from the user to variables that will be used in mysql queries 
     firstName = req.body.firstName;
