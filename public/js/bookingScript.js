@@ -38,7 +38,7 @@ var deptFlight;
 var returnFlight;
 var hotelOption;
 var aTotal;
-var userId = localStorage.getItem('userId');
+var userId = parseInt(localStorage.getItem('userId'));
 
 //Empty arrays to store search results returned by server. Each result can contain several JSON objects 
 var deptFlightResults = [];
@@ -194,7 +194,7 @@ function newSearch(){
 //3. Search button function - This will run all functions in respective order when user clicks search 
 function startSearchBtn(){
     //Checks if user is logged in 
-    if(userId == 0 || userId == null){
+    if(userId == 0 || userId == null || userId == NaN){
         alert('Please log in.')
         window.location.href = './login.html'; //Redirect to login page 
     } else {
@@ -441,15 +441,14 @@ function finishBtn(){
         //Once all bookings have been created, get booking reference numbers for those bookings 
         flightReference(flights[0]);
         flightReference(flights[1]);
-        hotelReference(hotel);
+        setTimeout(hotelReference(hotel),500);
         
         //Add booking references to the final booking object, and create final booking 
-        setTimeout(addFinal, 500); //Timeout to complete previous calls
+        setTimeout(addFinal, 1000); //Timeout to complete previous calls
 
         //Hide activity wrap(page)
         $('#review-wrap').hide();
         $('#final-wrap').show();
-    
     });
 };
 
@@ -469,7 +468,7 @@ function addFinal() {
         }
     }
     //Creates final booking
-    setTimeout(putBooking(finalBooking), 100);
+    setTimeout(putBooking(finalBooking), 2000);
     
 };
 

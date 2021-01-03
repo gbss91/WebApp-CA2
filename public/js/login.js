@@ -37,11 +37,11 @@ $('#log').click(function(){
 	//the login details are set to variables
 		assignLoginVariables();
 		//the login details are checked to see if they are valid
-		setTimeout(validUserDetailsCheck, 2000);
+		setTimeout(validUserDetailsCheck, 500);
 		//if valid, the global userId variable is updated
-		setTimeout(validationCheckFinal, 4000);
+		setTimeout(validationCheckFinal, 1000);
 		//if login details are correct the user is redirected to profile page
-		setTimeout(loginPageRedirect, 6000);
+		setTimeout(loginPageRedirect, 1500);
 	}
 })
 
@@ -94,7 +94,7 @@ function validUserDetailsCheck(){
 //checks if login details are valid and updates global userId variable
 function validationCheckFinal(){
 	if(validation){
-		localStorage.setItem('userId', userIDInputOne);
+		localStorage.setItem('userId', `${userIDInputOne}`);
 		alert('Login successful');
 	} else {
 		alert('User does not exist.');
