@@ -30,7 +30,7 @@ var userLogin;
 var emailLogin;
 
 //POSTing login details  
-Router.post('/loginTest', function (req, res) {
+Router.post('/login', function (req, res) {
     //Assign data from the user to variables that will be used in mysql queries 
     userLogin = req.body.userID;
     emailLogin = req.body.email;
