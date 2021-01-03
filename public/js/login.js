@@ -37,11 +37,11 @@ $('#log').click(function(){
 	//the login details are set to variables
 		assignLoginVariables();
 		//the login details are checked to see if they are valid
-		setTimeout(validUserDetailsCheck, 3000);
+		setTimeout(validUserDetailsCheck, 2000);
 		//if valid, the global userId variable is updated
-		setTimeout(validationCheckFinal, 6000);
+		setTimeout(validationCheckFinal, 4000);
 		//if login details are correct the user is redirected to profile page
-		setTimeout(loginPageRedirect, 9000);
+		setTimeout(loginPageRedirect, 6000);
 	}
 })
 
@@ -76,7 +76,7 @@ function assignLoginVariables(){
 //checks if user login details are correct
 function validUserDetailsCheck(){
     $.ajax({
-        url: 'http://83.212.127.26/loginTest', //Path 
+        url: 'http://83.212.127.26/login', //Path 
         type: 'POST', 
         data: JSON.stringify(login), //Convert object to JSON
         contentType: 'application/json', //Type of data sent to the server 
@@ -96,13 +96,12 @@ function validUserDetailsCheck(){
 //checks if login details are valid and updates global userId variable
 function validationCheckFinal(){
 	if(validation){
-		localStorage.setItem('userId', `${userId}`);
+		localStorage.setItem('userId', `${userIDInputOne}`);
 		alert('Login successful');
 	} else {
 		alert('User does not exist.');
 		localStorage.setItem('userId',0);
 	} 
-
 };
 
 //if login is valid user is redirected to profile page
