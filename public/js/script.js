@@ -266,7 +266,7 @@ var user = {
     userID: 0,
 };
 
-//get user ID from cache to assign to variable
+//get user ID from local storage cache to assign to variable
 var userId = localStorage.getItem('userId');
 
 //user information
@@ -1100,7 +1100,7 @@ function updateUserDetailsOne(){
 	$.ajax({
         url: 'http://83.212.127.26/updateUserDetails', //Path 
         type: 'POST', 
-        data: JSON.stringify(updateDetailsObj), //Convert pre-booking object to JSON
+        data: JSON.stringify(updateDetailsObj), //Convert object to JSON
         contentType: 'application/json', //Type of data sent to the server 
         success: function(data){ //A function to be called if the request succeeds. Response from server 
             console.log(data);
