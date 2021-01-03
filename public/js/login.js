@@ -26,6 +26,7 @@ var login = {
 //1. Function to validate if users exist 
 function loginValidation() {
 
+    userId = parseInt($('#uID').val());
     login.userID = parseInt($('#uID').val());
     login.email = $('#email').val();
 
@@ -33,10 +34,10 @@ function loginValidation() {
         url: 'http://83.212.127.26/login', //Path 
         type: 'POST', 
         data: JSON.stringify(login), //Convert login object to JSON
-        dataType: 'json', //Type recieved from server
         contentType: 'application/json', //Type of data sent to the server 
+        dataType: 'json', //Type recieved from server
         success: function(data){ //If there is a match, set validation to true
-            //Result is array of object. If not empty validation = true
+            //Result is an Array. If not empty validation = true
             if(data.length > 0){
                 validation = true;
             }
