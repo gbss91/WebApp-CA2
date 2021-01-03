@@ -94,7 +94,7 @@ function validUserDetailsCheck(){
 //checks if login details are valid and updates global userId variable
 function validationCheckFinal(){
 	if(validation){
-		localStorage.setItem('userId', `${userIDInputOne}`);
+		localStorage.setItem('userId', userIDInputOne);
 		alert('Login successful');
 	} else {
 		alert('User does not exist.');
