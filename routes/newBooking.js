@@ -30,7 +30,6 @@ var userId;
 var bookingDate;
 var validResult;
 
-
 //Router Level Middleware - Handle HTTP requests 
 //POSTing the details for a new booking 
 Router.post('/newbooking', function (req, res) {
@@ -215,7 +214,6 @@ Router.post('/newbooking/flightReference', function(req, res){
     });
 });
 
-
 Router.post('/newbooking/hotelReference', function(req, res){
 
     var hotelId = req.body.hotelId;
@@ -297,7 +295,5 @@ Router.post('/newbooking/final-booking', function(req, res){
         }
     });
 });
-
-
 
 module.exports = Router;

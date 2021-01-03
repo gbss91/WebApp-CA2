@@ -26,12 +26,15 @@ var email;
 var phone;
 var fullName;
 
+var userLogin;
+var emailLogin;
+
 //POSTing login details  
 Router.post('/login', function (req, res) {
     //Assign data from the user to variables that will be used in mysql queries 
-    userID = req.body.userID;
-    email = req.body.email;
-    mysqlCon.query('SELECT * FROM users WHERE user_id = ? AND email = ? ;',[userID, email], //mySQL query 
+    userLogin = req.body.userID;
+    emailLogin = req.body.email;
+    mysqlCon.query('SELECT * FROM users WHERE user_id = ? AND email = ? ;',[userLogin, emailLogin], //mySQL query 
     function(err, results){ //Callback functions for error, result and fields
         if(!err) {
 			res.send(results);

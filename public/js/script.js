@@ -263,11 +263,11 @@ $('#aActivityBookingTwo').click(function(){
 
 //user ID object
 var user = {
-    userID: 114,
+    userID: 0,
 };
 
 //get user ID from cache to assign to variable
-//var userID = localStorage.getItem('userId');
+var userId = localStorage.getItem('userId');
 
 //user information
 var fullname;
@@ -338,6 +338,9 @@ var activityBookingTwoBookingStatus;
 
 //get user ID & display user details on page
 $('document').ready(function() {
+	//get user ID from cache to assign to variable
+	user.userID = localStorage.getItem('userId');
+	
     $.ajax({
         url: 'http://83.212.127.26/user', //Path 
         type: 'POST', 
@@ -1006,11 +1009,6 @@ function deleteActivityTwo(){
 
 //UPDATE USER DETAILS FORM
 
-//get user ID from cache to assign to variable
-//var userId = localStorage.getItem('userId');
-
-var userId = 114;
-
 //Object with updated user details information. Used to send user details details to server.
 var updateDetailsObj = {
     firstName: '',
@@ -1163,4 +1161,9 @@ function updateUserDetailsOne(){
 		//refreshes page
 		window.location.replace("http://83.212.127.26/profile.html");
 	}
+}
+
+function logout(){
+	localStorage.setItem('userId',0);
+	window.location.replace("http://83.212.127.26/login.html");	
 }
