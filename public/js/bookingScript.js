@@ -194,8 +194,8 @@ function newSearch(){
 //3. Search button function - This will run all functions in respective order when user clicks search 
 function startSearchBtn(){
     //Checks if user is logged in 
-    if(userId === 0 || userId === null){
-        alert('Please log in')
+    if(userId == 0 || userId == null){
+        alert('Please log in.')
         window.location.href = './login.html'; //Redirect to login page 
     } else {
         //Only runs if validation is successful (returns true)
@@ -875,7 +875,13 @@ $('#aReview').click(function(){
     $('#review-wrap').show();
 });
 
-
-
-
-
+//profile page link - checks if user is logged in
+$('#profile').click(function(){
+    //Checks if user is logged in 
+    if(userId == 0 || userId == null){
+        alert('Please log in.')
+        window.location.href = './login.html'; //Redirect to login page 
+    } else {
+		window.location.href = './profile.html'; //Redirect to profile page 
+	}
+}); 
